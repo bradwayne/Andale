@@ -4,6 +4,8 @@ var bodyParser = require('body-parser')
 var app = express();
 var port = process.env.PORT || 3000
 var path = require('path')
+var db = require("./app/models");
+
 app.use(express.static('app/public'));
 
 app.use(bodyParser.urlencoded({extended : false}));
@@ -12,22 +14,13 @@ app.use(bodyParser.json());
 
 
 //if we decided to go with express handlebars...
-/* var exphbs = require('express-handlebars')
+ var exphbs = require('express-handlebars')
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
- */
+
 // end of express handlebars declaration...
 
-
-
-//if we decided to go with pug...
-var pug = require('pug');
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-//end of pug declaration...
 
 
 
@@ -41,8 +34,10 @@ app.use(function(err, req, res, next){
     });
 })
 
-//db.sequelize.sync({ force: false}).then(function(){
+
+//set force to true to drop database when we restart server, awesome for testing purpose
+db.sequelize.sync({ force: true}).then(function(){
   app.listen(port, function(){
       console.log('App now listening at localhost:' + port);
   })  
-//})
+})
