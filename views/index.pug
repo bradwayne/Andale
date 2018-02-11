@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1= title
+
+    #container.jumbotron
+            h2= user[0].name
+                p age = user[0].age
+
+                     p this dude is all about #{user[0].sport}
+
+
+    table.table
+        tbody
+            th Name
+            th Age
+            th Sport
+            each person in user 
+                tr
+                    td= person.name 
+                    td= person.age 
+                    td= person.sport

@@ -1,0 +1,69 @@
+WeFit/FitBuddy/FitnessFinder
+
+Application File Tree
+
+    |_  app
+        |_  config
+                |_  config.json
+
+        |_  models
+                |_  index.js
+                |_  user.js
+                |_  sport.js
+                |_  event.js
+                |_  review.js
+                |_  ability.js
+
+        |_  public
+                |_assets
+                        |_  css
+                                |_  style.css
+                                |_  user-style.css
+                                |_  sport-style.css
+                                |_  review-style.css
+                                |_  etc ...
+
+                        |_  img
+                                |_ bannerBg.png (example)
+                                |_ favicon.ico
+
+                        |_  js
+                                |_ main.js (main js)
+                                |_ sport.js
+                                |_ review.js
+                                |_ sport.js
+                                |_ event.js
+                                |_ ability.js
+            
+    |_  routes
+        |_  html_routes.js
+        |_  api-routes.js
+
+    |_  db
+        |_  schema.sql
+        |_  seeds.sql
+
+    |_  node_modules (auto generated)
+    |_  views
+        |_  layouts
+                |_ main.handlebars
+        |_  partials
+                |_ user
+                    |_  registration
+                    |_  login
+
+                |_ event
+                    |_  create
+                    |_  view
+
+                |_ review
+                    |_  create
+                    |_  view
+                
+                |_  etc...
+
+    |_  .gitignore
+    |_  package-lock.json
+    |_  package.json
+    |_  README.md
+    |_  server.js
