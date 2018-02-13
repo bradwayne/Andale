@@ -25,6 +25,9 @@ app.set('view engine', 'handlebars');
 
 
 require('./controllers/api-routes.js')(app);
+require('./controllers/api-event-routes.js')(app);
+require('./controllers/api-sport-routes.js')(app);
+require('./controllers/api-user-routes.js')(app);
 
 
 app.use(function(err, req, res, next){
@@ -32,7 +35,7 @@ app.use(function(err, req, res, next){
     res.status(500).json({
         message: err.message
     });
-})
+});
 
 
 //set force to true to drop database when we restart server, awesome for testing purpose

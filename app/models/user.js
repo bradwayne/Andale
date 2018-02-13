@@ -32,7 +32,7 @@ module.exports = function(sequelize, DataTypes){
                 }
             }
         },
-        sex : {
+        gender : {
             type: DataTypes.STRING,
             validate : {
                 isIn : {
@@ -41,23 +41,80 @@ module.exports = function(sequelize, DataTypes){
                 }
             }
         },
+        username : {
+            type: DataTypes.STRING,
+            allowNull : {
+                args : false,
+                msg : 'User must have a username'
+            }
+        },
+        email : {
+            type: DataTypes.STRING,
+            allowNull : {
+                args : false,
+                msg : 'Please enter an email-address'
+            },
+            validate : {
+                is : {
+                    args : "/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/",
+                    msg : 'Please enter a valid email address'
+                }
+            }
+        },
+        password: {
+            type: DataTypes.STRING,
+            validate : {
+                is : {
+                    args : ["^(?=.*\d).{4,16}$"], //regex from here http://regexlib.com/Search.aspx?k=password&AspxAutoDetectCookieSupport=1
+                    msg : 'Password must be between 4 and 8 digits long and include at least one numeric digit'
+                }
+            }
+        },
         location : {
+            type: DataTypes.STRING,
+        },
+        hometown : {
             type: DataTypes.STRING,
         },
         dob : {
             type: DataTypes.DATE
         },
-        // Timestamps
-        createdAt: {
-            type: DataTypes.DATE,
-            defaultValue : DataTypes.NOW
+        photo : {
+            type: DataTypes.STRING,
         },
-        updatedAt: {
-            type: DataTypes.DATE,
-            defaultValue : DataTypes.NOW
+        bio : {
+            type: DataTypes.TEXT
         }
+    },{
+            // Timestamps
+            timestamps: false,
+            createdAt: {
+                type: DataTypes.DATE,
+                defaultValue : DataTypes.NOW
+            },
+            updatedAt: {
+                type: DataTypes.DATE,
+                defaultValue : DataTypes.NOW
+            }
+        })
+    User.associate = function(models){
+        User.hasMany(models.UserEvent,{
+            onDelete : "cascade"
+        });
+        User.hasMany(models.UserLevel,{
+            onDelete : "cascade"
+        });
+        User.hasMany(models.UserReview,{
+            onDelete : "cascade"
+        });
+        User.hasMany(models.UserRole,{
+            onDelete : "cascade"
+        });
+        User.hasMany(models.UserSport,{
+            onDelete : "cascade"
+        });
 
-    })
+    }
 
     return User
 }

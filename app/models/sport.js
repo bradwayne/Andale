@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var Activity = sequelize.define("Activity", {
+    var Sport = sequelize.define("Sport", {
         id : {
             type: DataTypes.BIGINT(11),
             primaryKey:true,
@@ -19,19 +19,28 @@ module.exports = function(sequelize, DataTypes) {
                 }
             }
         },
-        activity_type : { //https://en.wikipedia.org/wiki/Category:Sports_by_type
+        sport_type : { //https://en.wikipedia.org/wiki/Category:Sports_by_type
             type: DataTypes.STRING,
-        },
-        // Timestamps
-        createdAt: {
-            type: DataTypes.DATE,
-            defaultValue : DataTypes.NOW
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-            defaultValue : DataTypes.NOW
         }
-    });
+    },{
+            // Timestamps
+            timestamps: false,
+            createdAt: {
+                type: DataTypes.DATE,
+                defaultValue : DataTypes.NOW
+            },
+            updatedAt: {
+                type: DataTypes.DATE,
+                defaultValue : DataTypes.NOW
+            }
+        });
 
-    return Activity;
+    Sport.associate = function(models){
+        Sport.hasMany(models.SportEvent, {
+            onDelete : "cascade"
+        })
+
+    }
+
+    return Sport;
 };
