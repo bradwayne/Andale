@@ -12,8 +12,8 @@ VALUES
 
 
 
-INSERT INTO activities
-    (name, activity_type)
+INSERT INTO sports
+    (name, sport_type)
 VALUES
     ('Badminton', 'Net Sport'),
     ('Race Track', 'Motorsport'),
