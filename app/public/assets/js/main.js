@@ -44,8 +44,10 @@ $(function () {
     console.log(sessionStorage)
   }
   function clearSession(){
+      console.log("clear user session")
       sessionStorage.clear();
   }
 
   getUserCredentials()
+  clearSession();
 })
