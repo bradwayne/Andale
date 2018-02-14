@@ -1,6 +1,7 @@
 body {
     background-color: white;
     margin: auto;
+    font-family: 'Archivo Black', sans-serif;
 }
 
 * {
@@ -34,7 +35,6 @@ body {
 }
 
 .body {
-    font-family: 'Orbitron', sans-serif;
     position: fixed;
     width: 100%;
     z-index: 50;
@@ -44,17 +44,16 @@ body {
 .btn1 {
     margin-top: 100px;
     background-color: #4CAF50;
-    /* Green */
     border: none;
     color: white;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-top: 45px;
+    padding-bottom: 35px;
+    padding-left: 15px;
+    padding-right: 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     border-radius: 50%;
     box-shadow: 0px 0px 20px white;
@@ -64,13 +63,25 @@ a {
     cursor: pointer;
 }
 
-.background-image {
-    background-image: url("img/group_sports_5.jpg");
+/* /// userpage //////////////////////////////////////////////////////// */
+
+.background-image-userpage {
+    background-image: url("img/skiing.jpg");
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 675px;
+    height: 750px;
     width: 100%;
     z-index: -50;
-    opacity: .75;
+    /* opacity: .75; */
+}
+
+.user-input {
+    margin-top: 150px;
+}
+
+/* /// gender radio button //////////////////////////////////////////////////////// */
+
+.gender {
+    margin-bottom: 10px;
 }

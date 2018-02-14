@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style_userpage.css" type="text/css" />
+    <link rel="stylesheet" href="style_modal.css" type="text/css" />
+
+    <title>Project-2 Title</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <link rel="icon" type="image/jpg" href="http://www.dalessandroegalli.com/images/events/thumbs/236.jpg?t=1452720982">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
+</head>
+
+<body>
+
+    <header id="nav-header">
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="logoType">
+                    <strong>Fit For Us</strong>
+                </h1>
+
+                <!-- Route to homepage when clicked -->
+                <ul class=" navbar-nav navbar-right">
+                    <a class="btn nav_btn" href="/homepage_3" style="width:auto;">
+                        <strong>LOG OUT</strong>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="logo">
+                        <a class="btn1" id="signUpBtn">
+                            <strong>SIGN UP</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal content-->
+    <div class="modal fade" id="signUp" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 30px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>
+                        <span class="glyphicon glyphicon-user"></span>
+                        <strong> User Information</strong>
+                    </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 30px;">
+                    <form role="form">
+
+                        <div class="form-group">
+                            <label for="firstname">
+                                <span>First Name</span>
+                            </label>
+                            <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastname">
+                                <span>Last Name</span>
+                            </label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">
+                                <span>Gender</span>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Male</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Female</label>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">
+                                <span>Location</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="locationCity" placeholder="City" name="location" style="width:auto" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="locationState" placeholder="State" name="location" style="width:auto" required>
+                                </div>
+                            </div>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="d.o.b.">
+                                <b>Date Of Birth</b>
+                            </label>
+                            <br>
+                            <input type="input" class="form-control" id="datOfBirth" placeholder="mm/dd/yyyy" name="d.o.b." required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">
+                                <b>User Name</b>
+                            </label>
+                            <input type="text" class="form-control" id="userName" placeholder="User Name" name="username" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">
+                                <b>Email Address</b>
+                            </label>
+                            <input type="text" class="form-control" id="emailAddress" placeholder="Email Address" name="email" required>
+                        </div>
+
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+
+                        <br>
+
+
+                        <button type="submit" class="btn btn-success btn-block">
+                            <span class="glyphicon glyphicon-off"></span> Login</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-image-userpage">
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#signUpBtn").click(function () {
+                $("#signUp").modal();
+            });
+        });
+    </script>
+
+</body>
+
+</html>
