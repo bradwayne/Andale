@@ -1,0 +1,91 @@
+body {
+    background-color: white;
+    margin: auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    clear: both;
+}
+
+#nav-header {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    margin-top: 20px;
+    color: black;
+}
+
+.nav_btn {
+    margin-top: 5px;
+}
+
+.body {
+    font-family: 'Orbitron', sans-serif;
+    position: fixed;
+    width: 100%;
+    z-index: 50;
+    text-align: center;
+}
+
+span {
+    margin-right: 10px;
+}
+
+.logoType {
+    margin-top: 15px;
+    font-size: 80px;
+    color: #00ace6;
+    text-shadow: 0px 0px 8px black;
+    text-shadow: 3px 3px 8px black;
+}
+
+.tagline {
+    font-size: 35px;
+    margin-top: -5px;
+}
+
+.clickbutton {
+    height: 30px;
+    width: auto;
+    margin-bottom: 12px;
+    color: black;
+}
+
+a {
+    cursor: pointer;
+}
+
+.btn1 {
+    margin-top: 20px;
+}
+
+.background-image {
+    background-image: url("img/group_sports_5.jpg");
+    /* background-image: url("img/new_basketball.jpg"); */
+    position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 675px;
+    width: 100%;
+    z-index: -50;
+    opacity: .75;
+}
+/* 
+footer {
+    position: fixed;
+    bottom: 0;
+    padding: 10px 0;
+    clear: both;
+    font-size: 12px;
+    text-align: center;
+    background: #00ace6;
+    color: white;
+    width: 100%;
+    z-index: 200;
+} */

@@ -1,0 +1,76 @@
+body {
+    background-color: white;
+    margin: auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    clear: both;
+}
+
+#nav-header {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    color: black;
+    background-color: white;
+}
+
+.nav_btn {
+    margin-top: 20px;
+}
+
+.logoType {
+    position: absolute;
+    font-family: 'Orbitron', sans-serif;
+    margin-top: 5px;
+    font-size: 60px;
+    color: #00ace6;
+}
+
+.body {
+    font-family: 'Orbitron', sans-serif;
+    position: fixed;
+    width: 100%;
+    z-index: 50;
+    text-align: center;
+}
+
+.btn1 {
+    margin-top: 100px;
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0px 0px 20px white;
+}
+
+a {
+    cursor: pointer;
+}
+
+.background-image {
+    background-image: url("img/group_sports_5.jpg");
+    position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 675px;
+    width: 100%;
+    z-index: -50;
+    opacity: .75;
+}
