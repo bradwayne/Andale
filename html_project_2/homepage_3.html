@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style_3.css" type="text/css" />
+    <link rel="stylesheet" href="modal.css" type="text/css" />
+
+    <title>Project-2 Title</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <link rel="icon" type="image/jpg" href="http://www.dalessandroegalli.com/images/events/thumbs/236.jpg?t=1452720982">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
+</head>
+
+<body>
+
+    <header id="nav-header">
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="logoType">
+                    <strong>Fit For Us</strong>
+                </h1>
+                <ul class=" navbar-nav navbar-right">
+                    <a class="btn nav_btn" onclick="document.getElementById('logIn').style.display='block'" style="width:auto;">
+                        <strong>LOG IN</strong>
+                    </a>
+                    <a class="btn nav_btn" onclick="document.getElementById('signUp').style.display='block'" style="width:auto;">
+                        <strong>SIGN UP</strong>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="logo">
+                        <a class="btn1" onclick="document.getElementById('signUp').style.display='block'">
+                            <strong>SIGN UP</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="logIn" class="modal login-modal">
+        <form class="modal-content animate" action="/action_page.php">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('logIn').style.display='none'" class="close" title="Close Log In">&times;</span>
+                <!-- <img src="..." alt="Avatar" class="avatar"> -->
+                <h2 class="loginModalHeader">
+                    <strong>Log In With Us</strong>
+                </h2>
+            </div>
+
+            <div class="container">
+                <label for="uname">
+                    <b>Username</b>
+                </label>
+                <input type="text" placeholder="Enter Username" name="yourname" required />
+
+                <label for="psw">
+                    <b>Password</b>
+                </label>
+                <input type="password" placeholder="Enter Password" name="psw" required />
+
+                <button class="btn btn-success" type="submit">Login</button>
+                <label>
+                    <input class="remember" type="checkbox" checked="checked" name="remember"> Remember Me
+                </label>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('logIn').style.display='none'" class="btn btn-danger cancelbtn">Cancel</button>
+                <span class="psw">Forgot
+                    <a href="#">Password?</a>
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <!-- modal log in ///////////////////////////////////////////////////////////////-->
+    <div id="signUp" class="signup-modal modal">
+        <form class="modal-content animate" action="/action_page.php">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('signUp').style.display='none'" class="close" title="Close Sign Up">&times;</span>
+                <!-- <img src="..." alt="Avatar" class="avatar"> -->
+                <h2 class="loginModalHeader">
+                    <strong>Sign Up With Us</strong>
+            </div>
+
+            <div class="container">
+                <label for="yourname">
+                    <b>Your Name</b>
+                </label>
+                <input type="text" placeholder="Enter Username" name="yourname" required>
+
+                <label for="email">
+                    <b>Email Address</b>
+                </label>
+                <input type="text" placeholder="Enter Email Address" name="email" required>
+
+                <label for="psw">
+                    <b>Password</b>
+                </label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <button class="btn btn-success" type="submit">Login</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('signUp').style.display='none'" class="btn btn-danger cancelbtn">Cancel</button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <div class="background-image">
+    </div>
+
+    <script>
+        // Get the modal
+
+        // When the user clicks anywhere outside of the modal, close it
+        if ($("#logIn").click(function () {
+            if (event.target == document.getElementById('logIn')) {
+                document.getElementById('logIn').style.display = "none";
+            }
+        }));
+        if ($("#signUp").click(function () {
+            if (event.target == document.getElementById('signUp')) {
+                document.getElementById('signUp').style.display = "none";
+            }
+        }));
+
+
+
+            // When the user clicks anywhere outside of the modal, close it
+    </script>
+
+</body>
+
+</html>
