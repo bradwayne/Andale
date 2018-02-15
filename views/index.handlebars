@@ -64,4 +64,41 @@
             {{/each}}
         </div>
     </div> --}}
+
+    <!-- Test user display -->
+    <div class= "row">
+        <div class="col-md-12">
+            <b>User Profile: </b> <br />
+            {{user.first_name}} {{user.last_name}}<br />
+            {{user.email}}<br />
+            {{user.dob}}<br />
+            {{user.bio}}<br />
+        </div>
+        <div class="col-md-12">
+            <b>Interested Sports:</b> <br />
+            {{#if sports}}
+                {{#each sports}}   
+                    {{this.name}} - {{this.sport_type}}<br />
+                {{/each}}
+            {{else}}
+                you do not have any interested sport..
+            {{/if}}
+        </div>
+        <div class="col-md-12">
+            <b>Events you are attending: </b><br />
+            {{#if bookedEvent}}
+                {{#each bookedEvent}}
+                    <a href='/event/{{this.id}}'>{{this.name}}</a> - looking for {{this.attendants}} player(s), event hosted by.. <i>{{this.host}}</i><br />
+                {{/each}}
+            {{else}}
+                you do not commit to any event..
+            {{/if}}
+        </div>
+        <div class="col-md-12">
+            <b>Other Sports You may consider..</b><br />
+            {{#each otherSports}}
+                Sport name : {{this.name}} - Sport type : {{this.sport_type}}<br />
+            {{/each}}
+        </div>
+    </div>
 </div>

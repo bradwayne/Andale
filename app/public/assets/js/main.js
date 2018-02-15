@@ -25,7 +25,59 @@ $(function () {
           console.log('Done')
           console.log(data.responseJSON.rows[0])
           setUserSession(data.responseJSON.rows[0])
+        }
+      }
+    })
+  }
 
+  function getEvent () {
+    var successBool = false
+    var orderParam = {
+      orderParam: 'name',
+      orderMethod: 'DESC'
+    }
+    console.log(orderParam.order)
+    $.ajax('/api/event/' + orderParam.orderParam + '/' + orderParam.orderMethod, {
+      type: 'GET',
+      data: orderParam,
+      success: function (data, status, xhr) {
+        successBool = true
+      // console.log(xhr)
+      },
+      error: function (xhr, status, err) {
+        console.log('failed')
+      // console.log(xhr)
+      },
+      complete: function (data) {
+        if (successBool) {
+          console.log('Done')
+          console.log(data.responseJSON)
+        }
+      }
+    })
+  }
+
+  function getSport () {
+    var successBool = false
+    var orderParam = {
+      orderParam: 'sport_type',
+      orderMethod: 'DESC'
+    }
+    $.ajax('/api/sport/' + orderParam.orderParam + '/' + orderParam.orderMethod, {
+      type: 'GET',
+      data: orderParam,
+      success: function (data, status, xhr) {
+        successBool = true
+      // console.log(xhr)
+      },
+      error: function (xhr, status, err) {
+        console.log('failed')
+      // console.log(xhr)
+      },
+      complete: function (data) {
+        if (successBool) {
+          console.log('Done')
+          console.log(data.responseJSON)
         }
       }
     })
@@ -43,11 +95,11 @@ $(function () {
     sessionStorage.setItem('sessionBio', (data.bio))
     console.log(sessionStorage)
   }
-  function clearSession(){
-      console.log("clear user session")
-      sessionStorage.clear();
+  function clearSession () {
+    console.log('clear user session')
+    sessionStorage.clear()
   }
 
-  getUserCredentials()
-  clearSession();
+// getUserCredentials()
+// getEvent()
 })

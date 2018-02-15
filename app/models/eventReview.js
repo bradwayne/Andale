@@ -26,11 +26,11 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             validate : {
                 max : {
-                    args : 5,
+                    args : [5],
                     msg : 'Rating must be not greater than 5'
                 },
                 min : {
-                    args : 0,
+                    args : [0],
                     msg : 'Level must be at least 0'
                 },
             }

@@ -1,0 +1,2 @@
+I am planning to drop UserLevel database model, all it really track is the level of a sport,
+After some work done in controllers, I decided to add level column name in UserSport table. 

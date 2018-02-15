@@ -11,11 +11,11 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             validate : {
                 max : {
-                    args : 10,
-                    msg : 'Level must be not greater than 10'
+                    args : [5],
+                    msg : 'Level must be not greater than 5'
                 },
                 min : {
-                    args : 1,
+                    args : [1],
                     msg : 'Level must be at least 1'
                 },
             }
