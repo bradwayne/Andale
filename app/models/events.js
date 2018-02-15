@@ -132,22 +132,36 @@ module.exports = function (sequelize, DataTypes) {
           msg: 'End time cannot be empty'
         }
       }
+    },
+    createdAt: {
+      type: DataTypes.DATE
+
+    },
+    updatedAt: {
+      type: DataTypes.DATE
+
     }
   }, {
     // Timestamps
-    timestamps: false,
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-    }
+    timestamps: true
   })
   Events.associate = function (models) {
     Events.hasMany(models.EventReview, {
       onDelete: 'cascade'
+    })
+    Events.hasMany(models.EventDiscussion, {
+      onDelete: 'cascade'
+    })
+    Events.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: true
+      }
+    })
+    Events.hasMany(models.SportEvent, {
+      onDelete: 'cascade'
+    })
+    Events.belongsTo(models.Sport, {
+        onDelete : 'cascade'
     })
   }
 
