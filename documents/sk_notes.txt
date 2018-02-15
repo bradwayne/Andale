@@ -1,2 +1,45 @@
 I am planning to drop UserLevel database model, all it really track is the level of a sport,
 After some work done in controllers, I decided to add level column name in UserSport table. 
+
+
+Check 09-DayPlanner in handlebars lectures for status return. 
+
+app.post(){
+    ...
+}.then(function(result){
+    console.log({ id: result.insertId });
+})
+
+app.get(){
+    ...
+}.then(function(result){
+    res.json(data)
+})
+
+
+app.put('/..', function(req, res){
+    ...
+}).then(function(err,result){
+    if(err){
+        return res.status(500).end()
+    }
+    else if(result.changedRows === 0) {
+        return res.status(404).end();
+    }
+    res.status(200).end();
+})
+
+// Delete a todo
+app.delete("/todos/:id", function(req, res) {
+  ... }).then(function(err, result){
+if (err) {
+      // If an error occurred, send a generic server faliure
+      return res.status(500).end();
+    }
+    else if (result.affectedRows === 0) {
+      // If no rows were changed, then the ID must not exist, so 404
+      return res.status(404).end();
+    }
+    res.status(200).end();
+  })
+});
