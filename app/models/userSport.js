@@ -19,18 +19,18 @@ module.exports = function (sequelize, DataTypes) {
           msg: 'Level must be at least 1'
         }
       }
-    }
-  }, {
-    // Timestamps
-    timestamps: false,
+    },
     createdAt: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      
     },
     updatedAt: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      
     }
+  }, {
+    // Timestamps
+    timestamps: true
   })
 
   UserSport.associate = function (models) {

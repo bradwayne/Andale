@@ -66,6 +66,7 @@
     </div> --}}
 
     <!-- Test user display -->
+    <h1>User Section</h1>
     <div class= "row">
         <div class="col-md-12">
             <b>User Profile: </b> <br />
@@ -101,4 +102,37 @@
             {{/each}}
         </div>
     </div>
+
+    <br />
+    <br />
+    <!-- Test event display -->
+
+    <div class="row">
+        <h1>Events Section</h1>
+        <br /><b>{{title}}</b><br />
+        <div class="col-md-12">
+            {{eventToDisplay.title}}
+            <b>User Info</b><br />
+            {{#each user}}
+                {{this.first_name}} {{this.last_name}}<br /><br />                
+            {{/each}}
+            <b>Events: </b><br /><br />
+            {{#each event}}
+                Name : {{this.name}} <br />
+                Location : {{this.location}}<br />
+                Details : {{this.details}}<br /><br />
+            {{/each}}
+        </div>
+        <div class="col-md-12">
+            <b>Other events you might be interested in</b> <br /><br />
+            {{#each otherEvent}}
+                Name : {{this.name}} <br />
+                Location : {{this.location}}<br />
+                
+                Details : {{this.details}}<br /><br />
+            {{/each}}
+        </div>
+    </div>
+
+
 </div>
