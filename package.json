@@ -19,6 +19,8 @@
   "homepage": "https://github.com/ShiKwan/Project2#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "bootstrap-material-design-icons": "^2.2.0",
+    "bootstrap-slider": "^10.0.0",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "mysql2": "^1.5.2",

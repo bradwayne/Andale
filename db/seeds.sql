@@ -30,3 +30,4 @@ VALUES
     ('Bowling at Corner Alley', 'Cleveland, OH', '3', '15', 'Hope Solo', '85954599', 'hope@solo.com', 'Unspecified', '1', '30', 'New in town! Looking forward to meet some new friends that share the same interest!!', '2018-04-05 18:30:00',  '2018-04-05 20:00:00' ),
     ('Shaker Badminton Club', 'Shaker Heights, OH', '12', '4', 'Peter Gade', '28042399', 'peter@gade.com', 'Unspecified', '8', '8',  'We are looking for 2 expert players for regular play day, we have an open court this Saturday, come try out if we are the one for you!', '2018-03-11 10:00:00',  '2018-03-11 22:00:00' ),
     ('Looking for a female sparring partner', 'Cleveland, OH', '1', '20', 'Serena Williams', '85015000', 'serena@williams.com', 'Female', '10', '25', 'YO! I have a tournament coming, I need to get my fitness level up to kick some butts! Weakling stay out! I MEAN IT', '2018-02-21 13:00:00',  '2018-02-21 19:00:00' );
+
