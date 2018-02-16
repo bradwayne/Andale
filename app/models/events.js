@@ -133,6 +133,13 @@ module.exports = function (sequelize, DataTypes) {
         }
       }
     },
+    geolocation_x : {
+        type: DataTypes.TEXT,
+
+    },
+    geolocation_y : {
+        type : DataTypes.TEXT,
+    },
     createdAt: {
       type: DataTypes.DATE
 

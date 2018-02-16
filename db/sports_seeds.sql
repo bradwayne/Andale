@@ -28,4 +28,4 @@ VALUES
 
     ('Swimming', NOW(), NOW()),
     ('Surfing', NOW(), NOW()),
-    ('Polo', NOW(), NOW()),
+    ('Polo', NOW(), NOW());

@@ -1,12 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
   var UserEvent = sequelize.define('UserEvent', {
-    eventID: {
-      type: DataTypes.BIGINT(11),
-      allowNull: {
-        args: false,
-        msg: 'Event Id cannot be empty'
-      }
-    },
+    
     createdAt: {
       type: DataTypes.DATE,
       
@@ -27,6 +21,13 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: true
       }
     })
+  }
+  UserEvent.associate = function ( models){
+      UserEvent.belongsTo(models.Events, {
+          foreignKey : {
+              allowNull : true
+          }
+      })
   }
 
   return UserEvent

@@ -24,72 +24,66 @@ module.exports = function (app) {
 
   app.get('/user/:id', function (req, res, next) {
     var objUser = {}
+    var arrSportId = []
+    var arrEventId = []
     console.log('get specific user info')
-    db.User.findById(req.params.id)
+    db.User.findOne({
+      where: { id: req.params.id },
+      include: [{ model: db.UserEvent }, { model: db.UserSport }]
+    })
       .then(function (user) {
         objUser = {
           title: 'User Profile',
-          user: user
+          user: user,
+          likeSportsId: user.UserSports,
+          likeEventsId: user.UserEvents
         }
-        console.log(user)
-        console.log('id : ' + objUser.user.id)
-        console.log('location : ' + objUser.user.location)
-        console.log('name : ' + objUser.user.first_name + objUser.user.last_name)
-        db.UserSport.findAll(
-          {where: {UserId: objUser.user.id},
-            include: db.Sport
-          }).then(function (interestedSport) {
-          objUser.interestedSportId = interestedSport
-          console.log('interested sport id: ')
-          console.log(objUser.interestedSportId)
-          var arrSportId = []
-          for (var i = 0; i < objUser.interestedSportId.length; i++) {
-            arrSportId.push(objUser.interestedSportId[i].dataValues.sportId)
-          }
-          db.Sport.findAll({
-            where: {
-              id: arrSportId
-            }
-          }).then(function (sport) {
-            console.log('after getting sports..')
-            // console.log(sport)
-            objUser.sports = sport
-            console.log(objUser.sports)
+        for (var i = 0; i < objUser.likeSportsId.length; i++) {
+          arrSportId.push(objUser.likeSportsId[i].SportId)
+        }
+        for (var i = 0; i < objUser.likeEventsId.length; i++) {
+          arrEventId.push(objUser.likeEventsId[i].EventId)
+        }
+        console.log(arrSportId);
+        console.log(arrEventId);
+        db.UserSport.findAll({
+          where: {
+            SportId: { [Op.notIn]: arrSportId}
+          },
+          include: [db.Sport]
+        })
+          .then(function (otherSports) {
+            objUser.otherSports = otherSports
             db.UserEvent.findAll({
-              where: {UserId: objUser.user.id }
-            }).then(function (bookedEventId) {
-              console.log(JSON.stringify(bookedEventId))
-              var arrBookedEventId = []
-              objUser.bookedEventId = bookedEventId
-              for (var i = 0; i < objUser.bookedEventId.length; i++) {
-                arrBookedEventId.push(objUser.bookedEventId[i].dataValues.eventID)
-              }
-              console.log('array of booked event id : ' + arrBookedEventId)
-              db.Events.findAll({
+              where: {
+                id: { [Op.notIn]: arrEventId}
+
+              },include: [db.Events]
+            }).then(function (otherEvents) {
+              objUser.otherEvents = otherEvents
+              db.UserSport.findAll({
                 where: {
-                  id: arrBookedEventId
-                }
-              }).then(function (bookedEvent) {
-                console.log('array of booked event id : ' + arrBookedEventId)
-                console.log('getting booked event..')
-                objUser.bookedEvent = bookedEvent
-                console.log(JSON.stringify(objUser.bookedEvent))
-                console.log('before not interested sport...')
-                console.log(arrSportId)
-                db.Sport.findAll({
+                  id: { [Op.in]: arrSportId}
+
+                },
+                include: [db.Sport]
+              }).then(function (likeSportInfo) {
+                objUser.likeSportsInfo = likeSportInfo
+                db.UserEvent.findAll({
                   where: {
-                    id: { [Op.notIn]: arrSportId}
-                  }
-                }).then(function (otherSports) {
-                  console.log('sports not in..')
-                  console.log(JSON.stringify(otherSports))
-                  objUser.otherSports = otherSports
-                  res.render('index', objUser)
+                    id: {[Op.in]: arrEventId}
+                  },
+                  include: [db.Events]
+                }).then(function (likeEventInfo) {
+                  objUser.likeEventInfo = likeEventInfo
+                  res.json(objUser)
+                // res.render('index', objUser)
                 })
               })
+
+            // res.json(objUser)
             })
           })
-        })
       })
   })
 
@@ -272,7 +266,7 @@ module.exports = function (app) {
   app.post('/api/userEvent/', function (req, res, next) {
     console.log('user Event')
     db.UserEvent.create({
-      eventID: req.body.event_id,
+      EventId: req.body.event_id,
       UserId: req.body.user_id
     }).then(function (results) {
       console.log(results)
