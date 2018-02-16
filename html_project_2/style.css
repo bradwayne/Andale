@@ -1,6 +1,7 @@
 body {
     background-color: white;
     margin: auto;
+    font-family: 'Archivo Black', sans-serif;
 }
 
 * {
@@ -34,7 +35,6 @@ body {
 }
 
 .body {
-    /* font-family: 'Orbitron', sans-serif; */
     position: fixed;
     width: 100%;
     z-index: 50;
@@ -44,7 +44,6 @@ body {
 .btn1 {
     margin-top: 100px;
     background-color: #4CAF50;
-    /* Green */
     border: none;
     color: white;
     padding-top: 40px;
@@ -64,6 +63,20 @@ a {
     cursor: pointer;
 }
 
+.user-input {
+    margin-top: 150px;
+}
+
+.gender {
+    margin-bottom: 10px;
+}
+
+.eventNavBtn {
+    margin-top: 100px;
+    float: left;
+    margin-right: 15px;
+}
+
 .background-image-homepage {
     background-image: url("img/group_sports_5.jpg");
     position: fixed;
@@ -72,17 +85,34 @@ a {
     height: 750px;
     width: 100%;
     z-index: -50;
-    /* opacity: .75; */
 }
 
-/* /// userpage //////////////////////////////////////////////////////// */
-
-.user-input {
-    margin-top: 150px;
+.background-image-userpage {
+    background-image: url("img/new_basketball.jpg");
+    position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 750px;
+    width: 100%;
+    z-index: -50;
 }
-/* 
-h4 {
-    font-size: 125px;
-}
- */
 
+.background-image-eventpage {
+    background-image: url("img/skiing.jpg");
+    position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 750px;
+    width: 100%;
+    z-index: -50;
+}
+
+.background-image-activitypage {
+    background-image: url("img/soccer_1.jpg");
+    position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 750px;
+    width: 100%;
+    z-index: -50;
+}
