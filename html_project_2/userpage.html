@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style_homepage.css" type="text/css" />
     <link rel="stylesheet" href="style_userpage.css" type="text/css" />
+    <link rel="stylesheet" href="css/bootstrap-slider.css" type="text/css" />
+
     <link rel="stylesheet" href="style_modal.css" type="text/css" />
 
     <title>Project-2 Title</title>
@@ -16,13 +19,19 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
         crossorigin="anonymous">
+
+    <link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
+
     <link rel="icon" type="image/jpg" href="http://www.dalessandroegalli.com/images/events/thumbs/236.jpg?t=1452720982">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
+
 </head>
 
 <body>
@@ -37,7 +46,7 @@
                 <!-- Route to homepage when clicked -->
                 <ul class=" navbar-nav navbar-right">
                     <a class="btn nav_btn" href="/homepage_3" style="width:auto;">
-                        <strong>LOG OUT</strong>
+                        <span class="nav-glyph glyphicon glyphicon-log-out"></span><strong>LOG OUT</strong>
                     </a>
                 </ul>
             </div>
@@ -58,7 +67,10 @@
         </div>
     </div>
 
-    <!-- Modal content-->
+
+
+    <!-- user information ////////////////////////////////////////////////////////////////// -->
+
     <div class="modal fade" id="signUp" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -140,7 +152,49 @@
 
 
                         <button type="submit" class="btn btn-success btn-block">
-                            <span class="glyphicon glyphicon-off"></span> Login</button>
+                            <span class="glyphicon glyphicon-save"></span> Save and Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- sports selector ////////////////////////////////////////////////////////////////////////////// -->
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 30px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>
+                        <!-- <img class="glyph-icon" src="img/glyphicons-357-dumbbell.png"></img> -->
+                        <span class="icon-large icon-dumbbell"></span>
+                        <strong> Activities of Interest</strong>
+                    </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 30px;">
+                    <form role="form">
+
+                        <div class="form-group">
+                            <div class="slider-container">
+                                <label for="firstname">
+                                    <span>Football</span>
+                                </label>
+
+                                <input class="slider" id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1"
+                                    data-slider-value="10" />
+                            </div>
+
+                            <!-- <input type="text" class="form-control" id="firstName" placeholder="First Name"> -->
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success btn-block">
+                            <span class="glyphicon glyphicon-log-in"></span> Login
+                        </button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -152,6 +206,8 @@
         </div>
     </div>
 
+
+
     <div class="background-image-userpage">
     </div>
 
@@ -160,6 +216,11 @@
             $("#signUpBtn").click(function () {
                 $("#signUp").modal();
             });
+        });
+
+
+        var slider = new Slider("#ex8", {
+            tooltip: 'always'
         });
     </script>
 
