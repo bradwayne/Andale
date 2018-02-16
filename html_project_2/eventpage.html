@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="style_modal.css" type="text/css" />
+
+    <title>Fit Events</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+
+    <link rel="icon" type="image/jpg" href="http://www.dalessandroegalli.com/images/events/thumbs/236.jpg?t=1452720982">
+    <!-- Latest compiled and minified JavaScript -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header id="nav-header">
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="logoType">
+                    <strong>Fit For Us</strong>
+                </h1>
+
+                <!-- Route to homepage when clicked -->
+                <ul class=" navbar-nav navbar-right">
+                    <a class="btn nav_btn" id="signUpBtn" style="width:auto;">
+                        <span class="nav-glyph glyphicon glyphicon-user"></span>
+                        <strong>USER PROFILE</strong>
+                    </a>
+                    <a class="btn nav_btn" id="logInNav" style="width:auto;">
+                        <span class="nav-glyph glyphicon glyphicon-log-in"></span>
+                        <strong>LOG IN</strong>
+                    </a>
+                    <a class="btn nav_btn" id="logInNav" style="width:auto;">
+                        <span class="nav-glyph glyphicon glyphicon-log-out"></span>
+                        <strong>LOG OUT</strong>
+                    </a>
+                    <a class="btn nav_btn" id="signUpNav" href="/userpage" style="width:auto;">
+                        <span class="nav-glyph glyphicon glyphicon-check"></span>
+                        <strong>SIGN UP</strong>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="eventNavBtn">
+                        <button type="submit" class="btn btn-primary btn-default" id="myEventsBtn">
+                            <span class="nav-glyph"></span>My Events</button>
+                    </div>
+                    <div class="eventNavBtn allEvents">
+                        <button type="submit" class="btn btn-primary btn-default" id="allEventsBtn">
+                            <span class="nav-glyph"></span>All Events</button>
+                    </div>
+                    <div class="eventNavBtn nearYouEvents">
+                        <button type="submit" class="btn btn-primary btn-default" id="eventNearBtn">
+                            <span class="nav-glyph"></span>Events Near You</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- //// my events - my interests - modal ////////////////////////////////////////////////////////////////////// =-->
+
+    <div class="modal fade" id="myEvents" role="dialog">
+        <div class="col-sm-6">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:15px 30px">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modalHeading">
+                            <strong>My Intersts</strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 30px;">
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="interests">
+                                    <span>First Interest</span>
+                                </label>
+                                <br>
+                                <label for="events">
+                                    <span>Second Interest</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- //// my events - my signed up events - modal ////////////////////////////////////////////////////////// =-->
+
+        <div class="col-sm-6">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:15px 30px">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modalHeading">
+                            <strong>My Signed Up Events</strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 30px;">
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="signedUp">
+                                    <span>First Signed Up Event</span>
+                                </label>
+                                <br>
+                                <label for="events">
+                                    <span>Second Signed Up Event</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- //// all events - modal ////////////////////////////////////////////////////////// =-->
+
+    <div class="modal fade" id="allEvents" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:15px 30px">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modalHeading">
+                        <strong>All Events</strong>
+                    </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 30px;">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="interests">
+                                <span>First Event</span>
+                            </label>
+                            <br>
+                            <label for="events">
+                                <span>Second Event</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- //// events near you - modal ////////////////////////////////////////////////////////// =-->
+
+    <div class="modal fade" id="eventNear" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:15px 30px">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modalHeading">
+                        <strong>Events Near You</strong>
+                    </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 30px;">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="interests">
+                                <span>First event near you</span>
+                            </label>
+                            <br>
+                            <label for="events">
+                                <span>Second event near you</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="background-image-eventpage">
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#myEventsBtn").click(function () {
+                $("#myEvents").modal();
+            });
+        });
+
+        $(document).ready(function () {
+            $("#allEventsBtn").click(function () {
+                $("#allEvents").modal();
+            });
+        });
+
+        $(document).ready(function () {
+                $("#eventNearBtn").click(function () {
+                    $("#eventNear").modal();
+                });
+            });
+    </script>
+
+</body>
+
+</html>

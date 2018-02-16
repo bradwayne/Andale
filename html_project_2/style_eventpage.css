@@ -65,8 +65,8 @@ a {
 
 /* /// userpage //////////////////////////////////////////////////////// */
 
-.background-image-userpage {
-    background-image: url("img/skiing.jpg");
+.background-image-eventpage {
+    background-image: url("img/new_basketball.jpg");
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -80,8 +80,8 @@ a {
     margin-top: 150px;
 }
 
-/* /// gender radio button //////////////////////////////////////////////////////// */
-
-.gender {
-    margin-bottom: 10px;
+.eventNavBtn {
+    margin-top: 100px;
+    float: left;
+    margin-right: 15px;
 }

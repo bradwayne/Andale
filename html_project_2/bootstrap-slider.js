@@ -3,7 +3,11 @@
 ========================================================= */
 "use strict";
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+	return typeof obj;
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
 
 /*! =========================================================
  * bootstrap-slider.js
@@ -106,9 +110,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			// -------------------------- addOptionMethod -------------------------- //
 
 			/**
-    * adds option method -> $().plugin('option', {...})
-    * @param {Function} PluginClass - constructor class
-    */
+			 * adds option method -> $().plugin('option', {...})
+			 * @param {Function} PluginClass - constructor class
+			 */
 			function addOptionMethod(PluginClass) {
 				// don't overwrite original option method
 				if (PluginClass.prototype.option) {
@@ -134,10 +138,10 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			};
 
 			/**
-    * jQuery plugin bridge, access methods like $elem.plugin('method')
-    * @param {String} namespace - plugin name
-    * @param {Function} PluginClass - constructor class
-    */
+			 * jQuery plugin bridge, access methods like $elem.plugin('method')
+			 * @param {String} namespace - plugin name
+			 * @param {Function} PluginClass - constructor class
+			 */
 			function bridge(namespace, PluginClass) {
 				// add to jQuery fn namespace
 				$.fn[namespace] = function (options) {
@@ -195,11 +199,11 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			// -------------------------- bridget -------------------------- //
 
 			/**
-    * converts a Prototypical class into a proper jQuery plugin
-    *   the class must have a ._init method
-    * @param {String} namespace - plugin name, used in $().pluginName
-    * @param {Function} PluginClass - constructor class
-    */
+			 * converts a Prototypical class into a proper jQuery plugin
+			 *   the class must have a ._init method
+			 * @param {String} namespace - plugin name, used in $().pluginName
+			 * @param {Function} PluginClass - constructor class
+			 */
 			$.bridget = function (namespace, PluginClass) {
 				addOptionMethod(PluginClass);
 				bridge(namespace, PluginClass);
@@ -232,9 +236,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 					var shouldAdjustWithBase = true;
 					if (this.options.ticks_positions.length > 0) {
 						var minv,
-						    maxv,
-						    minp,
-						    maxp = 0;
+							maxv,
+							minp,
+							maxp = 0;
 						for (var i = 1; i < this.options.ticks_positions.length; i++) {
 							if (percentage <= this.options.ticks_positions[i]) {
 								minv = this.options.ticks[i - 1];
@@ -267,9 +271,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
 					if (this.options.ticks_positions.length > 0) {
 						var minv,
-						    maxv,
-						    minp,
-						    maxp = 0;
+							maxv,
+							minp,
+							maxp = 0;
 						for (var i = 0; i < this.options.ticks.length; i++) {
 							if (value <= this.options.ticks[i]) {
 								minv = i > 0 ? this.options.ticks[i - 1] : 0;
@@ -301,7 +305,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 					}
 					value = this.options.min + Math.round((value - this.options.min) / this.options.step) * this.options.step;
 					/* Rounding to the nearest step could exceed the min or
-      * max, so clip to those values. */
+					 * max, so clip to those values. */
 					if (value < this.options.min) {
 						return this.options.min;
 					} else if (value > this.options.max) {
@@ -751,7 +755,9 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 					window.addEventListener("test", null, opts);
 				} catch (e) {}
 				// Use our detect's results. passive applied if supported, capture will be false either way.
-				var eventOptions = supportsPassive ? { passive: true } : false;
+				var eventOptions = supportsPassive ? {
+					passive: true
+				} : false;
 				// Bind touch handlers
 				this.sliderElem.addEventListener("touchstart", this.touchstart, eventOptions);
 				this.sliderElem.addEventListener("touchmove", this.touchmove, eventOptions);
@@ -1360,9 +1366,15 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 			_createHighlightRange: function _createHighlightRange(start, end) {
 				if (this._isHighlightRange(start, end)) {
 					if (start > end) {
-						return { 'start': end, 'size': start - end };
+						return {
+							'start': end,
+							'size': start - end
+						};
 					}
-					return { 'start': start, 'size': end - start };
+					return {
+						'start': start,
+						'size': end - start
+					};
 				}
 				return null;
 			},
@@ -1563,8 +1575,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 					}
 					// Horizontal slider.
 					else if (yDiff <= 5 && yDiff >= -5 && (xDiff >= 15 || xDiff <= -15)) {
-							this._mousedown(ev);
-						}
+						this._mousedown(ev);
+					}
 				}
 			},
 			_adjustPercentageForRangeSliders: function _adjustPercentageForRangeSliders(percentage) {
