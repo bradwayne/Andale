@@ -1,0 +1,114 @@
+<header id="nav-header">
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logoType">
+                <strong>Fit For Us</strong>
+            </h1>
+            <ul class=" navbar-nav navbar-right">
+                <a class="btn nav_btn" id="aSignUpBtn" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-user"></span>
+                    <strong>USER PROFILE</strong>
+                </a>
+                <a class="btn nav_btn" id="aEventNav" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-calendar"></span>
+                    <strong>EVENT</strong>
+                </a>
+                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-log-in"></span>
+                    <strong>LOG IN</strong>
+                </a>
+                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-log-out"></span>
+                    <strong>LOG OUT</strong>
+                </a>
+                <a class="btn nav_btn" id="aSignUpNav" href="/userpage" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-check"></span>
+                    <strong>SIGN UP</strong>
+                </a>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="body">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="logo">
+                    <a class="btn1" id="aSignUpBtn" href="/userpage">
+                        <strong>SIGN UP</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="logIn" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="padding:15px 30px">
+                <button type="button" class="close" id="btnLogin" data-dismiss="modal">&times;</button>
+                <h4 class="modalHeading">
+                    <span class="glyphicon glyphicon-lock"></span>
+                    <strong> Login</strong>
+                </h4>
+            </div>
+            <div class="modal-body" style="padding:40px 30px;">
+                <form role="form">
+                    <div class="form-group" id="divLoginUserName">
+                        <label for="loginusername" id="lblLoginUserName">
+                            <span class="glyphicon glyphicon-user"></span> Username</label>
+                        <input type="text" class="form-control" id="txtLoginUserName" placeholder="Enter User Name">
+                    </div>
+                    <div class="form-group" id="divLoginPwd">
+                        <label for="loginpwd" id="lblLoginPwd">
+                            <span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                        <input type="password" class="form-control" id="pwdLoginPwd" placeholder="Enter Password">
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-block" id="btnLogin">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                        <strong> Login</strong>
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger btn-default pull-left" id="btnCancel" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                <p>Not a member?
+                    <a href="#">Sign Up</a>
+                </p>
+                <p>Forgot
+                    <a href="#">Password?</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="background-image-homepage">
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#logInNav").click(function () {
+            $("#logIn").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#signUpNav").click(function () {
+            $("#signUp").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#signUpBtn").click(function () {
+            $("#signUp").modal();
+        });
+    });
+</script>

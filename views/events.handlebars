@@ -1,0 +1,177 @@
+<header id="nav-header">
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logoType" id="h1LogoType">
+                <strong>Fit For Us</strong>
+            </h1>
+
+<!-- user profile route to userpage when clicked -->
+            <ul class=" navbar-nav navbar-right">
+                <a class="btn nav_btn" id="aSignUpBtn" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-user"></span>
+                    <strong>USER PROFILE</strong>
+                </a>
+                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-log-in"></span>
+                    <strong>LOG IN</strong>
+                </a>
+                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-log-out"></span>
+                    <strong>LOG OUT</strong>
+                </a>
+<!-- sign up route to userpage when clicked -->
+                <a class="btn nav_btn" id="aSignUpNav" href="/userpage" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-check"></span>
+                    <strong>SIGN UP</strong>
+                </a>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- modal buttons -->
+<div class="body">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="eventNavBtn myEvents">
+                    <button type="submit" class="btn btn-primary" id="cmdsubmitMyEventsBtn">
+                        My Events</button>
+                </div>
+                <div class="eventNavBtn allEvents">
+                    <button type="submit" class="btn btn-primary" id="cmdsubmitAllEventsBtn">
+                        All Events</button>
+                </div>
+                <div class="eventNavBtn nearYouEvents">
+                    <button type="submit" class="btn btn-primary" id="cmdsubmitEventsNearBtn">
+                        Events Near You</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- //// my events btn - my interests modal ////////////////////////////////////////////////////////////////////// =-->
+
+<div class="modal fade" id="myEvents" role="dialog">
+    <div class="col-sm-6">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:15px 30px">
+                    <button type="button" class="close" id="btnMyInterests" data-dismiss="modal">&times;</button>
+                    <h4 class="modalHeading">
+                    <strong>My Intersts</strong>
+                    </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 30px;">
+                    <div class="row">
+                        <div class="form-group" id="divInterests">
+                            <label for="interests" id="lblInterests">
+                                {{!-- list of activities user selected from the user page
+                                <span>First Interest</span> --}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- //// my events btn - my signed up events modal ////////////////////////////////////////////////////////// =-->
+
+    <div class="col-sm-6">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:15px 30px">
+                    <button type="button" class="close" id="btnMySignedUpEvents" data-dismiss="modal">&times;</button>
+                    <h4 class="modalHeading">
+                        <strong>My Signed Up Events</strong>
+                    </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 30px;">
+                    <div class="row">
+                        <div class="form-group" id="divSignedUp">
+                            <label for="signedUp" id="lblSignedUp">
+                                {{!-- list of activities user has signed up for
+                                <span>First Signed Up Event</span> --}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- //// all events btn = all events modal ////////////////////////////////////////////////////////// =-->
+
+<div class="modal fade" id="allEvents" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:15px 30px">
+                <button type="button" class="close" id="btnAllEvents" data-dismiss="modal">&times;</button>
+                <h4 class="modalHeading">
+                    <strong>All Events</strong>
+                </h4>
+            </div>
+            <div class="modal-body" style="padding:40px 30px;">
+                <div class="row">
+                    <div class="form-group" id="divEvents">
+                        <label for="events" id="lblEvents">
+                            {{!-- list of all events based on users interests
+                            <span>First Event</span> --}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- //// events near you btn  - events ear you modal ////////////////////////////////////////////////////////// =-->
+
+<div class="modal fade" id="eventNear" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:15px 30px">
+                <button type="button" class="close" id="btnEventsNearYou" data-dismiss="modal">&times;</button>
+                <h4 class="modalHeading">
+                    <strong>Events Near You</strong>
+                </h4>
+            </div>
+            <div class="modal-body" style="padding:40px 30px;">
+                <div class="row">
+                    <div class="form-group" id="divNearYou">
+                        <label for="nearYou" id="lblNearYou">
+                            {{!-- list of activities nearest to user based on interests
+                            <span>First event near you</span> --}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="background-image-eventpage">
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#divMyEventsBtn").click(function () {
+            $("#myEvents").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#divAllEventsBtn").click(function () {
+            $("#allEvents").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#divEventNearBtn").click(function () {
+            $("#eventNear").modal();
+        });
+    });
+</script>

@@ -1,0 +1,213 @@
+<header id="nav-header">
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logoType">
+                <strong>Fit For Us</strong>
+            </h1>
+
+            <!-- Route to homepage when clicked -->
+            <ul class=" navbar-nav navbar-right">
+                <a class="btn nav_btn" id="aEventNav" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-calendar"></span>
+                    <strong>EVENT</strong>
+                </a>
+                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-log-in"></span>
+                    <strong>LOG IN</strong>
+                </a>
+                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-log-out"></span>
+                    <strong>LOG OUT</strong>
+                </a>
+                <a class="btn nav_btn" id="aSignUpBtn" style="width:auto;">
+                    <span class="nav-glyph glyphicon glyphicon-check"></span>
+                    <strong>SIGN UP</strong>
+                </a>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- user information ////////////////////////////////////////////////////////////////// -->
+
+<div class="modal fade" id="signUp" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:15px 30px">
+                <button type="button" class="close" id="btnInfo" data-dismiss="modal">&times;</button>
+                <h4 class="modalHeading">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <strong> User Information</strong>
+                </h4>
+            </div>
+            <div class="modal-body" style="padding:40px 30px;">
+                <form role="form">
+
+                    <div class="form-group" id="divFirstName">
+                        <label for="firstname" id="lblFirstName">
+                            <span>First Name</span>
+                        </label>
+                        <input type="text" class="form-control" id="txtFirstName" placeholder="First Name">
+                    </div>
+
+                    <div class="form-group" id="divLastName">
+                        <label for="lastname" id="lblLastName">
+                            <span>Last Name</span>
+                        </label>
+                        <input type="text" class="form-control" id="txtLastName" placeholder="Last Name">
+                    </div>
+
+                    <div class="form-group" id="divGender">
+                        <label for="gender" id="lblGender">
+                            <span>Gender</span>
+                        </label>
+                        <label class="radio-inline" id="lblGenderMale">
+                            <input type="radio" name="optradio">Male</label>
+                        <label class="radio-inline" id="lblGenderFemale">
+                            <input type="radio" name="optradio">Female</label>
+                        </label>
+                    </div>
+
+                    <div class="form-group" id="divLocation">
+                        <label for="location" id="lblLocation">
+                            <span>Location</span>
+                        </label>
+                        <div class="form-inline">
+                            <div class="form-group" id="divLocationCity">
+                                <input type="text" class="form-control" id="txtLocationCity" placeholder="City" name="location" style="width:auto">
+                            </div>
+                            <div class="form-group" id="divLocationState">
+                                <input type="text" class="form-control" id="txtLocationState" placeholder="State" name="location" style="width:auto">
+                            </div>
+                        </div>
+                        </label>
+                    </div>
+
+                    <div class="form-group" id="divDateBirth">
+                        <label for="dateBirth" id="lblDateBirth">
+                            <b>Date Of Birth</b>
+                        </label>
+                        <br>
+                        <input type="text" class="form-control" id="txtDateBirth" placeholder="mm/dd/yyyy" name="dateBirth" required />
+                    </div>
+
+                    <div class="form-group" id="divInfoUserName">
+                        <label for="infousername" id="lblInfoUserName">
+                            <b>User Name</b>
+                        </label>
+                        <input type="text" class="form-control" id="txtInfoUserName" placeholder="User Name" name="infousername" required />
+                    </div>
+
+                    <div class="form-group" id="divInfoPwd">
+                        <label for="infopwd" id="lblInfoPwd">
+                            <b>Password</b>
+                        </label>
+                        <input type="text" class="form-control" id="txtInfoPwd" placeholder="Password" name="infopwd" required>
+                    </div>
+
+                    <div class="form-group"id="divEmail">
+                        <label for="email" id="lblEmail">
+                            <b>Email Address</b>
+                        </label>
+                        <input type="text" class="form-control" id="txtEmailAddress" placeholder="Email Address" name="email" required>
+                    </div>
+
+                    <div class="form-group" id="divUserImage">
+                        <label for="userimage" id="lblUserImage">
+                            <b>User Image</b>
+                        </label>
+                        <input type="text" class="form-control" id="txtUserImage" placeholder="http://image" name="useriamge" required>
+                    </div>
+
+                    <div class="form-group" id="divUserBio">
+                        <label for="userbio" id="lblUserBio">
+                            <b>Bio About You</b>
+                        </label>
+                        <textarea type="text" class="form-control" id="txtUserBio" rows="5"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-block" id="btnUserInfoSave">
+                        <span class="glyphicon glyphicon-save"></span>
+                        <strong> Save and Submit</strong>
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger btn-default pull-left"  id="btnUserInfoCancel" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- sports selector ////////////////////////////////////////////////////////////////////////////// -->
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:15px 30px">
+                <button type="button" class="close"  id="btnActivityInterest" data-dismiss="modal">&times;</button>
+                <h4 class="modalHeading">
+                    <strong> Activities Of Interst</strong>
+                </h4>
+            </div>
+            <div class="modal-body" style="padding:40px 30px;">
+                <form role="form">
+
+                    {{!-- list of activities with sliders
+                    <div class="form-group" id="divActivitySlider">
+                        <div class="slider-container">
+                            <label for="activity" id="lblActivitySlider">
+                                <h3>Football</h3>
+                            </label>
+                            <br>
+
+                            <input class="football" id="ex9" type="text" />
+                        </div>
+
+                    </div>
+                    <div class="form-group" id="divActivitySlider">
+                        <div class="slider-container">
+                            <label for="activity" id="lblActivitySlider">
+                                <h3>Basketball</h3>
+                            </label>
+                            <br>
+
+                            <input class="basketball" id="ex9" type="text" />
+
+                        </div>
+                    </div> --}}
+
+
+                    <button type="submit" class="btn btn-success btn-block" id="btnActivInterestSave">
+                        <span class="glyphicon glyphicon-save"></span>
+                        <strong> Save and Submit</strong>
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger btn-default pull-left" id="btnActivInterestCancel" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="background-image-userpage">
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#signUpBtn").click(function () {
+            $("#signUp").modal();
+        });
+    });
+
+
+    var slider = new Slider("#ex9", {
+        precision: 2,
+        value: 0
+    });
+</script>
