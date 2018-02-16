@@ -13,19 +13,36 @@ $(function () {
         console.log('success')
         successBool = true
         console.log(status)
-        console.log(xhr)
-      },
-      error: function (xhr, status, err) {
-        console.log('failed')
-        console.log(xhr)
-        console.log(err)
-      },
-      complete: function (data) {
-        if (successBool) {
-          console.log('Done')
-          console.log(data.responseJSON.rows[0])
-          setUserSession(data.responseJSON.rows[0])
+        console.log(xhr.responseJSON.error);
+        if(xhr.responseJSON.error == "User not found!"){
+          console.log("User either enter wrong username or password");
+        }else{
+          //setUserSession(xhr.re)
+          var userInfo = xhr.responseJSON.rows[0];
+          console.log(xhr.responseJSON);
+          console.log(xhr.responseJSON.rows[0]);
+          setUserSession(userInfo)
         }
+      }
+    })
+  }
+  function createNewUser(){
+    var credentials = {
+      username: 'wutmate',
+      password : 'qWer1'+1234
+    }
+    console.log(credentials);
+    $.ajax('/api/user/', {
+      type: 'POST',
+      data : credentials,
+      success : function(data, status, xhr){
+        console.log("in create new user")
+        if(xhr.responseJSON.indexOf("Validation error") > -1){
+          console.log(xhr.responseJSON)
+        }else{
+          console.log("user created successfully")
+        }
+        //console.log(xhr.responseJSON.error);
       }
     })
   }
@@ -100,6 +117,8 @@ $(function () {
     sessionStorage.clear()
   }
 
-// getUserCredentials()
+  //createNewUser()
 // getEvent()
+  getUserCredentials()
+
 })

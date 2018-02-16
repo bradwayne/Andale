@@ -34,7 +34,7 @@ module.exports = function (app) {
     }
     db.User.findAll({
       where: { id: req.params.id },
-      include: [db.Events]
+      include: [{ model : db.Events}, {model : db.Sport} ]
     })
       .then(function (userHostedEvents) {
         console.log(userHostedEvents)

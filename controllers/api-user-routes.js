@@ -105,12 +105,12 @@ module.exports = function (app) {
         res.send(credentials)
         console.log(JSON.stringify(credentials))
       }else {
+        //res.send("403 error");
         res.json({error: 'User not found!'})
-        next('User not found!')
+        //next('User not found!')
       }
     }).catch(function (err) {
       console.log(err)
-      next(err)
     })
   })
   app.get('/api/getUserEvent/', function (req, res, next) {
@@ -165,21 +165,37 @@ module.exports = function (app) {
   })
 
   app.post('/api/user/', function (req, res, next) {
-    db.User.create({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      gender: req.body.gender,
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-      location: req.body.location,
-      hometown: req.body.hometown,
-      dob: req.body.dob,
-      photo: req.body.photo,
-      bio: req.body.bio
-    }).then(function (results) {
-      res.status(200).end()
-    })
+    var username = req.body.username;
+    db.User.findOrCreate(
+      { 
+        where: { username: username }, 
+      defaults: { 
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        gender: req.body.gender,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        location: req.body.location,
+        hometown: req.body.hometown,
+        dob: req.body.dob,
+        photo: req.body.photo,
+        bio: req.body.bio
+      } 
+      })
+      .spread(function(user, created){
+        console.log(created)
+        if(created){
+          res.status(200).end()
+        }else{
+          res.json("username already existed in database")
+        }
+      })
+      .catch(function(err){
+        console.log("error in sequelize");
+        console.log(err.message);
+         res.json(err.message); 
+      })
   })
 
   app.put('/api/user/:id', function (req, res, next) {
