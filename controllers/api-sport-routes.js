@@ -34,10 +34,6 @@ module.exports = function (app) {
     }).then(function(result){
         console.log(result)
     }) */
-    /* 
-
-    */
-
   })
   app.get('/api/sport/:orderParam/:orderMethod?', function (req, res, next) {
     var orderStatement = {}

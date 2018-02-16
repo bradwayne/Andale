@@ -36,9 +36,12 @@ module.exports = function (app) {
         console.log('location : ' + objUser.user.location)
         console.log('name : ' + objUser.user.first_name + objUser.user.last_name)
         db.UserSport.findAll(
-          {where: {UserId: objUser.user.id}}
-        ).then(function (interestedSport) {
+          {where: {UserId: objUser.user.id},
+            include: db.Sport
+          }).then(function (interestedSport) {
           objUser.interestedSportId = interestedSport
+          console.log('interested sport id: ')
+          console.log(objUser.interestedSportId)
           var arrSportId = []
           for (var i = 0; i < objUser.interestedSportId.length; i++) {
             arrSportId.push(objUser.interestedSportId[i].dataValues.sportId)
@@ -105,9 +108,9 @@ module.exports = function (app) {
         res.send(credentials)
         console.log(JSON.stringify(credentials))
       }else {
-        //res.send("403 error");
+        // res.send("403 error")
         res.json({error: 'User not found!'})
-        //next('User not found!')
+      // next('User not found!')
       }
     }).catch(function (err) {
       console.log(err)
@@ -164,37 +167,48 @@ module.exports = function (app) {
       })
   })
 
+  app.post('/api/UserSport/:id', function (req, res, next) {
+    db.UserSport.create({
+      SportId: req.body.sport_id,
+      level: req.body.level,
+      UserId: req.params.id
+    }).then(function (results) {
+      res.send(results)
+      res.status(200).end()
+    })
+  })
+
   app.post('/api/user/', function (req, res, next) {
-    var username = req.body.username;
+    var username = req.body.username
     db.User.findOrCreate(
-      { 
-        where: { username: username }, 
-      defaults: { 
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        gender: req.body.gender,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        location: req.body.location,
-        hometown: req.body.hometown,
-        dob: req.body.dob,
-        photo: req.body.photo,
-        bio: req.body.bio
-      } 
-      })
-      .spread(function(user, created){
-        console.log(created)
-        if(created){
-          res.status(200).end()
-        }else{
-          res.json("username already existed in database")
+      {
+        where: { username: username },
+        defaults: {
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          gender: req.body.gender,
+          username: req.body.username,
+          email: req.body.email,
+          password: req.body.password,
+          location: req.body.location,
+          hometown: req.body.hometown,
+          dob: req.body.dob,
+          photo: req.body.photo,
+          bio: req.body.bio
         }
       })
-      .catch(function(err){
-        console.log("error in sequelize");
-        console.log(err.message);
-         res.json(err.message); 
+      .spread(function (user, created) {
+        console.log(created)
+        if (created) {
+          res.status(200).end()
+        }else {
+          res.json('username already existed in database')
+        }
+      })
+      .catch(function (err) {
+        console.log('error in sequelize')
+        console.log(err.message)
+        res.json(err.message)
       })
   })
 
@@ -203,7 +217,6 @@ module.exports = function (app) {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       gender: req.body.gender,
-      username: req.body.username,
       email: req.body.email,
       password: req.body.password,
       location: req.body.location,
@@ -216,7 +229,6 @@ module.exports = function (app) {
         id: req.params.id
       }
     }).then(function (results) {
-        
       if (results.changedrows === 0) {
         return res.status(404).end()
       }
@@ -227,11 +239,33 @@ module.exports = function (app) {
   app.post('/api/userSport/', function (req, res, next) {
     console.log('user sport')
     db.UserSport.create({
-      sportId: req.body.sport_id,
+      SportId: req.body.sport_id,
+      level: req.body.level,
       UserId: req.body.user_id
     }).then(function (results) {
       console.log(results)
       res.send(results)
+    })
+  })
+
+  app.put('/api/userSport/', function (req, res, next) {
+    console.log('user sport')
+    db.UserSport.update({
+      SportId: req.body.SportId,
+      level: req.body.level,
+      UserId: req.body.UserId
+    }, {
+      where: {
+        UserId: req.body.UserId,
+        SportId: req.body.SportId
+      }
+    }).then(function (results) {
+      console.log('changedRows : ' + results.changedRows)
+      console.log(results)
+      if (results.changedRows === 0) {
+        return res.status(404).end()
+      }
+      res.status(200).end()
     })
   })
 
@@ -286,7 +320,8 @@ module.exports = function (app) {
   app.delete('/api/userSport/:id', function (req, res, next) {
     db.UserSport.destroy({
       where: {
-        sportId: req.params.id
+        SportId: req.params.id,
+        UserId: req.body.UserId
       }
     }).then(function (result) {
       if (result.affectedRows == 0) {

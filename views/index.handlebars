@@ -77,10 +77,11 @@
         </div>
         <div class="col-md-12">
             <b>Interested Sports:</b> <br />
-            {{#if sports}}
-                {{#each sports}}   
-                    {{this.name}} - {{this.sport_type}}<br />
+            {{#if interestedSportId}}
+                {{#each interestedSportId}}   
+                    {{this.Sport.name}} - {{this.Sport.sport_type}} - from 1 to 5, i am {{this.level}} good  >> <input type="text" class="txtLevel" data-id={{this.Sport.id}} value={{this.level}}><br />
                 {{/each}}
+                <button id="cmdChangeLevel">Change </button>
             {{else}}
                 you do not have any interested sport..
             {{/if}}

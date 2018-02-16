@@ -1,12 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
   var UserSport = sequelize.define('UserSport', {
-    sportId: {
-      type: DataTypes.BIGINT(11),
-      allowNull: {
-        args: false,
-        msg: 'Sport Id cannot be empty'
-      }
-    },
     level: {
       type: DataTypes.INTEGER,
       validate: {
@@ -38,6 +31,11 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: {
         allowNull: true
       }
+    })
+    UserSport.belongsTo(models.Sport, {
+        foreignKey:{
+            allowNull: true
+        }
     })
   }
 

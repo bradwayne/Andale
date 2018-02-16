@@ -42,6 +42,9 @@ module.exports = function (sequelize, DataTypes) {
     Sport.hasMany(models.Events, {
         onDelete: 'cascade'
     })
+    Sport.hasMany(models.UserSport, {
+        onDelete: 'cascade'
+    })
   }
 
   return Sport

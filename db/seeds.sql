@@ -11,22 +11,44 @@ VALUES
     ('Hope', 'Solo', 'Female', 'isolou', 'hope@solo.com', 'youhope543', 'Cleveland, OH', 'Richland, WA', '1981-07-30', '', 'Even when quitting seems like the best option, theres always a reason to keep going.', NOW(), NOW());
 
 
-
 INSERT INTO sports
-    (name, sport_type, createdAt, updatedAt)
+    (name, createdAt, updatedAt)
 VALUES
-    ('Badminton', 'Net Sport', NOW(), NOW()),
-    ('Race Track', 'Motorsport', NOW(), NOW()),
-    ('Tennis', 'Net Sport', NOW(), NOW()),
-    ('Basketball', 'Street Sport', NOW(), NOW()),
-    ('Boxing', 'Combat Sport', NOW(), NOW()),
-    ('Bowling', 'Throwing Sport', NOW(), NOW());
+    ('Football', NOW(), NOW()),
+    ('Baseball', NOW(), NOW()),
+    ('Softball', NOW(), NOW()),
+    ('Basketball', NOW(), NOW()),
+    ('Soccer', NOW(), NOW()),
+    ('Hockey', NOW(), NOW()),
+    ('Volleyball', NOW(), NOW()),
+
+    ('Badminton', NOW(), NOW()),
+    ('Tennis', NOW(), NOW()),
+    ('Racquetball', NOW(), NOW()),
+
+    ('Golf', NOW(), NOW()),
+    ('Bowling', NOW(), NOW()),
+    ('Boxing', NOW(), NOW()),
+
+    ('Weightlifting', NOW(), NOW()),
+    ('Cycling', NOW(), NOW()),
+    ('Running', NOW(), NOW()),
+    ('Walking', NOW(), NOW()),
+    ('Hiking', NOW(), NOW()),
+
+    ('Yoga', NOW(), NOW()),
+    ('Martial Arts', NOW(), NOW()),
+
+    ('Swimming', NOW(), NOW()),
+    ('Surfing', NOW(), NOW()),
+    ('Polo', NOW(), NOW());
+
 
 
 INSERT INTO events
-    (name, location, attendants, fees, host, phone_contact, email_contact, gender, level, age, details, start_time, end_time, createdAt, updatedAt, UserId)
+    (name, location, attendants, fees, host, phone_contact, email_contact, gender, level, age, details, start_time, end_time, createdAt, updatedAt, UserId, SportId)
 VALUES
-    ('3 ON 3 Basketball', 'Cleveland, OH', '1', '5', 'SK Tan', '85933367', 'sktan@gmail.com', 'Male', '4', '20', 'We have 5 players, and looking to play some basketball after our coding bootcamp lecture! Join us!', '2018-02-25 21:30:00', '2018-02-25 23:30:00', NOW(), NOW(), 1),
-    ('Bowling at Corner Alley', 'Cleveland, OH', '3', '15', 'Hope Solo', '85954599', 'hope@solo.com', 'Unspecified', '1', '30', 'New in town! Looking forward to meet some new friends that share the same interest!!', '2018-04-05 18:30:00', '2018-04-05 20:00:00' , NOW(), NOW(), 8),
-    ('Shaker Badminton Club', 'Shaker Heights, OH', '12', '4', 'Peter Gade', '28042399', 'peter@gade.com', 'Unspecified', '8', '8', 'We are looking for 2 expert players for regular play day, we have an open court this Saturday, come try out if we are the one for you!', '2018-03-11 10:00:00', '2018-03-11 22:00:00' , NOW(), NOW(), 3),
-    ('Looking for a female sparring partner', 'Cleveland, OH', '1', '20', 'Serena Williams', '85015000', 'serena@williams.com', 'Female', '10', '25', 'YO! I have a tournament coming, I need to get my fitness level up to kick some butts! Weakling stay out! I MEAN IT', '2018-02-21 13:00:00', '2018-02-21 19:00:00' , NOW(), NOW(), 7);
+    ('3 ON 3 Basketball', 'Cleveland, OH', '1', '5', 'SK Tan', '85933367', 'sktan@gmail.com', 'Male', '4', '20', 'We have 5 players, and looking to play some basketball after our coding bootcamp lecture! Join us!', '2018-02-25 21:30:00', '2018-02-25 23:30:00', NOW(), NOW(), 1, 4),
+    ('Bowling at Corner Alley', 'Cleveland, OH', '3', '15', 'Hope Solo', '85954599', 'hope@solo.com', 'Unspecified', '1', '30', 'New in town! Looking forward to meet some new friends that share the same interest!!', '2018-04-05 18:30:00', '2018-04-05 20:00:00' , NOW(), NOW(), 7, 12),
+    ('Shaker Badminton Club', 'Shaker Heights, OH', '12', '4', 'Peter Gade', '28042399', 'peter@gade.com', 'Unspecified', '8', '8', 'We are looking for 2 expert players for regular play day, we have an open court this Saturday, come try out if we are the one for you!', '2018-03-11 10:00:00', '2018-03-11 22:00:00' , NOW(), NOW(), 3, 8),
+    ('Looking for a female sparring partner', 'Cleveland, OH', '1', '20', 'Serena Williams', '85015000', 'serena@williams.com', 'Female', '10', '25', 'YO! I have a tournament coming, I need to get my fitness level up to kick some butts! Weakling stay out! I MEAN IT', '2018-02-21 13:00:00', '2018-02-21 19:00:00' , NOW(), NOW(), 7, 13);

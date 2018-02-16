@@ -29,33 +29,53 @@ module.exports = function (app) {
   })
 
   app.get('/event/:id', function (req, res, next) {
+    var arrEventId = []
+    var arrSportId = []
     var eventToDisplay = {
       title: 'Events User Hosting'
     }
     db.User.findAll({
       where: { id: req.params.id },
-      include: [{ model : db.Events}, {model : db.Sport} ]
+      include: [{ model: db.Events}, {model: db.UserSport}, {model: db.UserEvent} ]
     })
       .then(function (userHostedEvents) {
+        console.log('print out all relationship of user to events, sport')
         console.log(userHostedEvents)
         eventToDisplay.user = userHostedEvents
-        eventToDisplay.event = userHostedEvents[0].Events
+        eventToDisplay.eventHostingEvents = userHostedEvents[0].Events
+        eventToDisplay.userSport = userHostedEvents[0].UserSports
+        eventToDisplay.userEvents = userHostedEvents[0].UserEvents
+        console.log('event key value in eventToDisplay')
+        console.log(eventToDisplay.eventHostingEvents)
+        console.log('user sport key value in eventTODisplay')
+        console.log(eventToDisplay.userSport)
+        console.log('user events key value in eventTODisplay')
+        console.log(eventToDisplay.userEvents)
 
-        var arrEventId = []
-        for (var i = 0; i < eventToDisplay.event.length; i++) {
-          arrEventId.push(eventToDisplay.event[i].id)
+        for (var i = 0; i < eventToDisplay.eventHostingEvents.length; i++) {
+          arrEventId.push(eventToDisplay.eventHostingEvents[i].id)
         }
+
+        for (var i = 0; i < eventToDisplay.userSport.length; i++) {
+          arrSportId.push(eventToDisplay.userSport[i].SportId)
+        }
+        console.log('event id array: ')
         console.log(arrEventId)
+        console.log('sport id array: ')
+        console.log(arrSportId)
+
         db.Events.findAll({
           where: {
-            id: { [Op.notIn]: arrEventId }
+            id: { [Op.notIn]: arrEventId },
+            SportId: { [Op.in]: arrSportId}
           }
 
         }).then(function (otherEvents) {
           eventToDisplay.otherEvent = otherEvents
           console.log('other events')
           console.log(eventToDisplay.otherEvent)
-          res.render('index', eventToDisplay)
+          res.json(eventToDisplay)
+        // res.render('index', eventToDisplay)
         })
       })
   })
