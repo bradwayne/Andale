@@ -67,7 +67,15 @@ a {
     margin-top: 150px;
 }
 
+.gender {
+    margin-bottom: 10px;
+}
 
+.eventNavBtn {
+    margin-top: 100px;
+    float: left;
+    margin-right: 15px;
+}
 
 .background-image-homepage {
     background-image: url("img/group_sports_5.jpg");
@@ -80,16 +88,6 @@ a {
 }
 
 .background-image-userpage {
-    background-image: url("img/skiing.jpg");
-    position: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 750px;
-    width: 100%;
-    z-index: -50;
-}
-
-.background-image-eventpage {
     background-image: url("img/new_basketball.jpg");
     position: fixed;
     background-size: cover;
@@ -99,12 +97,22 @@ a {
     z-index: -50;
 }
 
-.gender {
-    margin-bottom: 10px;
+.background-image-eventpage {
+    background-image: url("img/skiing.jpg");
+    position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 750px;
+    width: 100%;
+    z-index: -50;
 }
 
-.eventNavBtn {
-    margin-top: 100px;
-    float: left;
-    margin-right: 15px;
+.background-image-activitypage {
+    background-image: url("img/soccer_1.jpg");
+    position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 750px;
+    width: 100%;
+    z-index: -50;
 }
