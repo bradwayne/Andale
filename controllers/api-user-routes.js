@@ -60,20 +60,22 @@ module.exports = function (app) {
               objUser.otherEvents = otherEvents
               db.UserSport.findAll({
                 where: {
-                  SportId: { [Op.in]: arrSportId}
+                  SportId: { [Op.in]: arrSportId},
+                  UserId: req.params.id
                 },
                 include: [db.Sport]
               }).then(function (likeSportInfo) {
                 objUser.likeSportsInfo = likeSportInfo
                 db.UserEvent.findAll({
                   where: {
-                    EventId: {[Op.in]: arrEventId}
+                    EventId: {[Op.in]: arrEventId},
+                    UserId: req.params.id
                   },
                   include: [db.Events]
                 }).then(function (likeEventInfo) {
                   objUser.likeEventInfo = likeEventInfo
-                  res.json(objUser)
-                // res.render('index', objUser)
+                  // res.json(objUser)
+                  res.render('index', objUser)
                 })
               })
             })
@@ -157,7 +159,7 @@ module.exports = function (app) {
 
   app.post('/api/UserSport/:id', function (req, res, next) {
     db.UserSport.create({
-      SportId: req.body.sport_id,
+      SportId: req.body.SportId,
       level: req.body.level,
       UserId: req.params.id
     }).then(function (results) {
@@ -260,20 +262,8 @@ module.exports = function (app) {
   app.post('/api/userEvent/', function (req, res, next) {
     console.log('user Event')
     db.UserEvent.create({
-      EventId: req.body.event_id,
-      UserId: req.body.user_id
-    }).then(function (results) {
-      console.log(results)
-      res.send(results)
-    })
-  })
-
-  app.post('/api/userLevel/', function (req, res, next) {
-    console.log('user level')
-    db.UserLevel.create({
-      sportId: req.body.sport_id,
-      level: req.body.level,
-      UserId: req.body.user_id
+      EventId: req.body.EventId,
+      UserId: req.body.UserId
     }).then(function (results) {
       console.log(results)
       res.send(results)
@@ -323,7 +313,8 @@ module.exports = function (app) {
   app.delete('/api/userEvent/:id', function (req, res, next) {
     db.UserEvent.destroy({
       where: {
-        eventID: req.params.id
+        EventId: req.params.id,
+        UserId: req.body.UserId
       }
     }).then(function (result) {
       if (result.affectedRows == 0) {

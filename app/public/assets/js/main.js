@@ -100,12 +100,57 @@ $(function () {
     })
   }
 
-  function editSport (obj) {
+  function notGoingEvent (obj) {
+    $.ajax('/api/userEvent/' + obj.EventId, {
+      type: 'DELETE',
+      data: obj,
+      success: function (data, status, xhr) {
+        console.log('not going to event function')
+        if (xhr.status == 200) {
+          console.log('event removed from user event successfully!')
+        }else {
+          console.log(xhr.responseJSON)
+        }
+      }
+    })
+  }
 
+  function goingEvent (obj) {
+    $.ajax('/api/userEvent/', {
+      type: 'POST',
+      data: obj,
+      success: function (data, status, xhr) {
+        console.log('going to event function')
+        if (xhr.status == 200) {
+          console.log('user set to attend event!!')
+        }else {
+          console.log(xhr.responseJSON)
+        }
+      }
+    })
+  }
+
+  function addSport (obj) {
+    $.ajax('/api/UserSport/' + sessionStorage.getItem('sessionUserId'), {
+      type: 'POST',
+      data: obj,
+      success: function (data, status, xhr) {
+        console.log('add sport function')
+        if (xhr.status == 200) {
+          console.log('user sport added successfully')
+        }else {
+          console.log(xhr.responseJSON)
+        }
+      }
+    }
+    )
+  }
+
+  function editSport (obj) {
     console.log('sport level' + obj.level)
     console.log('sport sport id' + obj.SportId)
     if (obj.level == 0) {
-        console.log("deleting user sport");
+      console.log('deleting user sport')
       $.ajax('/api/userSport/' + obj.SportId, {
         type: 'DELETE',
         data: obj,
@@ -114,14 +159,14 @@ $(function () {
           console.log(xhr)
           if (xhr.status == 200) {
             console.log('sport deleted from user successfully!')
-            //location.reload()
+          // location.reload()
           }else {
             console.log(xhr.responseJSON)
           }
         }
       })
     }else {
-        console.log("editing user sport")
+      console.log('editing user sport')
       $.ajax('/api/userSport/' , {
         type: 'PUT',
         data: obj,
@@ -130,7 +175,7 @@ $(function () {
           console.log(xhr)
           if (xhr.status == 200) {
             console.log('user sport edit successfully')
-            //location.reload()
+          // location.reload()
           }else {
             console.log(xhr.responseJSON)
           }
@@ -141,6 +186,7 @@ $(function () {
   }
 
   function setUserSession (data) {
+    sessionStorage.setItem('sessionUserId', (data.id))
     sessionStorage.setItem('sessionUserFullName', (data.first_name + ' ' + data.last_name))
     sessionStorage.setItem('sessionGender', (data.gender))
     sessionStorage.setItem('sessionUserName', (data.username))
@@ -151,6 +197,9 @@ $(function () {
     sessionStorage.setItem('sessionPhoto', (data.photo))
     sessionStorage.setItem('sessionBio', (data.bio))
     console.log(sessionStorage)
+
+  // NOTE: to get sessionItem. 
+  // console.log('id :' + sessionStorage.getItem('sessionUserId'))
   }
   function clearSession () {
     console.log('clear user session')
@@ -164,25 +213,91 @@ $(function () {
   getUserCredentials()
 
   $('#cmdChangeLevel').click(function () {
-
-    /*     for (var i = 0; i < inputs.length; i++) {
-        console.log('value for input[' + i + '] ' + inputs[i].value)
-        console.log('data-id for input[' + i + '] ' + inputs[i].data('data-id'))
-        }  */
-    var objUserSport = []
-
-    $('.txtLevel').each(function () {
-      console.log('value is .. ' + this.value)
-      console.log('data id is .. ' + $(this).attr('data-id'))
-      objUserSport.push({   SportId: $(this).attr('data-id'),
-        level: this.value,
-      UserId: 1}
-      )
-    })
-    console.log(objUserSport)
-    for (var i = 0; i < objUserSport.length; i++) {
-      editSport(objUserSport[i])
+    try {
+      var objUserSport = []
+      $('.txtLevel').each(function () {
+        objUserSport.push({
+          SportId: $(this).attr('data-id'),
+          level: parseInt(this.value),
+          UserId: 1
+        }
+        )
+      })
+      for (var i = 0; i < objUserSport.length; i++) {
+        editSport(objUserSport[i])
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setTimeout(() => {
+        location.reload()
+      }, 500)
     }
-  // editSport($('#txtLevel').attr('data-id'), $('#txtLevel').val(), 1)
   })
+
+  $('#cmdAddSports').click(function () {
+    try {
+      var objUserSport = []
+      $('.txtNewSportLevel').each(function () {
+        if (parseInt(this.value) > 0) {
+          objUserSport.push({
+            SportId: $(this).attr('data-id'),
+            level: parseInt(this.value),
+            UserId: 1
+          })
+        }
+      })
+      console.log(objUserSport)
+      for (var i = 0; i < objUserSport.length; i++) {
+        addSport(objUserSport[i])
+      }
+    } catch(e) {
+      console.log(e)
+    } finally {
+      setTimeout(() => {
+        location.reload()
+      }, 500)
+    }
+  })
+
+  $('.cmdCancel').click(function () {
+    var objUserEvent = {
+      UserId: sessionStorage.getItem('sessionUserId'),
+      EventId: $(this).attr('data-event-id')
+    }
+
+    console.log($(this).attr('data-event-id'))
+    try {
+      notGoingEvent(objUserEvent)
+    } catch(e) {
+      console.log(e)
+    }finally {
+      setTimeout(() => {
+        location.reload()
+      }, 500)
+    }
+  })
+
+  $('.cmdGoing').click(function () {
+    console.log($(this).attr('data-event-id'))
+    try {
+      var objUserEvent = {
+        UserId: sessionStorage.getItem('sessionUserId'),
+        EventId: $(this).attr('data-event-id')
+      }
+      goingEvent(objUserEvent)
+    } catch(e) {
+      console.log(e)
+    }finally {
+      setTimeout(() => {
+        location.reload()
+      }, 500)
+    }
+  })
+
+  $('#cmdSignUp').click(function(){
+      
+  })
+
+  
 })
