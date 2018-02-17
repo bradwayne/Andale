@@ -28,22 +28,20 @@ module.exports = function(app){
   //event discussion (blog) api's
 
   //a get request api to get all mysql database entries 
-  //           for event discussion for any event 
+  //           for event discussion for any event
   app.get("/eventdiscussions", function(req, res) {
-    db.eventdiscussions.selectAll(function(data) {
-      var hbsObject = {
-        eventdiscussions: data
-      };
-      res.json(hbsObject);
+    db.eventdiscussions.findAll({})
+    .then(function(dbDiscussion) {
+      res.json(dbDiscussion);
     });
   });
-
+ 
   //a get request api to get mysql database entries 
   //        for event discussion for an event
-  app.get("/eventdiscussions/:events", function(req, res) {
+  app.get("/eventdiscussions/:EventId", function(req, res) {
     db.eventdiscussions.findAll({
       where: {
-        events: req.params.events
+        EventId: req.params.EventId
         }
     })
     .then(function(dbDiscussion) {
@@ -52,7 +50,7 @@ module.exports = function(app){
   });
 
   //a post request api to add an event discussion (blog) to an event
-  app.post("/api/eventdiscussions/:events", function(req, res) {
+  app.post("/api/eventdiscussions/:EventId", function(req, res) {
     db.eventdiscussions.create({
       message: req.body.message,
       createdAt: req.body.createdAt,
@@ -66,11 +64,11 @@ module.exports = function(app){
   });
 
  // DELETE route for deleting blogs (event discussions)
-  app.delete("/api/eventdiscussions/:events/:id", function(req, res) {
+  app.delete("/api/eventdiscussions/:EventId/:UserId", function(req, res) {
     db.eventdiscussions.destroy({
       where: {
-        events: req.params.events,
-        id: req.params.id
+        EventId: req.params.EventId,
+        UserId: req.params.UserId
       }
     })
     .then(function(dbBlog) {
@@ -79,12 +77,12 @@ module.exports = function(app){
   });
 
   // PUT route for updating blogs (event discussions)
-  app.put("/api/eventdiscussions/:events", function(req, res) {
+  app.put("/api/eventdiscussions/:EventId", function(req, res) {
     db.eventdiscussions.update(req.body,
       {
         where: {
-          events: req.params.events,
-          id: req.body.id
+          EventId: req.params.EventId,
+          UserId: req.body.UserId
         }
       })
     .then(function(dbBlog) {

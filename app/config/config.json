@@ -1,11 +1,7 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
     "password": "AMinorC#bC2013",
-=======
-    "password": "Bailey#1019",
->>>>>>> 5bad3c2883751b8c32a51c13891a6eaf1aa105b5
     "database": "project2_DB",
     "host": "127.0.0.1",
     "dialect": "mysql"
