@@ -59,6 +59,7 @@ module.exports = function(app){
       UserId: req.body.UserId
     })
     .then(function(dbBlog) {
+      res.json(dbBlog);
       res.status(200).end();
     });
   });
@@ -72,6 +73,7 @@ module.exports = function(app){
       }
     })
     .then(function(dbBlog) {
+      res.json(dbBlog);
       res.status(200).end();
     });
   });
@@ -89,7 +91,8 @@ module.exports = function(app){
       if (dbBlog.changedRows === 0) {
         return res.status(404).end()
       }else {
-        res.status(200).end()
+        res.json(dbBlog);
+        res.status(200).end();
       }
     });
   });
