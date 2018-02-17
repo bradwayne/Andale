@@ -4,16 +4,6 @@ var path = require("path");
 // routing
 module.exports = function(app) {
 
-  //get api to the user html page
-  app.get("/user", function(req, res) {
-    res.sendFile(path.join(__dirname, "../views/userpage.html"));
-  });
-
-  //get api to the sport html page
-  app.get("/sport", function(req, res) {
-    res.sendFile(path.join(__dirname, "../html_project_2/sportpage.html"));
-  });
-
   //get api to the activity html page
   app.get("/activity", function(req, res) {
     res.sendFile(path.join(__dirname, "../views/activity.handlebars"));
