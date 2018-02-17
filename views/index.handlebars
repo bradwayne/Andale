@@ -77,33 +77,72 @@
         </div>
         <div class="col-md-12">
             <b>Interested Sports:</b> <br />
-            {{#if interestedSportId}}
-                {{#each interestedSportId}}   
-                    {{this.Sport.name}} - {{this.Sport.sport_type}} - from 1 to 5, i am {{this.level}} good  >> <input type="text" class="txtLevel" data-id={{this.Sport.id}} value={{this.level}}><br />
+            {{#if likeSportsInfo}}
+                {{#each likeSportsInfo}}   
+                    {{this.Sport.name}} - from 1 to 5, i am {{this.level}} good  edit -> <input type="text" class="txtLevel" data-id={{this.Sport.id}} value={{this.level}}><br />
                 {{/each}}
-                <button id="cmdChangeLevel">Change </button>
+                <button id="cmdChangeLevel"> Submit </button>
             {{else}}
                 you do not have any interested sport..
             {{/if}}
         </div>
         <div class="col-md-12">
             <b>Events you are attending: </b><br />
-            {{#if bookedEvent}}
-                {{#each bookedEvent}}
-                    <a href='/event/{{this.id}}'>{{this.name}}</a> - looking for {{this.attendants}} player(s), event hosted by.. <i>{{this.host}}</i><br />
+            {{#if likeEventInfo}}
+                {{#each likeEventInfo}}
+                    <a href='/event_details/{{this.EventId}}'>{{this.Event.name}}</a> - looking for {{this.Event.attendants}} player(s), event hosted by.. <i>{{this.Event.host}}</i>
+                    <button class="cmdCancel" data-event-id='{{this.EventId}}'>Change my mind</button><br />
                 {{/each}}
             {{else}}
                 you did not commit to any event..
             {{/if}}
         </div>
         <div class="col-md-12">
+            <b>Event you should consider attending:</b> <br />
+            {{#if otherEvents}}
+                {{#each otherEvents}}
+                    <a href='/event_details/{{this.id}}'>{{this.name}}</a> - looking for {{this.attendants}} player(s), event hosted by..<i>{{this.host}}</i>
+                    <i>{{this.Event.host}}</i>
+                    <button class="cmdGoing" data-event-id='{{this.id}}'>I'm in!!</button>
+                    <br />
+                {{/each}}
+            {{/if}}
+        </div>
+        <div class="col-md-12">
             <b>Other Sports You may consider..</b><br />
             {{#each otherSports}}
-                Sport name : {{this.name}} - Sport type : {{this.sport_type}}<br />
+                Sport name : {{this.name}} <input type="text" class="txtNewSportLevel" data-id='{{this.id}}' value='0' />
+                <br />
             {{/each}}
+            <button id="cmdAddSports">Add Sports </button>
         </div>
     </div>
+    <div class="row divNewUser">
+        <div class="col-md-12">
+            <h1>Create New User</h1>
+                <input type="text" placeholder="username" class="txtUserName" /> <br />
+                <input type="text" placeholder="email address" class="txtEmail" /><br />
+                <label>Password :</label> <input type="password" class="txtPassword" /><br />
+                
+                <input type="text" placeholder="first-name" class="txtFirstName"/>
+                <input type="text" placeholder="first-name" class="txtFirstName" /> <br />
+                <label>Gender: </label><br />
+                <input type="radio" value="Male" name="gender">Male <br />
+                <input type="radio" value="Female" name="gender">Female<br />
+                <input type="radio" value="Unspecified" name="gender">Unspecified<br />
+                
+                <input type="text" placeholder="location" class="txtLocation" /><br />
+                <input type="text" placeholder="hometown" class="txtHometown" /><br />
+                <label>Date of Birth:</label>
+                <input type="date" name="dob" class="dpDob"><br />
+                <input type="text" placeholder="photo" class="txtPhoto" /><br />
+                <label>Bio </label>
+                <textarea class="taBio"></textarea>
+                <br />
+                <button type="button" id="cmdSignUp">Sign Up</button>
 
+        </div>
+    </div>
     <br />
     <br />
     <!-- Test event display -->
