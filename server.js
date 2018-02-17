@@ -28,7 +28,7 @@ require('./controllers/api-routes.js')(app);
 require('./controllers/api-event-routes.js')(app);
 require('./controllers/api-sport-routes.js')(app);
 require('./controllers/api-user-routes.js')(app);
-require('./controllers/api-html-routes.js')(app);
+require('./controllers/html_routes.js')(app);
 
 
 app.use(function(err, req, res, next){
