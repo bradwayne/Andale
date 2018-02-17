@@ -130,6 +130,21 @@ $(function () {
     })
   }
 
+  function SignUp(obj){
+    $.ajax('/api/user/'), {
+      type : 'POST',
+      data : obj,
+      success : function(data, status, xhr){
+        console.log('add User');
+        if(xhr.status == 200) {
+          console.log('user added successfully')
+        }else{
+          
+        }
+      }
+    }
+  }
+
   function addSport (obj) {
     $.ajax('/api/UserSport/' + sessionStorage.getItem('sessionUserId'), {
       type: 'POST',
