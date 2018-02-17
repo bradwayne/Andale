@@ -34,9 +34,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <div class="eventNavBtn" id="divEventNavBtn">
-                    <button type="submit" class="btn btn-primary btn-default" id="cmdsubmitActivBtn">
-                        <span class="nav-glyph"></span>Activity</button>
+                <div class="eventNavBtn" id="divActivityNavBtn">
+                    <button type="submit" class="btn btn-primary" id="cmdsubmitActivBtn">
+                        <strong>ACTIVITIES</strong></button>
                 </div>
             </div>
         </div>
@@ -48,7 +48,6 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="padding:15px 30px">
-                    <button type="button" class="close" id="btnActivity" data-dismiss="modal">&times;</button>
                     <h4 class="modalHeading">
                         <strong>Activity</strong>
                     </h4>
@@ -57,7 +56,12 @@
                     <div class="row">
                         <div class="form-group" id="divActivityDetails">
                             <label for="activity" id="lblActivityDetails">
-                                <span>Actvity Details</span>
+                                <div>
+                                    <h3>Activity : {{this.activity}}</h3>
+                                </div>
+                                <div>Start Time : {{this.start_time}}</div>
+                                <div>End Time : {{this.end_time}}</div>
+                                <div>More Info : {{this.details}}</div>
                             </label>
                             <br>
                         </div>
@@ -73,7 +77,6 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="padding:15px 30px">
-                    <button type="button" class="close" id="btnActivityBlog" data-dismiss="modal">&times;</button>
                     <h4 class="modalHeading">
                         <strong>Activity Blog</strong>
                     </h4>
@@ -97,7 +100,7 @@
 
 <script>
     $(document).ready(function () {
-        $("#activBtn").click(function () {
+        $("#cmdsubmitActivBtn").click(function () {
             $("#activity").modal();
         });
     });

@@ -1,7 +1,7 @@
 body {
     background-color: white;
     margin: auto;
-    font-family: 'Archivo Black', sans-serif;
+    /* font-family: 'Archivo Black', sans-serif; */
 }
 
 * {
@@ -43,7 +43,7 @@ body {
 
 .btn1 {
     margin-top: 100px;
-    background-color: #4CAF50;
+    background-color: #00ace6;
     border: none;
     color: white;
     padding-top: 40px;
@@ -77,12 +77,16 @@ a {
     margin-right: 15px;
 }
 
+.btn {
+    letter-spacing: 1px;
+}
+
 .background-image-homepage {
     background-image: url("..//img/group_sports_5.jpg");
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 750px;
+    height: 800px;
     width: 100%;
     z-index: -50;
 }
@@ -92,7 +96,7 @@ a {
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 750px;
+    height: 800px;
     width: 100%;
     z-index: -50;
 }
@@ -102,7 +106,7 @@ a {
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 750px;
+    height: 800px;
     width: 100%;
     z-index: -50;
 }
@@ -112,7 +116,7 @@ a {
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 750px;
+    height: 800px;
     width: 100%;
     z-index: -50;
 }
