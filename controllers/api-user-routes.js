@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 var db = require('../app/models')
 var Sequelize = require('sequelize')
 
