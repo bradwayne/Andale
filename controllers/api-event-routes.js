@@ -31,51 +31,75 @@ module.exports = function (app) {
   app.get('/event/:id', function (req, res, next) {
     var arrEventId = []
     var arrSportId = []
-    var eventToDisplay = {
-      title: 'Events User Hosting'
-    }
-    db.User.findAll({
+    var eventToDisplay = {}
+    db.User.findOne({
       where: { id: req.params.id },
       include: [{ model: db.Events}, {model: db.UserSport}, {model: db.UserEvent} ]
     })
       .then(function (userHostedEvents) {
-        console.log('print out all relationship of user to events, sport')
-        console.log(userHostedEvents)
-        eventToDisplay.user = userHostedEvents
-        eventToDisplay.eventHostingEvents = userHostedEvents[0].Events
-        eventToDisplay.userSport = userHostedEvents[0].UserSports
-        eventToDisplay.userEvents = userHostedEvents[0].UserEvents
-        console.log('event key value in eventToDisplay')
-        console.log(eventToDisplay.eventHostingEvents)
-        console.log('user sport key value in eventTODisplay')
-        console.log(eventToDisplay.userSport)
-        console.log('user events key value in eventTODisplay')
-        console.log(eventToDisplay.userEvents)
-
-        for (var i = 0; i < eventToDisplay.eventHostingEvents.length; i++) {
-          arrEventId.push(eventToDisplay.eventHostingEvents[i].id)
+        eventToDisplay = {
+          title: 'Events User Hosting',
+          user: userHostedEvents
+        }
+        for (var i = 0; i < eventToDisplay.user.UserEvents.length; i++) {
+          arrEventId.push(eventToDisplay.user.UserEvents[i].EventId)
+        }
+        for (var i = 0; i < eventToDisplay.user.UserSports.length; i++) {
+          arrSportId.push(eventToDisplay.user.UserSports[i].SportId)
         }
 
-        for (var i = 0; i < eventToDisplay.userSport.length; i++) {
-          arrSportId.push(eventToDisplay.userSport[i].SportId)
-        }
-        console.log('event id array: ')
         console.log(arrEventId)
-        console.log('sport id array: ')
-        console.log(arrSportId)
-
-        db.Events.findAll({
+        db.UserEvent.findAll({
           where: {
-            id: { [Op.notIn]: arrEventId },
-            SportId: { [Op.in]: arrSportId}
-          }
+            EventId: { [Op.in]: arrEventId },
+            UserId: req.params.id
+          },
+          include: [db.Events]
+        }).then(function (likeEventInfo) {
+          eventToDisplay.likeEventInfo = likeEventInfo
+          db.Events.findAll({
+            where: {
+              id: {[Op.notIn]: arrEventId},
+              SportId: {[Op.in]: arrSportId}
+            }
+          })
+            .then(function (otherEvents) {
+              eventToDisplay.otherEvents = otherEvents
 
-        }).then(function (otherEvents) {
-          eventToDisplay.otherEvent = otherEvents
-          console.log('other events')
-          console.log(eventToDisplay.otherEvent)
-          res.json(eventToDisplay)
-        // res.render('index', eventToDisplay)
+              db.Events.findAll({})
+                .then(function (allEvents) {
+                  eventToDisplay.allEvents = allEvents
+                  res.json(eventToDisplay)
+                // res.render('index', eventToDisplay)
+                })
+            })
+        })
+      })
+  })
+
+  app.get('/event_details/:id', function (req, res, next) {
+    var objEventDetails = {}
+    db.Events.findOne({
+      where: { id: req.params.id},
+      include: [{model: db.EventDiscussion}, {model: db.Sport}]
+    })
+      .then(function (eventDetails) {
+        objEventDetails.details = eventDetails
+        db.UserEvent.findAll({
+          where: { EventId: req.params.id }
+        }).then(function (attendingUsersId) {
+          // objEventDetails.attendingUsersId = attendingUsersId
+          var arrUserId = []
+          for (var i = 0; i < attendingUsersId.length; i++) {
+            arrUserId.push(attendingUsersId[i].UserId)
+          }
+          console.log('user attending event id :' + arrUserId)
+          db.User.findAll({
+            where: { id: {[Op.in]: arrUserId} }
+          }).then(function (attendingUsers) {
+            objEventDetails.attendingUsers = attendingUsers
+            res.json(objEventDetails)
+          })
         })
       })
   })
