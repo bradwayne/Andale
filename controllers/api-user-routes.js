@@ -35,43 +35,39 @@ module.exports = function (app) {
         objUser = {
           title: 'User Profile',
           user: user,
-          likeSportsId: user.UserSports,
-          likeEventsId: user.UserEvents
         }
-        for (var i = 0; i < objUser.likeSportsId.length; i++) {
-          arrSportId.push(objUser.likeSportsId[i].SportId)
+        for (var i = 0; i < user.UserSports.length; i++) {
+          arrSportId.push(user.UserSports[i].SportId)
         }
-        for (var i = 0; i < objUser.likeEventsId.length; i++) {
-          arrEventId.push(objUser.likeEventsId[i].EventId)
+        for (var i = 0; i < user.UserEvents.length; i++) {
+          arrEventId.push(user.UserEvents[i].EventId)
         }
-        console.log(arrSportId);
-        console.log(arrEventId);
-        db.UserSport.findAll({
+        console.log(arrSportId)
+        console.log(arrEventId)
+        db.Sport.findAll({
           where: {
-            SportId: { [Op.notIn]: arrSportId}
-          },
-          include: [db.Sport]
+            Id: { [Op.notIn]: arrSportId}
+          }
         })
           .then(function (otherSports) {
             objUser.otherSports = otherSports
-            db.UserEvent.findAll({
+            db.Events.findAll({
               where: {
-                id: { [Op.notIn]: arrEventId}
-
-              },include: [db.Events]
+                id: { [Op.notIn]: arrEventId},
+                // more filter in here!! based on user specification, user gender, favorite sport, 
+              }
             }).then(function (otherEvents) {
               objUser.otherEvents = otherEvents
               db.UserSport.findAll({
                 where: {
-                  id: { [Op.in]: arrSportId}
-
+                  SportId: { [Op.in]: arrSportId}
                 },
                 include: [db.Sport]
               }).then(function (likeSportInfo) {
                 objUser.likeSportsInfo = likeSportInfo
                 db.UserEvent.findAll({
                   where: {
-                    id: {[Op.in]: arrEventId}
+                    EventId: {[Op.in]: arrEventId}
                   },
                   include: [db.Events]
                 }).then(function (likeEventInfo) {
@@ -80,8 +76,6 @@ module.exports = function (app) {
                 // res.render('index', objUser)
                 })
               })
-
-            // res.json(objUser)
             })
           })
       })
