@@ -336,4 +336,19 @@ module.exports = function (app) {
     })
   })
 }
->>>>>>> 7763893df734c5b009fde093ef8add16b23a92fe
+
+  app.get('/brad/:id', function (req, res, next) {
+    var objUser = {}
+    var arrSportId = []
+    var arrEventId = []
+    console.log('get specific user info')
+    db.User.findOne({
+      where: { id: req.params.id },
+      //include: [{ model: db.UserEvent }, { model: db.UserSport }]
+    })
+      .then(function (user) {
+        console.log(JSON.stringify(objUser));
+        res.render('events', objUser)
+        //res.json(objUser);
+      })
+  })
