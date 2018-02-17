@@ -296,7 +296,23 @@ $(function () {
   })
 
   $('#cmdSignUp').click(function(){
-      
+      // more validation
+
+      var objSignUp = {
+        username : $(".txtUserName").val(),
+        email : $(".txtEmail").val(),
+        password : $(".txtPassword").val(),
+        first_name : $(".txtFirstName").val(),
+        last_name : $(".txtLastName").val(),
+        gender: document.querySelector('input[name="gender"]:checked').value,
+        location : $(".txtLocation").val(),
+        hometown : $(".txtHometown").val(),
+        dob : $(".dpDob").value,
+        photo : $(".txtPhoto").val(),
+        bio : $(".taBio").val()
+      }
+
+      console.log(objSignUp);
   })
 
   

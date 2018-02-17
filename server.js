@@ -28,8 +28,7 @@ require('./controllers/api-routes.js')(app);
 require('./controllers/api-event-routes.js')(app);
 require('./controllers/api-sport-routes.js')(app);
 require('./controllers/api-user-routes.js')(app);
-require('./controllers/api-html-routes.js')(app);
-
+require('./controllers/html_routes.js')(app);
 
 app.use(function(err, req, res, next){
     console.log('We had an error.', err);
@@ -40,7 +39,7 @@ app.use(function(err, req, res, next){
 
 
 //set force to true to drop database when we restart server, awesome for testing purpose
-db.sequelize.sync({ force: true}).then(function(){
+db.sequelize.sync({ force: false}).then(function(){
   app.listen(port, function(){
       console.log('App now listening at localhost:' + port);
   })  

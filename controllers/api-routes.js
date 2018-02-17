@@ -71,7 +71,7 @@ module.exports = function(app){
       createdAt: req.body.createdAt,
       updatedAt: req.body.updatedAt,
       timestamps: req.body.timestamps
-    }),
+    })
     .then(function(dbBlog) {
       res.json(dbBlog);
     });
