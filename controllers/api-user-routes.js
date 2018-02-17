@@ -335,7 +335,7 @@ module.exports = function (app) {
     })
       .then(function (user) {
         console.log(JSON.stringify(objUser))
-        res.render('events', objUser)
+        res.render('activity', objUser)
       // res.json(objUser)
       })
   })
