@@ -54,7 +54,6 @@ module.exports = function(app){
   //a post request api to add an event discussion (blog) to an event
   app.post("/api/eventdiscussions/:events", function(req, res) {
     db.eventdiscussions.create({
-      id: req.body.id,
       message: req.body.message,
       createdAt: req.body.createdAt,
       updatedAt: req.body.updatedAt,
