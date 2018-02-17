@@ -34,7 +34,7 @@ module.exports = function (app) {
       .then(function (user) {
         objUser = {
           title: 'User Profile',
-          user: user,
+          user: user
         }
         for (var i = 0; i < user.UserSports.length; i++) {
           arrSportId.push(user.UserSports[i].SportId)
@@ -54,7 +54,7 @@ module.exports = function (app) {
             db.Events.findAll({
               where: {
                 id: { [Op.notIn]: arrEventId},
-                // more filter in here!! based on user specification, user gender, favorite sport, 
+              // more filter in here!! based on user specification, user gender, favorite sport, 
               }
             }).then(function (otherEvents) {
               objUser.otherEvents = otherEvents
@@ -333,8 +333,6 @@ module.exports = function (app) {
       }
     })
   })
-}
-
   app.get('/brad/:id', function (req, res, next) {
     var objUser = {}
     var arrSportId = []
@@ -342,11 +340,12 @@ module.exports = function (app) {
     console.log('get specific user info')
     db.User.findOne({
       where: { id: req.params.id },
-      //include: [{ model: db.UserEvent }, { model: db.UserSport }]
+    // include: [{ model: db.UserEvent }, { model: db.UserSport }]
     })
       .then(function (user) {
-        console.log(JSON.stringify(objUser));
+        console.log(JSON.stringify(objUser))
         res.render('events', objUser)
-        //res.json(objUser);
+      // res.json(objUser)
       })
   })
+}
