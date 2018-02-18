@@ -1,3 +1,4 @@
+
 <div class="container">
     <h1>{{title}}</h1>
 
@@ -129,7 +130,7 @@
                 <label>Gender: </label><br />
                 <input type="radio" value="Male" name="gender">Male <br />
                 <input type="radio" value="Female" name="gender">Female<br />
-                <input type="radio" value="Unspecified" name="gender">Unspecified<br />
+                <input type="radio" value="Unspecify" name="gender" checked="checked" >Unspecified<br />
                 
                 <input type="text" placeholder="location" class="txtLocation" /><br />
                 <input type="text" placeholder="hometown" class="txtHometown" /><br />
@@ -143,7 +144,57 @@
 
         </div>
     </div>
+
+    <div class="row divUserProfile">
+        <div class="col-md-12">
+            <h1>Edit User Profile</h1>
+            <input type="text" placeholder="first-name" class="txtCurrentFirstName" value="{{user.first_name}}" />
+            <input type="text" placeholder="last-name" class="txtCurrentLastName" value="{{user.last_name}}"/>
+            <br />
+        
+            <input type="text" placeholder="location" class="txtCurrentLocation" value="{{user.location}}" />
+            <br />
+            <input type="text" placeholder="hometown" class="txtCurrentHometown" value="{{user.hometown}}" />
+            <br />
+            <input type="text" placeholder="photo" class="txtCurrentPhoto" value="{{user.photo}}" />
+            <br />
+            <label>Bio </label>
+            <textarea class="taCurrentBio">{{user.bio}}</textarea>
+            <br />
+            <button type="button" id="cmdUpdateProfile">Edit Profile</button>
+        
+        </div>
+    </div>
     <br />
+
+    <div class="row divNewEvent">
+        <div class="col-md-12">
+            <h1>Create Event</h1>
+            <input type="text" placeholder="event name" class="txtNewEventName" /><br />
+            <input type="text" placeholder="location" class="txtNewLocation" /><br />
+            <input type="text" placeholder="attendants" class="txtNewAttendants" /><br />
+            <input type="text" placeholder="fees" class="txtNewFees" /><br />
+            <input type="text" placeholder="host" class="txtNewHost" value="{{user.first_name}} {{user.last_name}}" /><br />
+            <input type="text" placeholder="phone number" class="txtNewPhoneContact" /><br />
+            <input type="text" placeholder="email address" class="txtNewEmailAddress" /><br />
+            <label>Gender: </label>
+            <br />
+            <input type="radio" value="male" name="newGender">Male
+            <br />
+            <input type="radio" value="female" name="newGender">Female
+            <br />
+            <input type="radio" value="unspecify" name="newGender" checked="checked">Unspecified
+            <br />
+            <input type="text" placeholder="level" class="txtNewLevel" /><br />
+            <input type="text" placeholder="age" class="txtNewAge" /><br />
+            date : <input type="date" name="date" class="dpNewDate">
+            <br />
+            start time : <input type="time" name="time" class="tpNewStart" />
+            end time : <input type="time" name="time" class="tpNewStart" /><br />
+            <label>Details</label><br />
+            <textarea class="taNewDetails">{{user.bio}}</textarea>
+        </div>
+    </div>
     <br />
     <!-- Test event display -->
 
