@@ -1,5 +1,3 @@
-
-
 <!-- user information ////////////////////////////////////////////////////////////////// -->
 
 <div class="modal fade" id="signUp" role="dialog">
@@ -124,14 +122,21 @@
                 <form role="form">
                     <div class="form-group">
                         <div class="slider-container">
-                            {{#each otherSports}} 
-                            <label for="slider"> Sport name : {{this.name}}</label>
-                                <br /> 
-                                <input class="slider" id="slider" type="text" />
-                                <br>
-                                <br>
-                            {{/each}}
-                            
+
+                            <div class="row">
+                                    {{#each otherSports}}
+                                    <div class='col-md-6'>
+                                        <label for="slider" class="sportChoises"> Sport name : {{this.name}}</label>
+                                        <br />
+                                        <input class="slider" id="slider" type="text" />
+                                        <br>
+                                        <br> 
+                                    </div>
+                                    {{/each}}
+                                
+                            </div>
+
+
                             <button id="cmdAddSports">Add Sports </button>
                         </div>
                     </div>
@@ -158,16 +163,16 @@
 
 <script>
     $(document).ready(function () {
-            $("#aLogInNav").click(function () {
-                $("#logIn").modal();
-            });
+        $("#aLogInNav").click(function () {
+            $("#logIn").modal();
         });
+    });
 
-        $(document).ready(function () {
-            $("#aSignUpNav").click(function () {
-                $("#signUp").modal();
-            });
+    $(document).ready(function () {
+        $("#aSignUpNav").click(function () {
+            $("#signUp").modal();
         });
+    });
 
     $(document).ready(function () {
         $("#aSignUpBtn").click(function () {
