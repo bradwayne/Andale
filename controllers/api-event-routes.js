@@ -144,7 +144,7 @@ module.exports = function (app) {
       end_time: req.body.end_time,
       userId: req.params.event_id
     }).then(function (results) {
-      if (result.changedRows === 0) {
+      if (results.changedRows === 0) {
         return res.status(404).end()
       }else {
         res.status(200).end()

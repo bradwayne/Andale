@@ -56,8 +56,8 @@ module.exports = function (sequelize, DataTypes) {
       },
       validate: {
         is: {
-          args: '/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
-          msg: 'Please enter a valid email address'
+          //args: '/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
+          //msg: 'Please enter a valid email address'
         }
       }
     },
@@ -65,8 +65,8 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       validate: {
         is: {
-          args: ['^(?=.*\d).{4,16}$'], // regex from here http://regexlib.com/Search.aspx?k=password&AspxAutoDetectCookieSupport=1
-          msg: 'Password must be between 4 and 8 digits long and include at least one numeric digit'
+          //args: ['^(?=.*\d).{4,16}$'], // regex from here http://regexlib.com/Search.aspx?k=password&AspxAutoDetectCookieSupport=1
+          //msg: 'Password must be between 4 and 8 digits long and include at least one numeric digit'
         }
       }
     },

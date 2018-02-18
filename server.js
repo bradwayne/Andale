@@ -30,7 +30,6 @@ require('./controllers/api-sport-routes.js')(app);
 require('./controllers/api-user-routes.js')(app);
 require('./controllers/html_routes.js')(app);
 
-
 app.use(function(err, req, res, next){
     console.log('We had an error.', err);
     res.status(500).json({

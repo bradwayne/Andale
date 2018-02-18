@@ -81,8 +81,8 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       validate: {
         isIn: {
-          args: [[ 'male', 'female', 'unspecified']],
-          msg: 'The value must be one of these : male, female, or unspecify'
+          args: [[ 'Male', 'Female', 'Unspecified']],
+          msg: 'The value must be one of these : male, female, or unspecified'
         }
       }
     },
@@ -133,12 +133,15 @@ module.exports = function (sequelize, DataTypes) {
         }
       }
     },
-    geolocation_x : {
-        type: DataTypes.TEXT,
-
+    numberAttending: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
-    geolocation_y : {
-        type : DataTypes.TEXT,
+    geolocation_x: {
+      type: DataTypes.TEXT
+    },
+    geolocation_y: {
+      type: DataTypes.TEXT
     },
     createdAt: {
       type: DataTypes.DATE
@@ -168,7 +171,7 @@ module.exports = function (sequelize, DataTypes) {
       onDelete: 'cascade'
     })
     Events.belongsTo(models.Sport, {
-        onDelete : 'cascade'
+      onDelete: 'cascade'
     })
   }
 

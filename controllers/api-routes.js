@@ -4,58 +4,44 @@ module.exports = function(app){
 
  //api routes
 //a get request api to get data from the project2_DB user database
-  app.get("/api/project2_DB/user", function(req, res) {
-    res.json(user);
+  app.get("/users", function(req, res) {
+    db.users.findAll({}).then(function (users) {
+    res.json(users);
+    })
   });
 
   //a get request api to get data from the project2_DB sport database
-  app.get("/api/project2_DB/sport", function(req, res) {
-    res.json(sport);
+  app.get("/sports", function(req, res) {
+    db.sports.findAll({}).then(function (sports) {
+    res.json(sports);
+    })
   });
 
   //a get request api to get data from the project2_DB event database
-  app.get("/api/project2_DB/event", function(req, res) {
-    res.json(event);
+  app.get("/events", function(req, res) {
+    db.events.findAll({}).then(function (events) {
+    res.json(events);
+    })
   }); 
-
-  //a post request api to post data to the project2_DB user database
-  app.post("/api/project2_DB/user", function(req, res) {
-    user.push(req.body);
-    res.json(true);
-    });
-
-   //a post request api to post data to the project2_DB sport database
-  app.post("/api/project2_DB/sport", function(req, res) {
-    sport.push(req.body);
-    res.json(true);
-    });
-
-   //a post request api to post data to the project2_DB event database
-  app.post("/api/project2_DB/event", function(req, res) {
-    event.push(req.body);
-    res.json(true);
-    });
 
 
   //event discussion (blog) api's
 
   //a get request api to get all mysql database entries 
-  //           for event discussion for any event 
-  app.get("/api/project2_DB/EventDiscussion", function(req, res) {
-    db.EventDiscussion.selectAll(function(data) {
-      var hbsObject = {
-        EventDiscussion: data
-      };
-      res.json(hbsObject);
+  //           for event discussion for any event
+  app.get("/eventdiscussions", function(req, res) {
+    db.eventdiscussions.findAll({})
+    .then(function(dbDiscussion) {
+      res.json(dbDiscussion);
     });
   });
-
+ 
   //a get request api to get mysql database entries 
   //        for event discussion for an event
-  app.get("/api/project2_DB/EventDiscussion/:Events", function(req, res) {
-    db.EventDiscussion.findAll({
+  app.get("/eventdiscussions/:EventId", function(req, res) {
+    db.eventdiscussions.findAll({
       where: {
-        Events: req.params.Events
+        EventId: req.params.EventId
         }
     })
     .then(function(dbDiscussion) {
@@ -64,43 +50,50 @@ module.exports = function(app){
   });
 
   //a post request api to add an event discussion (blog) to an event
-  app.post("/api/project2_DB/EventDiscussion/:Events", function(req, res) {
-    db.EventDiscussion.create({
-      id: req.body.id,
+  app.post("/api/eventdiscussions/:EventId", function(req, res) {
+    db.eventdiscussions.create({
       message: req.body.message,
       createdAt: req.body.createdAt,
       updatedAt: req.body.updatedAt,
-      timestamps: req.body.timestamps
+      EventId: req.body.EventId,
+      UserId: req.body.UserId
     })
     .then(function(dbBlog) {
       res.json(dbBlog);
+      res.status(200).end();
     });
   });
 
  // DELETE route for deleting blogs (event discussions)
-  app.delete("/api/project2_DB/EventDiscussion/:Events/:id", function(req, res) {
-    db.EventDiscussion.destroy({
+  app.delete("/api/eventdiscussions/:EventId/:UserId", function(req, res) {
+    db.eventdiscussions.destroy({
       where: {
-        Events: req.params.Events,
-        id: req.params.id
+        EventId: req.params.EventId,
+        UserId: req.params.UserId
       }
     })
     .then(function(dbBlog) {
       res.json(dbBlog);
+      res.status(200).end();
     });
   });
 
   // PUT route for updating blogs (event discussions)
-  app.put("/api/project2_DB/EventDiscussion/:Events", function(req, res) {
-    db.EventDiscussion.update(req.body,
+  app.put("/api/eventdiscussions/:EventId", function(req, res) {
+    db.eventdiscussions.update(req.body,
       {
         where: {
-          Events: req.params.Events,
-          id: req.body.id
+          EventId: req.params.EventId,
+          UserId: req.body.UserId
         }
       })
     .then(function(dbBlog) {
-      res.json(dbBlog);
+      if (dbBlog.changedRows === 0) {
+        return res.status(404).end()
+      }else {
+        res.json(dbBlog);
+        res.status(200).end();
+      }
     });
   });
 

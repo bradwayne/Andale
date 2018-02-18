@@ -130,6 +130,41 @@ $(function () {
     })
   }
 
+  function SignUp (obj) {
+    $.ajax('/api/user/', {
+      type: 'POST',
+      data: obj,
+      success: function (data, status, xhr) {
+        console.log('add User')
+        if (xhr.responseJSON) {
+          if (xhr.responseJSON.indexOf('Validation error') > -1) {
+            console.log(xhr.responseJSON)
+          }else {
+            console.log('user added successfully')
+          }
+        }
+      }
+    })
+  }
+
+  function UpdateProfile (obj) {
+    $.ajax('/api/user/' + sessionStorage.getItem('sessionUserId'), {
+      type: 'PUT',
+      data: obj,
+      success: function (data, status, xhr) {
+        console.log('in edit sport function')
+        console.log(xhr)
+        if (xhr.status == 200) {
+          console.log('user sport edit successfully')
+        // location.reload()
+        }else {
+          console.log(xhr.responseJSON)
+        }
+      // console.log(xhr.responseJSON.error)
+      }
+    })
+  }
+
   function addSport (obj) {
     $.ajax('/api/UserSport/' + sessionStorage.getItem('sessionUserId'), {
       type: 'POST',
@@ -295,9 +330,52 @@ $(function () {
     }
   })
 
-  $('#cmdSignUp').click(function(){
-      
+  $('#cmdSignUp').click(function () {
+    // more validation
+
+    try {
+      var objSignUp = {
+        username: $('.txtUserName').val(),
+        email: $('.txtEmail').val(),
+        password: $('.txtPassword').val(),
+        first_name: $('.txtFirstName').val(),
+        last_name: $('.txtLastName').val(),
+        gender: document.querySelector('input[name="gender"]:checked').value,
+        location: $('.txtLocation').val(),
+        hometown: $('.txtHometown').val(),
+        dob: $('.dpDob').val(),
+        photo: $('.txtPhoto').val(),
+        bio: $('.taBio').val()
+      }
+      SignUp(objSignUp)
+    } catch(e) {
+      console.log(e)
+    }finally {
+      setTimeout(() => {
+        location.reload()
+      }, 500)
+    }
+    console.log(objSignUp)
   })
 
-  
+  $('#cmdUpdateProfile').click(function () {
+    try {
+      var objUpdate = {
+        first_name: $('.txtCurrentFirstName').val(),
+        last_name: $('.txtCurrentLastName').val(),
+        location: $('.txtCurrentLocation').val(),
+        hometown: $('.txtCurrentHometown').val(),
+        photo: $('.txtCurrentPhoto').val(),
+        bio: $('.taCurrentBio').val()
+      }
+      UpdateProfile(objUpdate);
+    } catch(e) {
+      console.log(e)
+    }finally {
+      setTimeout(() => {
+        //location.reload()
+      }, 500)
+    }
+  // console.log(objUpdate)
+  })
 })

@@ -36,12 +36,17 @@ module.exports = function (app) {
           title: 'User Profile',
           user: user
         }
-        for (var i = 0; i < user.UserSports.length; i++) {
-          arrSportId.push(user.UserSports[i].SportId)
+        if (user.Sports) {
+          for (var i = 0; i < user.UserSports.length; i++) {
+            arrSportId.push(user.UserSports[i].SportId)
+          }
         }
-        for (var i = 0; i < user.UserEvents.length; i++) {
-          arrEventId.push(user.UserEvents[i].EventId)
+        if (user.UserEvents) {
+          for (var i = 0; i < user.UserEvents.length; i++) {
+            arrEventId.push(user.UserEvents[i].EventId)
+          }
         }
+
         console.log(arrSportId)
         console.log(arrEventId)
         db.Sport.findAll({
@@ -54,8 +59,11 @@ module.exports = function (app) {
             db.Events.findAll({
               where: {
                 id: { [Op.notIn]: arrEventId},
-              // more filter in here!! based on user specification, user gender, favorite sport, 
+                numberAttending: { $lt: Sequelize.col('attendants')},
+                  [Op.or] : [{gender: objUser.user.gender},{gender: 'Unspecified'}]
               }
+              // more filter in here!! based on user specification, user gender, favorite sport, 
+
             }).then(function (otherEvents) {
               objUser.otherEvents = otherEvents
               db.UserSport.findAll({
@@ -157,7 +165,7 @@ module.exports = function (app) {
       })
   })
 
-  app.post('/api/UserSport/:id', function (req, res, next) {
+  app.post('/api/userSport/:id', function (req, res, next) {
     db.UserSport.create({
       SportId: req.body.SportId,
       level: req.body.level,
@@ -260,13 +268,36 @@ module.exports = function (app) {
   })
 
   app.post('/api/userEvent/', function (req, res, next) {
+    var numEvents
     console.log('user Event')
     db.UserEvent.create({
       EventId: req.body.EventId,
       UserId: req.body.UserId
     }).then(function (results) {
-      console.log(results)
-      res.send(results)
+      db.UserEvent.findAndCountAll({
+        where: {
+          EventId: req.body.EventId
+        }
+      }).then(function (allEvents) {
+        numEvents = allEvents.count
+        console.log(allEvents)
+        console.log('All events count: ')
+        console.log(numEvents)
+        db.Events.update({
+        numberAttending: numEvents},
+          {
+            where: {
+              id: req.body.EventId
+            }
+          }).then(function (updated) {
+          console.log('changedRows : ' + results.changedRows)
+          console.log(results)
+          if (results.changedRows === 0) {
+            return res.status(404).end()
+          }
+          res.status(200).end()
+        })
+      })
     })
   })
 
@@ -311,17 +342,37 @@ module.exports = function (app) {
   })
 
   app.delete('/api/userEvent/:id', function (req, res, next) {
+    var numEvents
     db.UserEvent.destroy({
       where: {
         EventId: req.params.id,
         UserId: req.body.UserId
       }
     }).then(function (result) {
-      if (result.affectedRows == 0) {
-        return res.status(404).end()
-      }else {
-        res.status(200).end()
-      }
+      db.UserEvent.findAndCountAll({
+        where: {
+          EventId: req.body.EventId
+        }
+      }).then(function (allEvents) {
+        numEvents = allEvents.count
+        console.log(allEvents)
+        console.log('All events count: ')
+        console.log(numEvents)
+        db.Events.update({
+        numberAttending: numEvents},
+          {
+            where: {
+              id: req.body.EventId
+            }
+          }).then(function (updated) {
+          console.log('changedRows : ' + updated.changedRows)
+          console.log(updated)
+          if (updated.changedRows === 0) {
+            return res.status(404).end()
+          }
+          res.status(200).end()
+        })
+      })
     })
   })
   
