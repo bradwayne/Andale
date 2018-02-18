@@ -75,7 +75,7 @@ module.exports = function (app) {
                 }).then(function (likeEventInfo) {
                   objUser.likeEventInfo = likeEventInfo
                   // res.json(objUser)
-                  res.render('index', objUser)
+                  res.render('events', objUser)
                 })
               })
             })
@@ -324,6 +324,10 @@ module.exports = function (app) {
       }
     })
   })
+  
+  
+
+
   app.get('/brad/:id', function (req, res, next) {
     var objUser = {}
     var arrSportId = []
@@ -331,12 +335,57 @@ module.exports = function (app) {
     console.log('get specific user info')
     db.User.findOne({
       where: { id: req.params.id },
-    // include: [{ model: db.UserEvent }, { model: db.UserSport }]
+      include: [{ model: db.UserEvent }, { model: db.UserSport }]
     })
       .then(function (user) {
-        console.log(JSON.stringify(objUser))
-        res.render('activity', objUser)
-      // res.json(objUser)
+        objUser = {
+          title: 'User Profile',
+          user: user
+        }
+        for (var i = 0; i < user.UserSports.length; i++) {
+          arrSportId.push(user.UserSports[i].SportId)
+        }
+        for (var i = 0; i < user.UserEvents.length; i++) {
+          arrEventId.push(user.UserEvents[i].EventId)
+        }
+        console.log(arrSportId)
+        console.log(arrEventId)
+        db.Sport.findAll({
+          where: {
+            Id: { [Op.notIn]: arrSportId }
+          }
+        })
+          .then(function (otherSports) {
+            objUser.otherSports = otherSports
+            db.Events.findAll({
+              where: {
+                id: { [Op.notIn]: arrEventId },
+                // more filter in here!! based on user specification, user gender, favorite sport, 
+              }
+            }).then(function (otherEvents) {
+              objUser.otherEvents = otherEvents
+              db.UserSport.findAll({
+                where: {
+                  SportId: { [Op.in]: arrSportId },
+                  UserId: req.params.id
+                },
+                include: [db.Sport]
+              }).then(function (likeSportInfo) {
+                objUser.likeSportsInfo = likeSportInfo
+                db.UserEvent.findAll({
+                  where: {
+                    EventId: { [Op.in]: arrEventId },
+                    UserId: req.params.id
+                  },
+                  include: [db.Events]
+                }).then(function (likeEventInfo) {
+                  objUser.likeEventInfo = likeEventInfo
+                  // res.json(objUser)
+                  res.render('activity', objUser)
+                })
+              })
+            })
+          })
       })
   })
 }

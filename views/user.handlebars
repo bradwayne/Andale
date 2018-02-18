@@ -1,32 +1,4 @@
-<header id="nav-header">
-    <nav class="navbar">
-        <div class="container">
-            <h1 class="logoType">
-                <strong>Fit For Us</strong>
-            </h1>
 
-            <!-- Route to homepage when clicked -->
-            <ul class=" navbar-nav navbar-right">
-                <a class="btn nav_btn" id="aEventNav" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-calendar"></span>
-                    <strong>EVENT</strong>
-                </a>
-                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-log-in"></span>
-                    <strong>LOG IN</strong>
-                </a>
-                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-log-out"></span>
-                    <strong>LOG OUT</strong>
-                </a>
-                <a class="btn nav_btn" id="aSignUpBtn" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-check"></span>
-                    <strong>SIGN UP</strong>
-                </a>
-            </ul>
-        </div>
-    </nav>
-</header>
 
 <!-- user information ////////////////////////////////////////////////////////////////// -->
 
@@ -104,7 +76,7 @@
                         <input type="text" class="form-control" id="txtInfoPwd" placeholder="Password" name="infopwd" required>
                     </div>
 
-                    <div class="form-group"id="divEmail">
+                    <div class="form-group" id="divEmail">
                         <label for="email" id="lblEmail">
                             <b>Email Address</b>
                         </label>
@@ -132,7 +104,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-danger btn-default pull-left"  id="btnUserInfoCancel" data-dismiss="modal">
+                <button type="submit" class="btn btn-danger btn-default pull-left" id="btnUserInfoCancel" data-dismiss="modal">
                     <span class="glyphicon glyphicon-remove"></span> Cancel</button>
             </div>
             </form>
@@ -150,31 +122,19 @@
             </div>
             <div class="modal-body" style="padding:40px 30px;">
                 <form role="form">
-
-                    {{!-- list of activities with sliders
-                    <div class="form-group" id="divActivitySlider">
+                    <div class="form-group">
                         <div class="slider-container">
-                            <label for="activity" id="lblActivitySlider">
-                                <h3>Football</h3>
-                            </label>
-                            <br>
-
-                            <input class="football" id="ex9" type="text" />
+                            {{#each otherSports}} 
+                            <label for="slider"> Sport name : {{this.name}}</label>
+                                <br /> 
+                                <input class="slider" id="slider" type="text" />
+                                <br>
+                                <br>
+                            {{/each}}
+                            
+                            <button id="cmdAddSports">Add Sports </button>
                         </div>
-
                     </div>
-                    <div class="form-group" id="divActivitySlider">
-                        <div class="slider-container">
-                            <label for="activity" id="lblActivitySlider">
-                                <h3>Basketball</h3>
-                            </label>
-                            <br>
-
-                            <input class="basketball" id="ex9" type="text" />
-
-                        </div>
-                    </div> --}}
-
 
                     <button type="submit" class="btn btn-success btn-block" id="btnActivInterestSave">
                         <span class="glyphicon glyphicon-save"></span>
@@ -198,14 +158,25 @@
 
 <script>
     $(document).ready(function () {
+            $("#aLogInNav").click(function () {
+                $("#logIn").modal();
+            });
+        });
+
+        $(document).ready(function () {
+            $("#aSignUpNav").click(function () {
+                $("#signUp").modal();
+            });
+        });
+
+    $(document).ready(function () {
         $("#aSignUpBtn").click(function () {
             $("#signUp").modal();
         });
-    });
 
-
-    var slider = new Slider("#ex9", {
-        precision: 2,
-        value: 0
+        $('.slider').slider({
+            precision: 2,
+            value: 0
+        });
     });
 </script>

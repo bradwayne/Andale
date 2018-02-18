@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/assets/css/style_modal.css" type="text/css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap-slider.css" type="text/css" />
+
 
     <title>Andale!</title>
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
-    
+
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
         crossorigin="anonymous">
@@ -19,18 +21,61 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.js"></script>
+
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/api.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Maven+Pro:700" rel="stylesheet">
-    
+
 </head>
 
 <body>
+
+    <header id="nav-header">
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="logoType">
+                    <strong>Andale!</strong>
+                </h1>
+                <ul class=" navbar-nav navbar-right">
+                    <a class="btn nav_btn" id="aSignUpBtn" style="width:auto;">
+                        <span class="nav-glyph glyphicon glyphicon-user"></span>
+                        <strong>USER PROFILE</strong>
+                    </a>
+                    <a class="btn nav_btn" id="aEventNav" style="width:auto;">
+                        <span class="nav-glyph glyphicon glyphicon-calendar"></span>
+                        <strong>EVENT</strong>
+                    </a>
+                    <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
+                        <span class="nav-glyph glyphicon glyphicon-log-in"></span>
+                        <strong>LOG IN</strong>
+                    </a>
+                    <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
+                        <span class="nav-glyph glyphicon glyphicon-log-out"></span>
+                        <strong>LOG OUT</strong>
+                    </a>
+                    <a class="btn nav_btn" id="aSignUpNav" style="width:auto;">
+                        <span class="nav-glyph glyphicon glyphicon-check"></span>
+                        <strong>SIGN UP</strong>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="tagLineBox">
+        <h2 class="tagLineTxt">
+            <strong>Your Group Activity Finder To Keep You Going</strong>
+           
+        </h2>
+    </div>
+
     {{{ body }}}
+    
 </body>
 
 </html>

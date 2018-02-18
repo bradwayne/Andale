@@ -75,3 +75,4 @@ VALUES
     ('Edgewater Park Jog', 'Edgewater Park, Cleveland, OH', '1000', '0', 'Lebron James', '1550132', 'lebron@james.com', 'Male', '5' ,'20', 'cleveland jog party! starting with edgewater park!', '2018-05-20 06:00:00', '2018-05-20 09:00:00', NOW(), NOW(), 2, 16),
     ('Pick Up Ball Game', 'Quicken Loan Arena, Cleveland, OH', '6', '200', 'Lebron James', '1550132', 'lebron@james.com', 'Male', '5', '18', 'Loser buy dinner!', '2018-04-10 20:00:00', '2018-04-10 23:00:00', NOW(), NOW(), 2, 4),
     ('Hot Yoga New Opening Free Session!', 'Mayfield High School, Mayfield Heights, OH', '10', '0', 'Maria Sharapova', '1324452', 'maria@sharapova.com', 'Female', '1', '20', 'opening day free session for the ladies! no guys plzz ty', '2018-02-27 17:00:00', '2018-02-27 23:00:00', NOW(), NOW(), 5, 19);
+

@@ -1,34 +1,3 @@
-<header id="nav-header">
-    <nav class="navbar">
-        <div class="container">
-            <h1 class="logoType" id="h1LogoType">
-                <strong>Fit For Us</strong>
-            </h1>
-
-<!-- user profile route to userpage when clicked -->
-            <ul class=" navbar-nav navbar-right">
-                <a class="btn nav_btn" id="aSignUpBtn" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-user"></span>
-                    <strong>USER PROFILE</strong>
-                </a>
-                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-log-in"></span>
-                    <strong>LOG IN</strong>
-                </a>
-                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-log-out"></span>
-                    <strong>LOG OUT</strong>
-                </a>
-<!-- sign up route to userpage when clicked -->
-                <a class="btn nav_btn" id="aSignUpNav" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-check"></span>
-                    <strong>SIGN UP</strong>
-                </a>
-            </ul>
-        </div>
-    </nav>
-</header>
-
 <!-- modal buttons -->
 <div class="body">
     <div class="container">
@@ -36,15 +5,18 @@
             <div class="col-md-6">
                 <div class="eventNavBtn myEvents">
                     <button type="submit" class="btn btn-primary" id="cmdsubmitMyEventsBtn">
-                        <strong>MY EVENTS</strong></button>
+                        <strong>MY EVENTS</strong>
+                    </button>
                 </div>
                 <div class="eventNavBtn allEvents">
                     <button type="submit" class="btn btn-primary" id="cmdsubmitAllEventsBtn">
-                        <strong>ALL EVENTS</strong></button>
+                        <strong>ALL EVENTS</strong>
+                    </button>
                 </div>
                 <div class="eventNavBtn nearYouEvents">
                     <button type="submit" class="btn btn-primary" id="cmdsubmitEventsNearBtn">
-                        <strong>EVENTS NEAR YOU</strong></button>
+                        <strong>EVENTS NEAR YOU</strong>
+                    </button>
                 </div>
             </div>
         </div>
@@ -59,23 +31,25 @@
             <div class="modal-content">
                 <div class="modal-header" style="padding:15px 30px">
                     <h4 class="modalHeading">
-                    <strong>Intersted In</strong>
+                        <strong>Intersted In</strong>
                     </h4>
                 </div>
                 <div class="modal-body" style="padding:40px 30px;">
                     <div class="row">
                         <div class="form-group" id="divInterests">
                             <label for="interests" id="lblInterests">
-                            <div>
-                                <h3>ACTIVITY : {{this.activity}}</h3>
-                            </div>
-                            <div>START TIME : {{this.start_time}}</div>
-                            <div>END TIME : {{this.end_time}}</div>
-                            <div>MORE INFO : {{this.details}}</div>
-
-
-
-                                {{!-- list of activities user selected from the user page
+                                {{#if otherEvents}} {{#each otherEvents}}
+                                <a href='/event_details/{{this.id}}'>{{this.name}}
+                                </a>- is looking for {{this.attendants}} player(s)
+                                <br> Hosted by
+                                <i>{{this.host}}</i>
+                                <i>{{this.Event.host}}</i>
+                                <br>
+                                <button class="cmdGoing" data-event-id='{{this.id}}'>
+                                    <strong>Sign Up</strong>
+                                </button>
+                                <br>
+                                <br /> {{/each}} {{/if}} {{!-- list of activities user selected from the user page
                                 <span>First Interest</span> --}}
                             </label>
                         </div>
@@ -85,7 +59,7 @@
         </div>
     </div>
 
-<!-- //// my events btn - my signed up events modal ////////////////////////////////////////////////////////// =-->
+    <!-- //// my events btn - my signed up events modal ////////////////////////////////////////////////////////// =-->
 
     <div class="col-sm-6">
         <div class="modal-dialog">
@@ -99,13 +73,20 @@
                     <div class="row">
                         <div class="form-group" id="divSignedUp">
                             <label for="signedUp" id="lblSignedUp">
-                                <div>
-                                    <h3>ACTIVITY : {{this.activity}}</h3>
-                                </div>
-                                <div>START TIME : {{this.start_time}}</div>
-                                <div>END TIME : {{this.end_time}}</div>
-                                <div>MORE INFO : {{this.details}}</div>
-                                {{!-- list of activities user has signed up for
+                                {{#if likeEventInfo}} {{#each likeEventInfo}}
+                                <a href='/event_details/{{this.EventId}}'>{{this.Event.name}}
+                                </a>- is looking for {{this.Event.attendants}} player(s)
+                                <br> Hosted by
+                                <i>{{this.Event.host}}</i>
+                                <br> {{!-- this will send them to the activity blog page --}}
+                                <button class="cmdDetails" data-event-id='{{this.EventId}}'>View Details</button>
+
+
+                                <button class="cmdCancel" data-event-id='{{this.EventId}}'>Remove</button>
+
+                                <br>
+                                <br /> {{/each}} {{else}} you did not commit to any event.. {{/if}} {{!-- list of activities user
+                                has signed up for
                                 <span>First Signed Up Event</span> --}}
                             </label>
                         </div>
@@ -130,13 +111,18 @@
                 <div class="row">
                     <div class="form-group" id="divEvents">
                         <label for="events" id="lblEvents">
-                            <div>
-                                <h3>ACTIVITY : {{this.activity}}</h3>
-                            </div>
-                            <div>START TIME : {{this.start_time}}</div>
-                            <div>END TIME : {{this.end_time}}</div>
-                            <div>MORE INFO : {{this.details}}</div>
-                            {{!-- list of all events based on users interests
+                            {{#if otherEvents}} {{#each otherEvents}}
+                            <a href='/event_details/{{this.id}}'>{{this.name}}
+                            </a>- is looking for {{this.attendants}} player(s)
+                            <br> Hosted by
+                            <i>{{this.host}}</i>
+                            <i>{{this.Event.host}}</i>
+                            <br>
+                            <button class="cmdGoing" data-event-id='{{this.id}}'>
+                                <strong>Sign Up</strong>
+                            </button>
+                            <br>
+                            <br /> {{/each}} {{/if}} {{!-- list of all events based on users interests
                             <span>First Event</span> --}}
                         </label>
                     </div>
@@ -160,12 +146,12 @@
                 <div class="row">
                     <div class="form-group" id="divNearYou">
                         <label for="nearYou" id="lblNearYou">
-                            <div>
-                                <h3>ACTIVITY : {{this.activity}}</h3>
-                            </div>
-                            <div>START TIME : {{this.start_time}}</div>
-                            <div>END TIME : {{this.end_time}}</div>
-                            <div>MORE INFO : {{this.details}}</div>
+                            <h1>{{this.dataValues.name}}</h1>
+                            <div>Host by : {{this.dataValues.host}}</div>
+                            <div>Looking for : {{this.dataValues.sex}} with skill level of {{this.dataValues.level}}</div>
+                            <div>Start Time : {{this.dataValues.start_time}}</div>
+                            <div>End Time : {{this.dataValues.end_time}}</div>
+                            <div>More Info : {{this.dataValues.details}}</div>
                             {{!-- list of activities nearest to user based on interests
                             <span>First event near you</span> --}}
                         </label>
@@ -180,6 +166,27 @@
 </div>
 
 <script>
+
+//  nav modal btn ///////////////////////////////////////////////////
+    $(document).ready(function () {
+        $("#aLogInNav").click(function () {
+            $("#logIn").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#aSignUpNav").click(function () {
+            $("#signUp").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#aSignUpBtn").click(function () {
+            $("#signUp").modal();
+        });
+    });
+
+// field modal btn //////////////////////////////////////////////////
     $(document).ready(function () {
         $("#cmdsubmitMyEventsBtn").click(function () {
             $("#myEvents").modal();
@@ -197,4 +204,5 @@
             $("#eventNear").modal();
         });
     });
+
 </script>

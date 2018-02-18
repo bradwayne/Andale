@@ -1,41 +1,9 @@
-<header id="nav-header">
-    <nav class="navbar">
-        <div class="container">
-            <h1 class="logoType">
-                <strong>Fit For Us</strong>
-            </h1>
-            <ul class=" navbar-nav navbar-right">
-                <a class="btn nav_btn" id="aSignUpBtn" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-user"></span>
-                    <strong>USER PROFILE</strong>
-                </a>
-                <a class="btn nav_btn" id="aEventNav" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-calendar"></span>
-                    <strong>EVENT</strong>
-                </a>
-                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-log-in"></span>
-                    <strong>LOG IN</strong>
-                </a>
-                <a class="btn nav_btn" id="aLogInNav" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-log-out"></span>
-                    <strong>LOG OUT</strong>
-                </a>
-                <a class="btn nav_btn" id="aSignUpNav" href="/userpage" style="width:auto;">
-                    <span class="nav-glyph glyphicon glyphicon-check"></span>
-                    <strong>SIGN UP</strong>
-                </a>
-            </ul>
-        </div>
-    </nav>
-</header>
-
 <div class="body">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div id="logo">
-                    <a class="btn1" id="aSignUpBtn" href="/userpage">
+                    <a class="btn1" id="aSignUpBtn">
                         <strong>SIGN UP</strong>
                     </a>
                 </div>
@@ -93,6 +61,7 @@
 </div>
 
 <script>
+
     $(document).ready(function () {
         $("#aLogInNav").click(function () {
             $("#logIn").modal();

@@ -101,7 +101,8 @@
             <b>Event you should consider attending:</b> <br />
             {{#if otherEvents}}
                 {{#each otherEvents}}
-                    <a href='/event_details/{{this.id}}'>{{this.name}}</a> - looking for {{this.attendants}} player(s), event hosted by..<i>{{this.host}}</i>
+                    <a href='/event_details/{{this.id}}'>{{this.name}}</a> - looking for {{this.attendants}} player(s), event hosted by..
+                    <i>{{this.host}}</i>
                     <i>{{this.Event.host}}</i>
                     <button class="cmdGoing" data-event-id='{{this.id}}'>I'm in!!</button>
                     <br />

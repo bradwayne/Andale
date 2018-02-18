@@ -14,12 +14,34 @@ body {
     clear: both;
 }
 
-#nav-header {
+/* #nav-header {
     position: fixed;
     width: 100%;
     z-index: 100;
     color: black;
     background-color: white;
+} */
+
+.tagLineBox {
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    background-color: #00ace6;
+    z-index: 50;
+    height: 50px;
+}
+
+.tagLineTxt {
+    font-family: 'Orbitron', sans-serif;
+    position: fixed;
+    width: 100%;
+    color: white;
+    margin-top: 6px;
+    letter-spacing: 9px;
+}
+
+.subTagLine {
+    font-family: Archivo+Black;
 }
 
 .nav_btn {
@@ -72,7 +94,7 @@ a {
 }
 
 .eventNavBtn {
-    margin-top: 100px;
+    margin-top: 60px;
     float: left;
     margin-right: 15px;
 }
