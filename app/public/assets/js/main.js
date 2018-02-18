@@ -43,6 +43,9 @@ $(function () {
           console.log('user created successfully')
         }
       // console.log(xhr.responseJSON.error)
+      },complete: function (data) {
+        console.log('Done')
+        console.log(data.responseJSON)
       }
     })
   }
@@ -129,16 +132,39 @@ $(function () {
       }
     })
   }
+  function replacingSequelizeError (obj) {
+    obj = 'Validation error' + obj.replace(/Validation error:/g, '')
+    console.log(obj)
+    return obj
+  }
+  /*   function SignUp (obj) {
+      $.ajax('/api/user/', {
+        type: 'POST',
+        data: obj,
+        success: function (data, status, xhr) {
+          console.log('add User')
+          if (xhr.responseJSON) {
+            if (xhr.responseJSON.indexOf('Validation error') > -1) {
+              // console.log(xhr.responseJSON)
+              return replacingSequelizeError(xhr.responseJSON)
+            }else {
+              console.log('user added successfully')
+            }
+          }
+        }
+      })
+    } */
 
-  function SignUp (obj) {
-    $.ajax('/api/user/', {
-      type: 'POST',
+  function updateProfile (obj) {
+    $.ajax('/api/user/' + sessionStorage.getItem('sessionUserId'), {
+      type: 'PUT',
       data: obj,
       success: function (data, status, xhr) {
-        console.log('add User')
+        console.log('in updateProfile function')
+        console.log(xhr)
         if (xhr.responseJSON) {
           if (xhr.responseJSON.indexOf('Validation error') > -1) {
-            console.log(xhr.responseJSON)
+            return replacingSequelizeError(xhr.responseJSON)
           }else {
             console.log('user added successfully')
           }
@@ -147,26 +173,8 @@ $(function () {
     })
   }
 
-  function UpdateProfile (obj) {
-    $.ajax('/api/user/' + sessionStorage.getItem('sessionUserId'), {
-      type: 'PUT',
-      data: obj,
-      success: function (data, status, xhr) {
-        console.log('in edit sport function')
-        console.log(xhr)
-        if (xhr.status == 200) {
-          console.log('user sport edit successfully')
-        // location.reload()
-        }else {
-          console.log(xhr.responseJSON)
-        }
-      // console.log(xhr.responseJSON.error)
-      }
-    })
-  }
-
   function addSport (obj) {
-    $.ajax('/api/UserSport/' + sessionStorage.getItem('sessionUserId'), {
+    $.ajax('/api/userSport/' + sessionStorage.getItem('sessionUserId'), {
       type: 'POST',
       data: obj,
       success: function (data, status, xhr) {
@@ -347,15 +355,31 @@ $(function () {
         photo: $('.txtPhoto').val(),
         bio: $('.taBio').val()
       }
-      SignUp(objSignUp)
+
+      $.ajax('/api/user/', {
+        type: 'POST',
+        data: objSignUp,
+        success: function (data, status, xhr) {
+          console.log('add User')
+          if (xhr.responseJSON) {
+            if (xhr.responseJSON.indexOf('Validation error') > -1) {
+              // console.log(xhr.responseJSON)
+              console.log('Thorwing error')
+              replacingSequelizeError(xhr.responseJSON)
+            }
+          }else {
+            console.log('no error found, user added successfully')
+            setTimeout(() => {
+              console.log('proceed with page reload')
+            // location.reload()
+            }, 500)
+          }
+        }
+      })
     } catch(e) {
+      console.log('in catch')
       console.log(e)
-    }finally {
-      setTimeout(() => {
-        location.reload()
-      }, 500)
     }
-    console.log(objSignUp)
   })
 
   $('#cmdUpdateProfile').click(function () {
@@ -368,13 +392,30 @@ $(function () {
         photo: $('.txtCurrentPhoto').val(),
         bio: $('.taCurrentBio').val()
       }
-      UpdateProfile(objUpdate);
+      $.ajax('/api/user/' + sessionStorage.getItem('sessionUserId'), {
+        type: 'PUT',
+        data: objUpdate,
+        success: function (data, status, xhr) {
+          console.log('in updateProfile function')
+          console.log(xhr)
+          if (xhr.responseJSON) {
+            if (xhr.responseJSON.indexOf('Validation error') > -1) {
+              // console.log(xhr.responseJSON)
+              console.log('Thorwing error')
+              replacingSequelizeError(xhr.responseJSON)
+            }
+          }else {
+            console.log('no error found, user profile updated successfully')
+            setTimeout(() => {
+              console.log('proceed with page reload')
+            // location.reload()
+            }, 500)
+          }
+        }
+      })
     } catch(e) {
+      console.log('in update profile catch')
       console.log(e)
-    }finally {
-      setTimeout(() => {
-        //location.reload()
-      }, 500)
     }
   // console.log(objUpdate)
   })

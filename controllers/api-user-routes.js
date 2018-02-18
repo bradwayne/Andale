@@ -1,6 +1,6 @@
 var db = require('../app/models')
 var Sequelize = require('sequelize')
-
+var nodemailer = require('nodemailer')
 var Op = Sequelize.Op
 
 module.exports = function (app) {
@@ -36,15 +36,11 @@ module.exports = function (app) {
           title: 'User Profile',
           user: user
         }
-        if (user.Sports) {
-          for (var i = 0; i < user.UserSports.length; i++) {
-            arrSportId.push(user.UserSports[i].SportId)
-          }
+        for (var i = 0; i < user.UserSports.length; i++) {
+          arrSportId.push(user.UserSports[i].SportId)
         }
-        if (user.UserEvents) {
-          for (var i = 0; i < user.UserEvents.length; i++) {
-            arrEventId.push(user.UserEvents[i].EventId)
-          }
+        for (var i = 0; i < user.UserEvents.length; i++) {
+          arrEventId.push(user.UserEvents[i].EventId)
         }
 
         console.log(arrSportId)
@@ -60,7 +56,7 @@ module.exports = function (app) {
               where: {
                 id: { [Op.notIn]: arrEventId},
                 numberAttending: { $lt: Sequelize.col('attendants')},
-                  [Op.or] : [{gender: objUser.user.gender},{gender: 'Unspecified'}]
+                [Op.or]: [{gender: objUser.user.gender}, {gender: 'Unspecified'}]
               }
               // more filter in here!! based on user specification, user gender, favorite sport, 
 
@@ -84,6 +80,8 @@ module.exports = function (app) {
                   objUser.likeEventInfo = likeEventInfo
                   // res.json(objUser)
                   res.render('events', objUser)
+                  // res.redirect('/')
+                  // req.flash('info', 'Welcome')
                 })
               })
             })
@@ -209,6 +207,16 @@ module.exports = function (app) {
         res.json(err.message)
       })
   })
+  app.get('/mail', function (req, res, next) {
+    const output = ` <p> Testing nodemailer </p>
+                        <h3> Blaaaaa</h3>
+                        <ul>
+                        <li>${req.body.first_name}</li>
+                        <li>${req.body.last_name}</li>
+                        <li>${req.body.user_name}</li>
+                        </ul>
+                        <p>${req.body.bio}</p>`
+  })
 
   app.put('/api/user/:id', function (req, res, next) {
     db.User.update({
@@ -231,6 +239,10 @@ module.exports = function (app) {
         return res.status(404).end()
       }
       res.status(200).end()
+    }).catch(function (err) {
+      console.log('error in sequelize')
+      console.log(err.message)
+      res.json(err.message)
     })
   })
 
@@ -241,8 +253,10 @@ module.exports = function (app) {
       level: req.body.level,
       UserId: req.body.user_id
     }).then(function (results) {
+      req.flash('info', 'Flash Message Added')
+      res.redirect('/user/' + req.body.user_id)
       console.log(results)
-      res.send(results)
+    // res.send(results)
     })
   })
 
@@ -263,12 +277,16 @@ module.exports = function (app) {
       if (results.changedRows === 0) {
         return res.status(404).end()
       }
+      req.flash('info', 'Flash Message Added')
+      res.redirect('/user/' + req.body.user_id)
+      console.log(results)
       res.status(200).end()
     })
   })
 
   app.post('/api/userEvent/', function (req, res, next) {
-    var numEvents
+    var EventInfo, UserInfo, UserEventInfo
+    var numEvents, attendantLimit, hostName, hostEmail, hostId
     console.log('user Event')
     db.UserEvent.create({
       EventId: req.body.EventId,
@@ -279,6 +297,7 @@ module.exports = function (app) {
           EventId: req.body.EventId
         }
       }).then(function (allEvents) {
+        UserEventInfo = allEvents
         numEvents = allEvents.count
         console.log(allEvents)
         console.log('All events count: ')
@@ -290,12 +309,43 @@ module.exports = function (app) {
               id: req.body.EventId
             }
           }).then(function (updated) {
+          EventInfo = updated
           console.log('changedRows : ' + results.changedRows)
           console.log(results)
           if (results.changedRows === 0) {
             return res.status(404).end()
           }
-          res.status(200).end()
+          db.Events.findOne({
+            where: {
+              id: req.body.EventId
+            }
+          }).then(function (events) {
+            console.log(events)
+            eventInfo = events
+            attendantLimit = eventInfo.attendants
+            hostId = eventInfo.UserId
+            console.log("host Id : " + hostId);
+            console.log('attendance : ' + eventInfo.attendants)
+            if (attendantLimit == numEvents) {
+              db.User.findOne({
+                where: {
+                  id: hostId
+                }
+              }).then(function (userInfo) {
+                hostName = userInfo.first_name + ' ' + userInfo.last_name
+                hostEmail = userInfo.email
+                console.log('send out email to host about full attendances')
+
+                var content = `Hi ${hostName}, <br /> you have gathered <b>${attendantLimit}</b> person for event <b>${eventInfo.name}</b>!
+                                       Please check out the event detail page for your upcoming event buddies! `
+                console.log(hostName + ' <' + hostEmail + '>')
+                console.log('Your Event - ' + eventInfo.name + ' is ready!')
+                console.log(content)
+                mailer(hostName + ' <' + hostEmail + '>', 'Your Event - ' + eventInfo.name + ' is ready!', content)
+              })
+            }
+            res.status(200).end()
+          })
         })
       })
     })
@@ -375,9 +425,44 @@ module.exports = function (app) {
       })
     })
   })
-  
-  
 
+  function mailer (emailTo, emailSubject, emailContent) {
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      // port: 25,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: 'bscwruproject2@gmail.com', // generated ethereal user
+        pass: 'Bootcamp123' // generated ethereal password
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    })
+
+    // setup email data with unicode symbols
+    let mailOptions = {
+      from: '"Project 2 Admin" <bscwruproject2@gmail.com>', // sender address
+      to: emailTo, // list of receivers
+      subject: emailSubject, // Subject line
+      html: emailContent
+    // html: '<b>Hello world?</b>' // html body
+    }
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log(error)
+      }
+      console.log('Message sent: %s', info.messageId)
+      // Preview only available when sending through an Ethereal account
+      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    })
+  }
 
   app.get('/brad/:id', function (req, res, next) {
     var objUser = {}

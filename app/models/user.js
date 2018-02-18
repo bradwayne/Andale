@@ -37,36 +37,42 @@ module.exports = function (sequelize, DataTypes) {
       validate: {
         isIn: {
           args: [[ 'male', 'female', 'unspecified']],
-          msg: 'The value must be one of these : male, female, or unspecify'
+          msg: 'The value must be one of these : male, female, or unspecified'
         }
       }
     },
     username: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: {
         args: false,
         msg: 'User must have a username'
+      },
+      validate: {
+        len: {
+          args: [4, 15],
+          msg: 'Username must have at least 4 characters and not more than 15 characters'
+        }
       }
     },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: {
         args: false,
         msg: 'Please enter an email-address'
       },
       validate: {
-        is: {
-          //args: '/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
-          //msg: 'Please enter a valid email address'
+        isEmail: {
+            args : true,
+            msg: 'Please enter a valid email-address'
         }
       }
     },
     password: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       validate: {
-        is: {
-          //args: ['^(?=.*\d).{4,16}$'], // regex from here http://regexlib.com/Search.aspx?k=password&AspxAutoDetectCookieSupport=1
-          //msg: 'Password must be between 4 and 8 digits long and include at least one numeric digit'
+        len: {
+          args: [4, 15],
+          msg: 'password must have at least 4 characters and not more than 15 characters'
         }
       }
     },
