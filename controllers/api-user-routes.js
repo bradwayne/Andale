@@ -579,7 +579,7 @@ module.exports = function (app) {
                 }).then(function (likeEventInfo) {
                   objUser.likeEventInfo = likeEventInfo
                   // res.json(objUser)
-                  res.render('activity', objUser)
+                  res.render('home', objUser)
                 })
               })
             })

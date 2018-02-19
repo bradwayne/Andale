@@ -1,7 +1,6 @@
 body {
     background-color: white;
     margin: auto;
-    /* font-family: 'Archivo Black', sans-serif; */
 }
 
 * {
@@ -13,14 +12,6 @@ body {
     margin: 0 auto;
     clear: both;
 }
-
-/* #nav-header {
-    position: fixed;
-    width: 100%;
-    z-index: 100;
-    color: black;
-    background-color: white;
-} */
 
 .tagLineBox {
     text-align: center;
@@ -37,7 +28,7 @@ body {
     width: 100%;
     color: white;
     margin-top: 6px;
-    letter-spacing: 9px;
+    letter-spacing: 3px;
 }
 
 .subTagLine {
