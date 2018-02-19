@@ -18,6 +18,16 @@ $(function () {
     window.location.href = '/user'
   // $('#signUp').modal()
   })
+
+  $('#aEventNav').click(function () {
+    console.log('going to event page')
+    if (sessionStorage.getItem('sessionUserId')) {
+      window.location.href = '/event/' + sessionStorage.getItem('sessionUserId')
+    }else {
+      console.log('you need to sign in to view the event page')
+      setWebSession('all event')
+    }
+  })
   if (window.location.href.indexOf('/user/') > -1) {
     if (sessionStorage.getItem('sessionUserName')) {
       $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
@@ -43,19 +53,13 @@ $(function () {
           $(this).val('data-slider-value')
         }
       })
-       $('.slider').slider({
-        precision: 2,
-      }) 
+      $('.slider').slider({
+        precision: 2
+      })
       $('.newSportSlider').slider({
         precision: 2,
         value: 0
-      }) 
-      
-      // for(var i =0; i < sliderValue.length; i++){
-      //    console.log("here")
-      //    console.log(sliderValue[i])
-      // $('.slider.currentUser[data-value*='+sliderValue[i]+ ']').attr("data-value", sliderValue[i])
-      // }
+      })
 
       console.log('remove session in user redirect')
       sessionStorage.removeItem('sessionNextPage')
@@ -80,6 +84,11 @@ $(function () {
     }
   }
   if (window.location.href.indexOf('/event/') > -1) {
+    if (!sessionStorage.getItem('sessionUserId')) {
+      $('.myEvents').hide()
+    }else {
+      $('.myEvents').show()
+    }
     console.log('here')
     console.log(sessionStorage.getItem('sessionNextPage'))
     if (sessionStorage.getItem('sessionNextPage') === 'my event') {
@@ -89,6 +98,9 @@ $(function () {
       console.log('something pop up')
       $('#myEvents').modal()
       sessionStorage.removeItem('sessionNextPage')
+    }else if (sessionStorage.getItem('sessionNextPage') === 'all event') {
+      console.log('in event page, going to all event')
+      $('#allEvents').modal()
     }
   }
 
