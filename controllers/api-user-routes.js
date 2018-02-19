@@ -526,7 +526,7 @@ module.exports = function (app) {
     })
       .then(function (user) {
         console.log(JSON.stringify(objUser))
-                  res.render('user', objUser)
+                  res.render('events', objUser)
       // res.json(objUser)
       })
   })
