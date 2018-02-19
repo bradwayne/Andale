@@ -22,76 +22,81 @@ module.exports = function (app) {
     })
   })
 
-  app.get('/user/',function(req, res, next){
-      res.render('user', {});
-  })
-
-  app.get('/user/:id', function (req, res, next) {
+  app.get('/user/:id?', function (req, res, next) {
     var objUser = {}
     var arrSportId = []
     var arrEventId = []
     console.log('get specific user info')
-    db.User.findOne({
-      where: { id: req.params.id },
-      include: [{ model: db.UserEvent }, { model: db.UserSport }]
-    })
-      .then(function (user) {
-        objUser = {
-          title: 'User Profile',
-          user: user
-        }
-        for (var i = 0; i < user.UserSports.length; i++) {
-          arrSportId.push(user.UserSports[i].SportId)
-        }
-        for (var i = 0; i < user.UserEvents.length; i++) {
-          arrEventId.push(user.UserEvents[i].EventId)
-        }
-
-        console.log(arrSportId)
-        console.log(arrEventId)
-        db.Sport.findAll({
-          where: {
-            Id: { [Op.notIn]: arrSportId}
+    if (req.params.id) {
+      db.User.findOne({
+        where: { id: req.params.id },
+        include: [{ model: db.UserEvent }, { model: db.UserSport }]
+      })
+        .then(function (user) {
+          objUser = {
+            title: 'User Profile',
+            user: user
           }
-        })
-          .then(function (otherSports) {
-            objUser.otherSports = otherSports
-            db.Events.findAll({
-              where: {
-                id: { [Op.notIn]: arrEventId},
-                numberAttending: { $lt: Sequelize.col('attendants')},
-                [Op.or]: [{gender: objUser.user.gender}, {gender: 'Unspecified'}]
-              }
-              // more filter in here!! based on user specification, user gender, favorite sport, 
+          for (var i = 0; i < user.UserSports.length; i++) {
+            arrSportId.push(user.UserSports[i].SportId)
+          }
+          for (var i = 0; i < user.UserEvents.length; i++) {
+            arrEventId.push(user.UserEvents[i].EventId)
+          }
 
-            }).then(function (otherEvents) {
-              objUser.otherEvents = otherEvents
-              db.UserSport.findAll({
+          console.log(arrSportId)
+          console.log(arrEventId)
+          db.Sport.findAll({
+            where: {
+              Id: { [Op.notIn]: arrSportId}
+            }
+          })
+            .then(function (otherSports) {
+              objUser.otherSports = otherSports
+              db.Events.findAll({
                 where: {
-                  SportId: { [Op.in]: arrSportId},
-                  UserId: req.params.id
-                },
-                include: [db.Sport]
-              }).then(function (likeSportInfo) {
-                objUser.likeSportsInfo = likeSportInfo
-                db.UserEvent.findAll({
+                  id: { [Op.notIn]: arrEventId},
+                  numberAttending: { $lt: Sequelize.col('attendants')},
+                  [Op.or]: [{gender: objUser.user.gender}, {gender: 'Unspecified'}]
+                }
+                // more filter in here!! based on user specification, user gender, favorite sport, 
+
+              }).then(function (otherEvents) {
+                objUser.otherEvents = otherEvents
+                db.UserSport.findAll({
                   where: {
-                    EventId: {[Op.in]: arrEventId},
+                    SportId: { [Op.in]: arrSportId},
                     UserId: req.params.id
                   },
-                  include: [db.Events]
-                }).then(function (likeEventInfo) {
-                  objUser.likeEventInfo = likeEventInfo
-                  //res.json(objUser)
-                  req.flash('info', 'Flash Message Added')
-                  // res.redirect('/')
-                  // req.flash('info', 'Welcome')
-                  res.render('user', objUser)
+                  include: [db.Sport]
+                }).then(function (likeSportInfo) {
+                  objUser.likeSportsInfo = likeSportInfo
+                  db.UserEvent.findAll({
+                    where: {
+                      EventId: {[Op.in]: arrEventId},
+                      UserId: req.params.id
+                    },
+                    include: [db.Events]
+                  }).then(function (likeEventInfo) {
+                    objUser.likeEventInfo = likeEventInfo
+                    // res.json(objUser)
+                    req.flash('info', 'Flash Message Added')
+                    // res.redirect('/')
+                    // req.flash('info', 'Welcome')
+                    res.render('user', objUser)
+                  })
                 })
               })
             })
-          })
-      })
+        })
+    }else {
+      db.Sport.findAll({})
+        .then(function (sports) {
+          objUser.otherSports = sports
+          res.render('user', objUser)
+        // res.json(objUser)
+        })
+    }
   })
 
   app.get('/api/getUser/:username/:password', function (req, res, next) {
@@ -301,7 +306,7 @@ module.exports = function (app) {
     console.log('user sport')
     db.UserSport.create({
       SportId: req.body.sport_id,
-      level: req.body.level,
+      level: parseInt(req.body.level),
       UserId: req.body.user_id
     }).then(function (results) {
       req.flash('info', 'Flash Message Added')
@@ -313,10 +318,9 @@ module.exports = function (app) {
 
   app.put('/api/userSport/', function (req, res, next) {
     console.log('user sport')
+    console.log(req.body)
     db.UserSport.update({
-      SportId: req.body.SportId,
-      level: req.body.level,
-      UserId: req.body.UserId
+      level: parseInt(req.body.level),
     }, {
       where: {
         UserId: req.body.UserId,
@@ -324,14 +328,16 @@ module.exports = function (app) {
       }
     }).then(function (results) {
       console.log('changedRows : ' + results.changedRows)
+      console.log("results:");
       console.log(results)
       if (results.changedRows === 0) {
         return res.status(404).end()
+      }else {
+        res.status(200).end()
       }
-      req.flash('info', 'Flash Message Added')
-      res.redirect('/user/' + req.body.user_id)
+      // req.flash('info', 'Flash Message Added')
+      // res.redirect('/user/' + req.body.UserId)
       console.log(results)
-      res.status(200).end()
     })
   })
 
@@ -375,7 +381,7 @@ module.exports = function (app) {
             eventInfo = events
             attendantLimit = eventInfo.attendants
             hostId = eventInfo.UserId
-            console.log("host Id : " + hostId);
+            console.log('host Id : ' + hostId)
             console.log('attendance : ' + eventInfo.attendants)
             if (attendantLimit == numEvents) {
               db.User.findOne({
@@ -434,6 +440,7 @@ module.exports = function (app) {
         UserId: req.body.UserId
       }
     }).then(function (result) {
+      console.log('affected Rows : ' + result.affectedRows)
       if (result.affectedRows == 0) {
         return res.status(404).end()
       }else {
@@ -529,12 +536,12 @@ module.exports = function (app) {
           title: 'User Profile',
           user: user
         }
-        if(user.UserSports){
+        if (user.UserSports) {
           for (var i = 0; i < user.UserSports.length; i++) {
             arrSportId.push(user.UserSports[i].SportId)
           }
         }
-        if(user.UserEvents){
+        if (user.UserEvents) {
           for (var i = 0; i < user.UserEvents.length; i++) {
             arrEventId.push(user.UserEvents[i].EventId)
           }
@@ -551,7 +558,7 @@ module.exports = function (app) {
             db.Events.findAll({
               where: {
                 id: { [Op.notIn]: arrEventId },
-                // more filter in here!! based on user specification, user gender, favorite sport, 
+              // more filter in here!! based on user specification, user gender, favorite sport, 
               }
             }).then(function (otherEvents) {
               objUser.otherEvents = otherEvents
@@ -571,13 +578,12 @@ module.exports = function (app) {
                   include: [db.Events]
                 }).then(function (likeEventInfo) {
                   objUser.likeEventInfo = likeEventInfo
-                  //res.json(objUser)
+                  // res.json(objUser)
                   res.render('events', objUser)
                 })
               })
             })
           })
       })
-      
   })
 }

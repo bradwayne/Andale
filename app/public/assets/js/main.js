@@ -26,6 +26,7 @@ $(function () {
     }else {
       console.log('you need to sign in to view the event page')
       setWebSession('all event')
+      window.location.href = '/event'
     }
   })
   if (window.location.href.indexOf('/user/') > -1) {
@@ -67,14 +68,22 @@ $(function () {
   }
 
   $('#aLogInNav').click(function () {})
+
   if (!sessionStorage.getItem('sessionUserId')) {
     console.log('user is not log in, hide user profile')
     $('#aSignUpBtn').hide()
+    $('#aSignUpNav').show()
   }else {
+    $('#aSignUpNav').hide()
     $('#aSignUpBtn').show()
     $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
     $('#aSignUpBtn').attr('href', '/user/' + sessionStorage.getItem('sessionUserId'))
   }
+
+  $('#aSignUpNav').click(function () {
+    setWebSession('sign up')
+    window.location.href = '/user'
+  })
 
   if (sessionStorage.getItem('sessionNextPage') === 'sign up') {
     console.log('sign up session here')
@@ -82,8 +91,7 @@ $(function () {
       $('#signUp').modal()
       sessionStorage.removeItem('sessionNextPage')
     }
-  }
-  if (window.location.href.indexOf('/event/') > -1) {
+  }else if (window.location.href.indexOf('/event') > -1) {
     if (!sessionStorage.getItem('sessionUserId')) {
       $('.myEvents').hide()
     }else {
@@ -384,14 +392,15 @@ $(function () {
   $('#cmdChangeLevel').click(function () {
     try {
       var objUserSport = []
-      $('.txtLevel').each(function () {
-        objUserSport.push({
-          SportId: $(this).attr('data-id'),
-          level: parseInt(this.value),
-          UserId: 1
-        }
-        )
-      })
+      $('.slider.currentUser').each(function () {
+          if($(this).attr("data-slider-value") !== $(this).attr("data-value")){
+              objUserSport.push({
+                  SportId: $(this).attr('data-id'),
+                  level: parseInt(this.value),
+                  UserId: sessionStorage.getItem('sessionUserId')
+              })
+            }
+        })
       for (var i = 0; i < objUserSport.length; i++) {
         editSport(objUserSport[i])
       }
@@ -399,7 +408,7 @@ $(function () {
       console.log(e)
     } finally {
       setTimeout(() => {
-        location.reload()
+         //location.reload()
       }, 500)
     }
   })
@@ -407,12 +416,12 @@ $(function () {
   $('#cmdAddSports').click(function () {
     try {
       var objUserSport = []
-      $('.txtNewSportLevel').each(function () {
+      $('.newSportSlider').each(function () {
         if (parseInt(this.value) > 0) {
           objUserSport.push({
             SportId: $(this).attr('data-id'),
             level: parseInt(this.value),
-            UserId: 1
+            UserId: sessionStorage.getItem('sessionUserId')
           })
         }
       })
@@ -495,10 +504,17 @@ $(function () {
             }
           }else {
             console.log('no error found, user added successfully')
+            getUserCredentials(objSignUp.username, objSignUp.password)
+            setWebSession('user profile')
             setTimeout(() => {
               console.log('proceed with page reload')
+              if (sessionStorage.getItem('sessionUserId')) {
+                window.location.href = '/user/' + sessionStorage.getItem('sessionUserId')
+              }else {
+                window.location = '/'
+              }
             // location.reload()
-            }, 500)
+            }, 8000)
           }
         }
       })
@@ -508,7 +524,7 @@ $(function () {
     }
   })
 
-  $('#btnUserInfoSave').click(function () {
+  $('#cmdSaveChanges').click(function () {
     try {
       var objUpdate = {
         first_name: $('.txtCurrentFirstName').val(),

@@ -28,19 +28,20 @@ module.exports = function (app) {
 
   })
 
-  app.get('/event/:id', function (req, res, next) {
+  app.get('/event/:id?', function (req, res, next) {
     var arrEventId = []
     var arrSportId = []
     var eventToDisplay = {}
-    db.User.findOne({
-      where: { id: req.params.id },
-      include: [{ model: db.Events}, {model: db.UserSport}, {model: db.UserEvent} ]
-    })
-      .then(function (userHostedEvents) {
-        eventToDisplay = {
-          title: 'Events User Hosting',
-          user: userHostedEvents
-        }
+    if (req.params.id) {
+      db.User.findOne({
+        where: { id: req.params.id },
+        include: [{ model: db.Events}, {model: db.UserSport}, {model: db.UserEvent} ]
+      })
+        .then(function (userHostedEvents) {
+          eventToDisplay = {
+            title: 'Events User Hosting',
+            user: userHostedEvents
+          }
           for (var i = 0; i < eventToDisplay.user.UserEvents.length; i++) {
             arrEventId.push(eventToDisplay.user.UserEvents[i].EventId)
           }
@@ -48,34 +49,43 @@ module.exports = function (app) {
             arrSportId.push(eventToDisplay.user.UserSports[i].SportId)
           }
 
-
-        console.log(arrEventId)
-        db.UserEvent.findAll({
-          where: {
-            EventId: { [Op.in]: arrEventId },
-            UserId: req.params.id
-          },
-          include: [db.Events]
-        }).then(function (likeEventInfo) {
-          eventToDisplay.likeEventInfo = likeEventInfo
-          db.Events.findAll({
+          console.log(arrEventId)
+          db.UserEvent.findAll({
             where: {
-              id: {[Op.notIn]: arrEventId},
-              SportId: {[Op.in]: arrSportId}
-            }
-          })
-            .then(function (otherEvents) {
-              eventToDisplay.otherEvents = otherEvents
-
-              db.Events.findAll({})
-                .then(function (allEvents) {
-                  eventToDisplay.allEvents = allEvents
-                   //res.json(eventToDisplay)
-                  res.render('events', eventToDisplay)
-                })
+              EventId: { [Op.in]: arrEventId },
+              UserId: req.params.id
+            },
+            include: [db.Events]
+          }).then(function (likeEventInfo) {
+            eventToDisplay.likeEventInfo = likeEventInfo
+            db.Events.findAll({
+              where: {
+                id: {[Op.notIn]: arrEventId},
+                SportId: {[Op.in]: arrSportId}
+              }
             })
+              .then(function (otherEvents) {
+                eventToDisplay.otherEvents = otherEvents
+
+                db.Events.findAll({})
+                  .then(function (allEvents) {
+                    eventToDisplay.allEvents = allEvents
+                    console.log('here')
+                    //res.json(eventToDisplay)
+                    res.render('events', eventToDisplay)
+                  })
+              })
+          })
         })
+    }else {
+      db.Events.findAll({
+      }).then(function (allEvents) {
+        eventToDisplay.events = allEvents
+        console.log('here')
+        //res.json(eventToDisplay)
+        res.render('events', eventToDisplay)
       })
+    }
   })
 
   app.get('/event_details/:id', function (req, res, next) {

@@ -11,13 +11,12 @@
                     </h4>
                 </div>
                 <div class="modal-body" style="padding:40px 30px;">
-                    <form role="form">
-
+                    <div role="form">
                         <div class="form-group" id="divFirstName">
                             <label for="firstname" id="lblFirstName">
                                 <span>First Name</span>
                             </label>
-                            <input type="text" class="form-control" id="txtFirstName" placeholder="First Name" {{#if user.first_name}} value='{{user.first_name}}'
+                            <input type="text" class="form-control txtFirstName" id="txtFirstName" placeholder="First Name" {{#if user.first_name}} value='{{user.first_name}}'
                                 {{/if}}>
                         </div>
 
@@ -25,7 +24,7 @@
                             <label for="lastname" id="lblLastName">
                                 <span>Last Name</span>
                             </label>
-                            <input type="text" class="form-control" id="txtLastName" placeholder="Last Name" {{#if user.last_name}} value='{{user.last_name}}'
+                            <input type="text" class="form-control txtLastName" id="txtLastName" placeholder="Last Name" {{#if user.last_name}} value='{{user.last_name}}'
                                 {{/if}}>
                         </div>
                         {{#unless user.gender}}
@@ -34,9 +33,9 @@
                                 <span>Gender</span>
                             </label>
                             <label class="radio-inline" id="lblGenderMale">
-                                <input type="radio" name="optradio">Male</label>
+                                <input type="radio" name="gender" value='male' checked="checked">Male</label>
                             <label class="radio-inline" id="lblGenderFemale">
-                                <input type="radio" name="optradio">Female</label>
+                                <input type="radio" name="gender" value='female'>Female</label>
                             </label>
                         </div>
                         {{/unless}}
@@ -47,7 +46,7 @@
                             </label>
                             <div class="form-inline">
                                 <div class="form-group" id="divLocationCity">
-                                    <input type="text" class="form-control" id="txtLocationCity" placeholder="City" name="location" style="width:auto" {{#if
+                                    <input type="text" class="form-control txtLocation" id="txtLocationCity" placeholder="City" name="location" style="width:auto" {{#if
                                         user.location}} value='{{user.location}}' {{/if}}>
                                 </div>
                                 <div class="form-group" id="divLocationState">
@@ -63,28 +62,28 @@
                                 <b>Date Of Birth</b>
                             </label>
                             <br>
-                            <input type="text" class="form-control" id="txtDateBirth" placeholder="mm/dd/yyyy" name="dateBirth" required />
+                            <input type="date" class="form-control dpDob" id="txtDateBirth" name="dateBirth" required />
                         </div>
                         {{/unless}} {{#unless user.username}}
                         <div class="form-group" id="divInfoUserName">
                             <label for="infousername" id="lblInfoUserName">
                                 <b>User Name</b>
                             </label>
-                            <input type="text" class="form-control" id="txtInfoUserName" placeholder="User Name" name="infousername" required />
+                            <input type="text" class="form-control txtUserName" id="txtInfoUserName" placeholder="User Name" name="infousername" required />
                         </div>
                         {{/unless}} {{#unless user.password}}
                         <div class="form-group" id="divInfoPwd">
                             <label for="infopwd" id="lblInfoPwd">
                                 <b>Password</b>
                             </label>
-                            <input type="text" class="form-control" id="txtInfoPwd" placeholder="Password" name="infopwd" required>
+                            <input type="password" class="form-control txtPassword" id="txtInfoPwd" placeholder="Password" name="infopwd" required>
                         </div>
                         {{/unless}}
                         <div class="form-group" id="divEmail">
                             <label for="email" id="lblEmail">
                                 <b>Email Address</b>
                             </label>
-                            <input type="text" class="form-control" id="txtEmailAddress" placeholder="Email Address" name="email" required {{#if user.email}}
+                            <input type="text" class="form-control txtEmail" id="txtEmailAddress" placeholder="Email Address" name="email" required {{#if user.email}}
                                 value='{{user.email}}' {{/if}}>
                         </div>
 
@@ -92,7 +91,7 @@
                             <label for="userimage" id="lblUserImage">
                                 <b>User Image</b>
                             </label>
-                            <input type="text" class="form-control" id="txtUserImage" placeholder="http://image" name="useriamge" required {{#if user.photo}}
+                            <input type="text" class="form-control txtPhoto" id="txtUserImage" placeholder="http://image" name="useriamge" required {{#if user.photo}}
                                 value='{{user.photo}}' {{/if}}>
                         </div>
 
@@ -100,10 +99,10 @@
                             <label for="userbio" id="lblUserBio">
                                 <b>Bio About You</b>
                             </label>
-                            <textarea type="text" class="form-control" id="txtUserBio" rows="5">{{#if user.bio}} {{user.bio}} {{/if}}</textarea>
+                            <textarea type="text" class="form-control taBio" id="txtUserBio" rows="5">{{#if user.bio}} {{user.bio}} {{/if}}</textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-success btn-block" id="btnUserInfoSave">
+                        <button type="submit" class="btn btn-success btn-block" id={{#if user}}"cmdSaveChanges"{{else}}"cmdSignUp"{{/if}}>
                             <span class="glyphicon glyphicon-save"></span>
                             <strong>{{#if user.id}} Update Profile {{else}} Submit {{/if}}</strong>
                         </button>
@@ -113,7 +112,7 @@
                     <button type="submit" class="btn btn-danger btn-default pull-left" id="btnUserInfoCancel" data-dismiss="modal">
                         <span class="glyphicon glyphicon-remove"></span> Cancel</button>
                 </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -135,7 +134,7 @@
                                     <strong>{{this.Sport.name}} - level {{this.level}} </strong>
                                     </label>
                                     <br />
-                                    <input class="slider" type="text" data-slider-value={{#if this.level}}{{this.level}}{{else}}0{{/if}} data-value={{#if this.level}}{{this.level}}{{else}}0{{/if}}
+                                    <input class="slider" type="text" data-id="{{this.SportId}}" data-slider-value={{#if this.level}}{{this.level}}{{else}}0{{/if}} data-value={{#if this.level}}{{this.level}}{{else}}0{{/if}}
                                         value={{#if this.level}}{{this.level}}{{else}}0{{/if}}/>
                                     <br>
                                     <br>
@@ -166,7 +165,7 @@
                                         <strong>Sport name : {{this.name}}</strong>
                                         </label>
                                         <br />
-                                        <input class="newSportSlider" type="text" value="{{#if this.level}} {{this.level}} {{else}} 0 {{/if}}" />
+                                        <input class="newSportSlider" type="text" data-id="{{this.id}}" value="{{#if this.level}} {{this.level}} {{else}} 0 {{/if}}" />
                                         <br>
                                         <br>
                                     </div>
