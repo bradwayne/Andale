@@ -431,12 +431,13 @@ module.exports = function (app) {
                   include: [db.Events]
                 }).then(function (likeEventInfo) {
                   objUser.likeEventInfo = likeEventInfo
-                  // res.json(objUser)
-                  res.render('events', objUser)
+                  //res.json(objUser)
+                  res.render('index', objUser)
                 })
               })
             })
           })
       })
+      
   })
 }
