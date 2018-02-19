@@ -41,12 +41,11 @@
                                 {{#if otherEvents}} {{#each otherEvents}}
                                 <b href='/event_details/{{this.id}}'>{{this.name}}
                                 </b>
-                                <br>Total Number of Player(s) Needed :{{this.attendants}}
-                                <br>Gender Specific : {{this.gender}}
-                                <br>Location :
-                                <i>{{this.location}}</i>
-                                <br>Starting At : {{this.start_time}} Ending At: {{this.end_time}}
-                                <br>Hosted by : 
+                                <br>Total Number of Player(s) Needed : {{this.attendants}}
+                                <br>Gender Specific : <i>{{this.gender}}</i>
+                                <br>Location : <i>{{this.location}}</i>
+                                <br>Starting At : <i>{{this.start_time}}</i> Ending At: <i>{{this.end_time}}</i>
+                                <br>Hosted by :
                                 <i>{{this.host}}</i>
                                 <i>{{this.Event.host}}</i>
                                 <br>
@@ -81,11 +80,11 @@
                                 {{#if likeEventInfo}} {{#each likeEventInfo}}
                                 <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}
                                 </b>
-                                <br>Total Number of Player(s) Needed :{{this.attendants}}
-                                <br>Gender Specific : {{this.gender}}
+                                <br>Total Number of Player(s) Needed : {{this.Events.attendants}}
+                                <br>Gender Specific : {{this.Events.gender}}
                                 <br>Location :
-                                <i>{{this.location}}</i>
-                                <br>Starting At : {{this.start_time}} Ending At: {{this.end_time}}
+                                <i>{{this.Events.location}}</i>
+                                <br>Starting At : <i>{{this.Events.start_time}} Ending At : {{this.Events.end_time}}</i>
                                 <br>Hosted by :
                                 <i>{{this.host}}</i>
                                 <i>{{this.Event.host}}</i>
@@ -125,11 +124,10 @@
                             {{#if otherEvents}} {{#each otherEvents}}
                             <b href='/event_details/{{this.id}}'>{{this.name}}
                             </b>
-                            <br>Total Number of Player(s) Needed :{{this.attendants}}
-                            <br>Gender Specific : {{this.gender}}
-                            <br>Location :
-                            <i>{{this.location}}</i>
-                            <br>Starting At : {{this.start_time}} Ending At: {{this.end_time}}
+                            <br>Total Number of Player(s) Needed : {{this.attendants}}
+                            <br>Gender Specific : <i>{{this.gender}}</i>
+                            <br>Location : <i>{{this.location}}</i>
+                            <br>Starting At : <i>{{this.start_time}}</i> Ending At : <i>{{this.end_time}}</i>
                             <br>Hosted by :
                             <i>{{this.host}}</i>
                             <i>{{this.Event.host}}</i>
@@ -182,5 +180,43 @@
 </div>
 
 <script>
+
+    //  nav modal btn ///////////////////////////////////////////////////
+    $(document).ready(function () {
+        $("#aLogInNav").click(function () {
+            $("#logIn").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#aSignUpNav").click(function () {
+            $("#signUp").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#aSignUpBtn").click(function () {
+            $("#signUp").modal();
+        });
+    });
+
+    // field modal btn //////////////////////////////////////////////////
+    $(document).ready(function () {
+        $("#cmdsubmitMyEventsBtn").click(function () {
+            $("#myEvents").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#cmdsubmitAllEventsBtn").click(function () {
+            $("#allEvents").modal();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#cmdsubmitEventsNearBtn").click(function () {
+            $("#eventNear").modal();
+        });
+    });
 
 </script>
