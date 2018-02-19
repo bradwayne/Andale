@@ -1,46 +1,45 @@
+var flash = require('express-flash')
 var express = require('express')
 var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+var sessionItem = require('express-session')
+var nodemailer = require('nodemailer')
 
-var app = express();
+
+var app = express()
 var port = process.env.PORT || 3000
 var path = require('path')
-var db = require("./app/models");
+var db = require('./app/models')
 
-app.use(express.static('app/public'));
+app.use(flash())
 
-app.use(bodyParser.urlencoded({extended : false}));
-app.use(bodyParser.json());
+app.use(express.static('app/public'))
 
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
+app.use(cookieParser('keyboard cat'))
+app.use(sessionItem({ cookie: { maxAge: 60000 }}))
+var exphbs = require('express-handlebars')
 
+app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
 
-//if we decided to go with express handlebars...
- var exphbs = require('express-handlebars')
+require('./controllers/api-routes.js')(app)
+require('./controllers/api-event-routes.js')(app)
+require('./controllers/api-sport-routes.js')(app)
+require('./controllers/api-user-routes.js')(app)
+require('./controllers/html_routes.js')(app)
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
+app.use(function (err, req, res, next) {
+  console.log('We had an error.', err)
+  res.status(500).json({
+    message: err.message
+  })
+})
 
-// end of express handlebars declaration...
-
-
-
-
-require('./controllers/api-routes.js')(app);
-require('./controllers/api-event-routes.js')(app);
-require('./controllers/api-sport-routes.js')(app);
-require('./controllers/api-user-routes.js')(app);
-require('./controllers/html_routes.js')(app);
-
-app.use(function(err, req, res, next){
-    console.log('We had an error.', err);
-    res.status(500).json({
-        message: err.message
-    });
-});
-
-
-//set force to true to drop database when we restart server, awesome for testing purpose
-db.sequelize.sync({ force: false}).then(function(){
-  app.listen(port, function(){
-      console.log('App now listening at localhost:' + port);
-  })  
+// set force to true to drop database when we restart server, awesome for testing purpose
+db.sequelize.sync({ force: false}).then(function () {
+  app.listen(port, function () {
+    console.log('App now listening at localhost:' + port)
+  })
 })

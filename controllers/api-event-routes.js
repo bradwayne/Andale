@@ -41,12 +41,17 @@ module.exports = function (app) {
           title: 'Events User Hosting',
           user: userHostedEvents
         }
-        for (var i = 0; i < eventToDisplay.user.UserEvents.length; i++) {
-          arrEventId.push(eventToDisplay.user.UserEvents[i].EventId)
+        if (eventToDisplay.user.UserEvents) {
+          for (var i = 0; i < eventToDisplay.user.UserEvents.length; i++) {
+            arrEventId.push(eventToDisplay.user.UserEvents[i].EventId)
+          }
         }
-        for (var i = 0; i < eventToDisplay.user.UserSports.length; i++) {
-          arrSportId.push(eventToDisplay.user.UserSports[i].SportId)
+        if (eventToDisplay.user.userSports) {
+          for (var i = 0; i < eventToDisplay.user.UserSports.length; i++) {
+            arrSportId.push(eventToDisplay.user.UserSports[i].SportId)
+          }
         }
+
 
         console.log(arrEventId)
         db.UserEvent.findAll({
@@ -69,8 +74,8 @@ module.exports = function (app) {
               db.Events.findAll({})
                 .then(function (allEvents) {
                   eventToDisplay.allEvents = allEvents
-                  res.json(eventToDisplay)
-                // res.render('index', eventToDisplay)
+                  // res.json(eventToDisplay)
+                  res.render('events', eventToDisplay)
                 })
             })
         })

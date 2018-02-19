@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="logo">
-                    <a class="btn1" id="aSignUpBtn">
+                    <a class="btn1" id="hypSignUpBtn">
                         <strong>SIGN UP</strong>
                     </a>
                 </div>
@@ -24,7 +24,7 @@
                 </h4>
             </div>
             <div class="modal-body" style="padding:40px 30px;">
-                <form role="form">
+                <div role="form">
                     <div class="form-group" id="divLoginUserName">
                         <label for="loginusername" id="lblLoginUserName">
                             <span class="glyphicon glyphicon-user"></span> Username</label>
@@ -40,7 +40,7 @@
                         <span class="glyphicon glyphicon-log-in"></span>
                         <strong> Login</strong>
                     </button>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-danger btn-default pull-left" id="cmdsubmitCancel" data-dismiss="modal">
@@ -61,22 +61,4 @@
 </div>
 
 <script>
-
-    $(document).ready(function () {
-        $("#aLogInNav").click(function () {
-            $("#logIn").modal();
-        });
-    });
-
-    $(document).ready(function () {
-        $("#aSignUpNav").click(function () {
-            $("#signUp").modal();
-        });
-    });
-
-    $(document).ready(function () {
-        $("#aSignUpBtn").click(function () {
-            $("#signUp").modal();
-        });
-    });
 </script>

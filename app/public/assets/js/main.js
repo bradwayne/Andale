@@ -1,9 +1,70 @@
 $(function () {
-  function getUserCredentials () {
+  $('#aLogInNav').click(function () {
+    $('#logIn').modal()
+  })
+  $('#cmdsubmitMyEventsBtn').click(function () {
+    $('#myEvents').modal()
+  })
+  $('#cmdsubmitAllEventsBtn').click(function () {
+    $('#allEvents').modal()
+  })
+  $('#cmdsubmitEventsNearBtn').click(function () {
+    $('#eventNear').modal()
+  })
+
+  $('#hypSignUpBtn').click(function () {
+    console.log('here')
+    setWebSession('sign up')
+    window.location.href = '/user'
+  // $('#signUp').modal()
+  })
+  if (window.location.href.indexOf('/user/')) {
+    $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
+    $('#aSignUpBtn').removeAttr('href')
+    $('#signUp').modal()
+    $('#aSignUpBtn').click(function () {
+      $('#signUp').modal()
+    })
+    sessionStorage.removeItem('sessionNextPage')
+  }
+
+  $('#aLogInNav').click(function () {})
+  if (!sessionStorage.getItem('sessionUserId')) {
+    console.log('user is not log in, hide user profile')
+    $('#aSignUpBtn').hide()
+  }else {
+    $('#aSignUpBtn').show()
+    $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
+    $('#aSignUpBtn').attr('href', '/user/' + sessionStorage.getItem('sessionUserId'))
+  }
+
+  if (sessionStorage.getItem('sessionNextPage') === 'sign up') {
+    if (window.location.href.indexOf('/user') > -1) {
+      console.log('here')
+      $('#signUp').modal()
+      sessionStorage.removeItem('sessionNextPage')
+    }
+  }else if (sessionStorage.getItem('sessionNextPage') === 'my event') {
+    if (window.location.href.indexOf('/event') > -1) {
+      console.log('in event page')
+      console.log('something pop up')
+      $('#myEvents').modal()
+      sessionStorage.removeItem('sessionNextPage')
+    }
+  }
+
+  $('#cmdsubmitLogin').click(function () {
+    username = $('#txtLoginUserName').val()
+    password = $('#pwdLoginPwd').val()
+    console.log(username, password)
+    getUserCredentials(username, password)
+  })
+
+  function getUserCredentials (username, password) {
     var successBool = false
     var credentials = {
-      username: 'sktan',
-      password: 'abcd123'
+      username: username,
+      password: password
     }
     console.log(credentials)
     $.ajax('/api/getUser/' + credentials.username + '/' + credentials.password , {
@@ -22,6 +83,8 @@ $(function () {
           console.log(xhr.responseJSON)
           console.log(xhr.responseJSON.rows[0])
           setUserSession(userInfo)
+          setWebSession('my event')
+          window.location.href = '/event/' + userInfo.id
         }
       }
     })
@@ -43,6 +106,9 @@ $(function () {
           console.log('user created successfully')
         }
       // console.log(xhr.responseJSON.error)
+      },complete: function (data) {
+        console.log('Done')
+        console.log(data.responseJSON)
       }
     })
   }
@@ -129,16 +195,39 @@ $(function () {
       }
     })
   }
+  function replacingSequelizeError (obj) {
+    obj = 'Validation error' + obj.replace(/Validation error:/g, '')
+    console.log(obj)
+    return obj
+  }
+  /*   function SignUp (obj) {
+      $.ajax('/api/user/', {
+        type: 'POST',
+        data: obj,
+        success: function (data, status, xhr) {
+          console.log('add User')
+          if (xhr.responseJSON) {
+            if (xhr.responseJSON.indexOf('Validation error') > -1) {
+              // console.log(xhr.responseJSON)
+              return replacingSequelizeError(xhr.responseJSON)
+            }else {
+              console.log('user added successfully')
+            }
+          }
+        }
+      })
+    } */
 
-  function SignUp (obj) {
-    $.ajax('/api/user/', {
-      type: 'POST',
+  function updateProfile (obj) {
+    $.ajax('/api/user/' + sessionStorage.getItem('sessionUserId'), {
+      type: 'PUT',
       data: obj,
       success: function (data, status, xhr) {
-        console.log('add User')
+        console.log('in updateProfile function')
+        console.log(xhr)
         if (xhr.responseJSON) {
           if (xhr.responseJSON.indexOf('Validation error') > -1) {
-            console.log(xhr.responseJSON)
+            return replacingSequelizeError(xhr.responseJSON)
           }else {
             console.log('user added successfully')
           }
@@ -147,26 +236,8 @@ $(function () {
     })
   }
 
-  function UpdateProfile (obj) {
-    $.ajax('/api/user/' + sessionStorage.getItem('sessionUserId'), {
-      type: 'PUT',
-      data: obj,
-      success: function (data, status, xhr) {
-        console.log('in edit sport function')
-        console.log(xhr)
-        if (xhr.status == 200) {
-          console.log('user sport edit successfully')
-        // location.reload()
-        }else {
-          console.log(xhr.responseJSON)
-        }
-      // console.log(xhr.responseJSON.error)
-      }
-    })
-  }
-
   function addSport (obj) {
-    $.ajax('/api/UserSport/' + sessionStorage.getItem('sessionUserId'), {
+    $.ajax('/api/userSport/' + sessionStorage.getItem('sessionUserId'), {
       type: 'POST',
       data: obj,
       success: function (data, status, xhr) {
@@ -219,7 +290,10 @@ $(function () {
       })
     }
   }
-
+  function setWebSession (pageModal) {
+    sessionStorage.removeItem('sessionNextPage')
+    sessionStorage.setItem('sessionNextPage', pageModal.trim())
+  }
   function setUserSession (data) {
     sessionStorage.setItem('sessionUserId', (data.id))
     sessionStorage.setItem('sessionUserFullName', (data.first_name + ' ' + data.last_name))
@@ -245,7 +319,7 @@ $(function () {
 
   // createNewUser()
   // getEvent()
-  getUserCredentials()
+  // getUserCredentials()
 
   $('#cmdChangeLevel').click(function () {
     try {
@@ -347,34 +421,68 @@ $(function () {
         photo: $('.txtPhoto').val(),
         bio: $('.taBio').val()
       }
-      SignUp(objSignUp)
+
+      $.ajax('/api/user/', {
+        type: 'POST',
+        data: objSignUp,
+        success: function (data, status, xhr) {
+          console.log('add User')
+          if (xhr.responseJSON) {
+            if (xhr.responseJSON.indexOf('Validation error') > -1) {
+              // console.log(xhr.responseJSON)
+              console.log('Thorwing error')
+              replacingSequelizeError(xhr.responseJSON)
+            }
+          }else {
+            console.log('no error found, user added successfully')
+            setTimeout(() => {
+              console.log('proceed with page reload')
+            // location.reload()
+            }, 500)
+          }
+        }
+      })
     } catch(e) {
+      console.log('in catch')
       console.log(e)
-    }finally {
-      setTimeout(() => {
-        location.reload()
-      }, 500)
     }
-    console.log(objSignUp)
   })
 
-  $('#cmdUpdateProfile').click(function () {
+  $('#btnUserInfoSave').click(function () {
     try {
       var objUpdate = {
         first_name: $('.txtCurrentFirstName').val(),
         last_name: $('.txtCurrentLastName').val(),
         location: $('.txtCurrentLocation').val(),
         hometown: $('.txtCurrentHometown').val(),
+        email : $('.txtCurrentEmail').val(),
         photo: $('.txtCurrentPhoto').val(),
         bio: $('.taCurrentBio').val()
       }
-      UpdateProfile(objUpdate);
+      $.ajax('/api/user/' + sessionStorage.getItem('sessionUserId'), {
+        type: 'PUT',
+        data: objUpdate,
+        success: function (data, status, xhr) {
+          console.log('in updateProfile function')
+          console.log(xhr)
+          if (xhr.responseJSON) {
+            if (xhr.responseJSON.indexOf('Validation error') > -1) {
+              // console.log(xhr.responseJSON)
+              console.log('Thorwing error')
+              replacingSequelizeError(xhr.responseJSON)
+            }
+          }else {
+            console.log('no error found, user profile updated successfully')
+            setTimeout(() => {
+              console.log('proceed with page reload')
+            // location.reload()
+            }, 500)
+          }
+        }
+      })
     } catch(e) {
+      console.log('in update profile catch')
       console.log(e)
-    }finally {
-      setTimeout(() => {
-        //location.reload()
-      }, 500)
     }
   // console.log(objUpdate)
   })
