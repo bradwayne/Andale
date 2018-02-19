@@ -1,12 +1,11 @@
-
-
 <div class="body">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <div class="eventNavBtn" id="divActivityNavBtn">
                     <button type="submit" class="btn btn-primary" id="cmdsubmitActivBtn">
-                        <strong>ACTIVITIES</strong></button>
+                        <strong>ACTIVITIES</strong>
+                    </button>
                 </div>
             </div>
         </div>
@@ -14,32 +13,57 @@
 </div>
 
 <div class="modal fade" id="activity" role="dialog">
-    <div class="col-sm-6">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="padding:15px 30px">
-                    <h4 class="modalHeading">
-                        <strong>Activity</strong>
-                    </h4>
-                </div>
-                <div class="modal-body" style="padding:40px 50px;">
-                    <div class="row">
-                        <div class="form-group" id="divActivityDetails">
-                            <label for="activity" id="lblActivityDetails">
-                                <b>{{details.name}} 
-                                </b>
-                                <br>Total Number of Player(s) Needed :{{details.attendants}}
-                                <br>Location :
-                                <i>{{details.location}}</i>
-                                <br> Hosted by :
-                                <i>{{details.host}}</i>
-                                <br> 
-                                <br>Gender :
-                                <I>{{details.gender}}</I>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:15px 30px">
+                        <h4 class="modalHeading">
+                            <strong>Activity</strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <div class="row">
+                            <div class="form-group" id="divActivityDetails">
+                                <label for="activity" id="lblActivityDetails">
+                                    <b>{{details.name}}
+                                    </b>
+                                    <br>Total Number of Player(s) Needed :{{details.attendants}}
+                                    <br>Location :
+                                    <i>{{details.location}}</i>
+                                    <br> Hosted by :
+                                    <i>{{details.host}}</i>
+                                    <br>
+                                    <br>Gender :
+                                    <I>{{details.gender}}</I>
+                                    <br>
+                                    <br />
+                                </label>
                                 <br>
-                                <br />
-                            </label>
-                            <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- //// my events - my signed up events - modal ////////////////////////////////////////////////////////// =-->
+
+        <div class="col-sm-6">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:15px 30px">
+                        <h4 class="modalHeading">
+                            <strong>Google Weather</strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <div class="row">
+                            <div class="form-group" id="divBlogField">
+                                <label for="blog" id="lblBlogField">
+                                    <span>Event Weather</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -47,22 +71,47 @@
         </div>
     </div>
 
-    <!-- //// my events - my signed up events - modal ////////////////////////////////////////////////////////// =-->
 
-    <div class="col-sm-6">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="padding:15px 30px">
-                    <h4 class="modalHeading">
-                        <strong>Activity Blog</strong>
-                    </h4>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:15px 30px">
+                        <h4 class="modalHeading">
+                            <strong>Activity Blog</strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <div class="row">
+                            <div class="form-group" id="divBlogField">
+                                <label for="blog" id="lblBlogField">
+                                    <span>Blog Field Here</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body" style="padding:40px 50px;">
-                    <div class="row">
-                        <div class="form-group" id="divBlogField">
-                            <label for="blog" id="lblBlogField">
-                                <span>Blog Field Here</span>
-                            </label>
+            </div>
+        </div>
+
+
+        <!-- //// my events - my signed up events - modal ////////////////////////////////////////////////////////// =-->
+
+        <div class="col-sm-6">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:15px 30px">
+                        <h4 class="modalHeading">
+                            <strong>Google Map</strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <div class="row">
+                            <div class="form-group" id="divBlogField">
+                                <label for="blog" id="lblBlogField">
+                                    <span>Event Location</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,13 +119,14 @@
         </div>
     </div>
 </div>
+
 
 <div class="background-image-activitypage">
 </div>
 
 <script>
 
-//  nav modal btn ///////////////////////////////////////////////////
+    //  nav modal btn ///////////////////////////////////////////////////
     $(document).ready(function () {
         $("#aLogInNav").click(function () {
             $("#logIn").modal();
@@ -95,29 +145,11 @@
         });
     });
 
-// field modal btn //////////////////////////////////////////////////
+    // field modal btn //////////////////////////////////////////////////
     $(document).ready(function () {
         $("#cmdsubmitActivBtn").click(function () {
             $("#activity").modal();
         });
     });
-
-    $(document).ready(function () {
-            $("#aLogInNav").click(function () {
-                $("#logIn").modal();
-            });
-        });
-
-        $(document).ready(function () {
-            $("#aSignUpNav").click(function () {
-                $("#signUp").modal();
-            });
-        });
-
-        $(document).ready(function () {
-            $("#aSignUpBtn").click(function () {
-                $("#signUp").modal();
-            });
-        });
 
 </script>
