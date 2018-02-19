@@ -112,18 +112,53 @@
             </form>
         </div>
     </div>
-
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-15px 30px">
+                <h4 class="modalHeading">
+                    <strong> Interested Sports</strong>
+                </h4>
+            </div>
+            <div class="modal-body" style="padding: 40px 30px;">
+                <div role="form">
+                    <div class="slider-container">
+                        <div class="row">
+                            {{#each likeSportsInfo}}
+                                <div class="col-md-6">
+                                    <label for="slider" class="sportChoices"></label>
+                                    <strong>{{this.Sport.name}} - level {{this.level}} </strong>
+                                    </label>
+                                    <br />
+                                    <input class="slider" type="text" data-slider-value={{#if this.level}}{{this.level}}{{else}}0{{/if}} data-value={{#if this.level}}{{this.level}}{{else}}0{{/if}} value={{#if this.level}}{{this.level}}{{else}}0{{/if}}/>
+                                    <br>
+                                    <br>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block" id="cmdChangeLevel">
+                        <span class="glyphicon glyphicon-save"></span>
+                        <strong>Save</strong>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger btn-default pull-left" id="btnActivInterestCancel" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+        </div>
+    </div>
     <!-- sports selector ////////////////////////////////////////////////////////////////////////////// -->
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="padding:15px 30px">
                 <h4 class="modalHeading">
-                    <strong> Activities Of Interst</strong>
+                    <strong> Other Sports</strong>
                 </h4>
             </div>
             <div class="modal-body" style="padding:40px 30px;">
-                <form role="form">
+                <div role="form">
                     <div class="form-group">
                         <div class="slider-container">
 
@@ -132,7 +167,7 @@
                                     <div class="col-md-6">
                                         <label for="slider" class="sportChoices"></label> <strong>Sport name : {{this.name}}</strong></label>
                                         <br />
-                                        <input class="slider" id="slider" type="text" />
+                                        <input class="newSportSlider" type="text" value="{{#if this.level}} {{this.level}} {{else}} 0 {{/if}}"   />
                                         <br>
                                         <br> 
                                     </div>
@@ -140,22 +175,19 @@
                                 
                             </div>
 
-
-                            <button id="cmdAddSports">Add Sports </button>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-success btn-block" id="btnActivInterestSave">
+                    <button type="submit" class="btn btn-success btn-block" id="cmdAddSports">
                         <span class="glyphicon glyphicon-save"></span>
-                        <strong> Save and Submit</strong>
+                        <strong>Submit</strong>
                     </button>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-danger btn-default pull-left" id="btnActivInterestCancel" data-dismiss="modal">
                     <span class="glyphicon glyphicon-remove"></span> Cancel</button>
             </div>
-            </form>
         </div>
     </div>
 </div>
@@ -183,9 +215,6 @@
             $("#signUp").modal();
         });
 
-        $('.slider').slider({
-            precision: 2,
-            value: 0
-        });
+        
     });
 </script>
