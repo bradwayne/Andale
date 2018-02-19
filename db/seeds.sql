@@ -76,3 +76,11 @@ VALUES
     ('Pick Up Ball Game', 'Quicken Loan Arena, Cleveland, OH', '6', '200', 'Lebron James', '1550132', 'lebron@james.com', 'Male', '5', '18', 'Loser buy dinner!', '2018-04-10 20:00:00', '2018-04-10 23:00:00', NOW(), NOW(), 2, 4),
     ('Hot Yoga New Opening Free Session!', 'Mayfield High School, Mayfield Heights, OH', '10', '0', 'Maria Sharapova', '1324452', 'maria@sharapova.com', 'Female', '1', '20', 'opening day free session for the ladies! no guys plzz ty', '2018-02-27 17:00:00', '2018-02-27 23:00:00', NOW(), NOW(), 5, 19);
 
+
+INSERT INTO eventdiscussions
+    (message, createdAt, updatedAt, EventId, UserId)
+VALUES
+    ('This is a great event. We Rock', NOW(), NOW(), 2, 1),
+    ('Join us for some good exercise. And the sport is fun also', NOW(), NOW(), 1, 3),
+    ('Who got ball?', NOW(), NOW(), 1, 9),
+    ('Cleveland OH, where? i need details, man', NOW(), NOW(), 1, 2);

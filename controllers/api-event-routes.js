@@ -71,7 +71,7 @@ module.exports = function (app) {
                   .then(function (allEvents) {
                     eventToDisplay.allEvents = allEvents
                     console.log('here')
-                    //res.json(eventToDisplay)
+                    // res.json(eventToDisplay)
                     res.render('events', eventToDisplay)
                   })
               })
@@ -82,37 +82,49 @@ module.exports = function (app) {
       }).then(function (allEvents) {
         eventToDisplay.events = allEvents
         console.log('here')
-        //res.json(eventToDisplay)
+        // res.json(eventToDisplay)
         res.render('events', eventToDisplay)
       })
     }
   })
 
-  app.get('/event_details/:id', function (req, res, next) {
+  app.get('/event_details/:eventId', function (req, res, next) {
     var objEventDetails = {}
-    db.Events.findOne({
-      where: { id: req.params.id},
-      include: [{model: db.EventDiscussion}, {model: db.Sport}]
-    })
-      .then(function (eventDetails) {
-        objEventDetails.details = eventDetails
-        db.UserEvent.findAll({
-          where: { EventId: req.params.id }
-        }).then(function (attendingUsersId) {
-          // objEventDetails.attendingUsersId = attendingUsersId
-          var arrUserId = []
-          for (var i = 0; i < attendingUsersId.length; i++) {
-            arrUserId.push(attendingUsersId[i].UserId)
-          }
-          console.log('user attending event id :' + arrUserId)
-          db.User.findAll({
-            where: { id: {[Op.in]: arrUserId} }
-          }).then(function (attendingUsers) {
-            objEventDetails.attendingUsers = attendingUsers
-            res.json(objEventDetails)
+    if (req.params.eventId) {
+      db.Events.findOne({
+        where: { id: req.params.eventId},
+        include: [{model: db.EventDiscussion}, {model: db.Sport}]
+      })
+        .then(function (eventDetails) {
+          objEventDetails.details = eventDetails
+          db.UserEvent.findAll({
+            where: { EventId: req.params.eventId }
+          }).then(function (attendingUsersId) {
+            // objEventDetails.attendingUsersId = attendingUsersId
+            var arrUserId = []
+            for (var i = 0; i < attendingUsersId.length; i++) {
+              arrUserId.push(attendingUsersId[i].UserId)
+            }
+            console.log('user attending event id :' + arrUserId)
+            db.User.findAll({
+              where: { id: {[Op.in]: arrUserId} }
+            }).then(function (attendingUsers) {
+              objEventDetails.attendingUsers = attendingUsers
+              db.EventDiscussion.findAll({
+                where: {EventId: req.params.eventId},
+                include: db.User
+              }).then(function (eventDiscussion) {
+                objEventDetails.discussion = eventDiscussion
+                res.json(objEventDetails)
+                console.log(objEventDetails)
+              // res.render('activity', objEventDetails)
+              })
+            })
           })
         })
-      })
+    }else {
+      res.json('event id not found')
+    }
   })
 
   app.post('/api/event/:user_id', function (req, res, next) {

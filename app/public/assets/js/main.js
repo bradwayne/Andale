@@ -29,6 +29,13 @@ $(function () {
       window.location.href = '/event'
     }
   })
+
+  $('.cmdDetails').click(function(){
+      setTimeout(() => {
+        window.location.href = '/event_details/'+$(this).attr("data-event-id");    
+      }, 5000);
+      
+  })
   if (window.location.href.indexOf('/user/') > -1) {
     if (sessionStorage.getItem('sessionUserName')) {
       $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
@@ -393,14 +400,14 @@ $(function () {
     try {
       var objUserSport = []
       $('.slider.currentUser').each(function () {
-          if($(this).attr("data-slider-value") !== $(this).attr("data-value")){
-              objUserSport.push({
-                  SportId: $(this).attr('data-id'),
-                  level: parseInt(this.value),
-                  UserId: sessionStorage.getItem('sessionUserId')
-              })
-            }
-        })
+        if ($(this).attr('data-slider-value') !== $(this).attr('data-value')) {
+          objUserSport.push({
+            SportId: $(this).attr('data-id'),
+            level: parseInt(this.value),
+            UserId: sessionStorage.getItem('sessionUserId')
+          })
+        }
+      })
       for (var i = 0; i < objUserSport.length; i++) {
         editSport(objUserSport[i])
       }
@@ -408,7 +415,7 @@ $(function () {
       console.log(e)
     } finally {
       setTimeout(() => {
-         //location.reload()
+        // location.reload()
       }, 500)
     }
   })

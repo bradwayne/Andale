@@ -26,21 +26,18 @@
                     <div class="row">
                         <div class="form-group" id="divActivityDetails">
                             <label for="activity" id="lblActivityDetails">
-                                {{#if likeEventInfo}} {{#each likeEventInfo}}
-                                <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}
+                                <b>{{details.name}} 
                                 </b>
-                                <br>Total Number of Player(s) Needed :{{this.Event.attendants}}
+                                <br>Total Number of Player(s) Needed :{{details.attendants}}
                                 <br>Location :
-                                <i>{{this.location}}</i>
+                                <i>{{details.location}}</i>
                                 <br> Hosted by :
-                                <i>{{this.Event.host}}</i>
+                                <i>{{details.host}}</i>
                                 <br> 
                                 <br>Gender :
-                                <I>{{this.gender}}</I>
-                                
-
+                                <I>{{details.gender}}</I>
                                 <br>
-                                <br /> {{/each}} {{else}} you did not commit to any event.. {{/if}} 
+                                <br />
                             </label>
                             <br>
                         </div>
