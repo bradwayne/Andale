@@ -11,7 +11,7 @@ module.exports = function (app) {
       db.Events.findAll({}).then(function (events) {
         console.log('get events from sql')
         console.log(JSON.stringify(events))
-        res.render('index',
+        res.render('home',
           {
             title: 'Andale!!',
             users: users,
@@ -20,6 +20,10 @@ module.exports = function (app) {
         )
       })
     })
+  })
+
+  app.get('/user/',function(req, res, next){
+      res.render('user', {});
   })
 
   app.get('/user/:id', function (req, res, next) {
@@ -78,10 +82,11 @@ module.exports = function (app) {
                   include: [db.Events]
                 }).then(function (likeEventInfo) {
                   objUser.likeEventInfo = likeEventInfo
-                  // res.json(objUser)
-                  res.render('events', objUser)
+                  //res.json(objUser)
+                  req.flash('info', 'Flash Message Added')
                   // res.redirect('/')
                   // req.flash('info', 'Welcome')
+                  res.render('user', objUser)
                 })
               })
             })
@@ -197,6 +202,52 @@ module.exports = function (app) {
         console.log(created)
         if (created) {
           res.status(200).end()
+
+          const output = ` <p> Testing nodemailer </p>
+                        <h3> Blaaaaa</h3>
+                        <ul>
+                        <li>${req.body.first_name}</li>
+                        <li>${req.body.last_name}</li>
+                        <li>${req.body.user_name}</li>
+                        </ul>
+                        <p>${req.body.bio}</p>`
+
+          // create reusable transporter object using the default SMTP transport
+          let transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            // port: 25,
+            secure: false, // true for 465, false for other ports
+            auth: {
+              user: 'bscwruproject2@gmail.com', // generated ethereal user
+              pass: 'Bootcamp123' // generated ethereal password
+            },
+            tls: {
+              rejectUnauthorized: false
+            }
+          })
+
+          // setup email data with unicode symbols
+          let mailOptions = {
+            from: '"Project 2 Admin" <bscwruproject2@gmail.com', // sender address
+            to: 'Shi Kwan <sk.tan97@gmail.com>', // list of receivers
+            subject: 'Project 2 Email From SK about Account Created! 👻', // Subject line
+            text: 'Hello world?', // plain text body
+            html: output
+          // html: '<b>Hello world?</b>' // html body
+          }
+
+          // send mail with defined transport object
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              return console.log(error)
+            }
+            console.log('Message sent: %s', info.messageId)
+            // Preview only available when sending through an Ethereal account
+            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+
+          // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+          // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+          })
         }else {
           res.json('username already existed in database')
         }
@@ -471,57 +522,12 @@ module.exports = function (app) {
     console.log('get specific user info')
     db.User.findOne({
       where: { id: req.params.id },
-      include: [{ model: db.UserEvent }, { model: db.UserSport }]
+    // include: [{ model: db.UserEvent }, { model: db.UserSport }]
     })
       .then(function (user) {
-        objUser = {
-          title: 'User Profile',
-          user: user
-        }
-        for (var i = 0; i < user.UserSports.length; i++) {
-          arrSportId.push(user.UserSports[i].SportId)
-        }
-        for (var i = 0; i < user.UserEvents.length; i++) {
-          arrEventId.push(user.UserEvents[i].EventId)
-        }
-        console.log(arrSportId)
-        console.log(arrEventId)
-        db.Sport.findAll({
-          where: {
-            Id: { [Op.notIn]: arrSportId }
-          }
-        })
-          .then(function (otherSports) {
-            objUser.otherSports = otherSports
-            db.Events.findAll({
-              where: {
-                id: { [Op.notIn]: arrEventId },
-                // more filter in here!! based on user specification, user gender, favorite sport, 
-              }
-            }).then(function (otherEvents) {
-              objUser.otherEvents = otherEvents
-              db.UserSport.findAll({
-                where: {
-                  SportId: { [Op.in]: arrSportId },
-                  UserId: req.params.id
-                },
-                include: [db.Sport]
-              }).then(function (likeSportInfo) {
-                objUser.likeSportsInfo = likeSportInfo
-                db.UserEvent.findAll({
-                  where: {
-                    EventId: { [Op.in]: arrEventId },
-                    UserId: req.params.id
-                  },
-                  include: [db.Events]
-                }).then(function (likeEventInfo) {
-                  objUser.likeEventInfo = likeEventInfo
-                  // res.json(objUser)
-                  res.render('activity', objUser)
-                })
-              })
-            })
-          })
+        console.log(JSON.stringify(objUser))
+        res.render('activity', objUser)
+      // res.json(objUser)
       })
   })
 }

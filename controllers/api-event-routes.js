@@ -69,8 +69,8 @@ module.exports = function (app) {
               db.Events.findAll({})
                 .then(function (allEvents) {
                   eventToDisplay.allEvents = allEvents
-                  res.json(eventToDisplay)
-                // res.render('index', eventToDisplay)
+                  //res.json(eventToDisplay)
+                  res.render('events', eventToDisplay)
                 })
             })
         })

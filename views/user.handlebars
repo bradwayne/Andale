@@ -18,16 +18,16 @@
                         <label for="firstname" id="lblFirstName">
                             <span>First Name</span>
                         </label>
-                        <input type="text" class="form-control" id="txtFirstName" placeholder="First Name">
+                        <input type="text" class="form-control" id="txtFirstName" placeholder="First Name" {{#if user.first_name}} value='{{user.first_name}}' {{/if}}>
                     </div>
 
                     <div class="form-group" id="divLastName">
                         <label for="lastname" id="lblLastName">
                             <span>Last Name</span>
                         </label>
-                        <input type="text" class="form-control" id="txtLastName" placeholder="Last Name">
+                        <input type="text" class="form-control" id="txtLastName" placeholder="Last Name" {{#if user.last_name}} value='{{user.last_name}}' {{/if}}>
                     </div>
-
+                    {{#unless user.gender}}
                     <div class="form-group" id="divGender">
                         <label for="gender" id="lblGender">
                             <span>Gender</span>
@@ -38,6 +38,7 @@
                             <input type="radio" name="optradio">Female</label>
                         </label>
                     </div>
+                    {{/unless}}
 
                     <div class="form-group" id="divLocation">
                         <label for="location" id="lblLocation">
@@ -45,15 +46,16 @@
                         </label>
                         <div class="form-inline">
                             <div class="form-group" id="divLocationCity">
-                                <input type="text" class="form-control" id="txtLocationCity" placeholder="City" name="location" style="width:auto">
+                                <input type="text" class="form-control" id="txtLocationCity" placeholder="City" name="location" style="width:auto" {{#if user.location}} value='{{user.location}}' {{/if}}>
                             </div>
                             <div class="form-group" id="divLocationState">
-                                <input type="text" class="form-control" id="txtLocationState" placeholder="State" name="location" style="width:auto">
+                                <input type="text" class="form-control" id="txtLocationState" placeholder="State" name="location" style="width:auto" >
                             </div>
                         </div>
                         </label>
                     </div>
 
+                    {{#unless user.dob}}
                     <div class="form-group" id="divDateBirth">
                         <label for="dateBirth" id="lblDateBirth">
                             <b>Date Of Birth</b>
@@ -61,45 +63,47 @@
                         <br>
                         <input type="text" class="form-control" id="txtDateBirth" placeholder="mm/dd/yyyy" name="dateBirth" required />
                     </div>
-
+                    {{/unless}}
+                     {{#unless user.username}}
                     <div class="form-group" id="divInfoUserName">
                         <label for="infousername" id="lblInfoUserName">
                             <b>User Name</b>
                         </label>
                         <input type="text" class="form-control" id="txtInfoUserName" placeholder="User Name" name="infousername" required />
                     </div>
-
+                     {{/unless}}
+                    {{#unless user.password}}
                     <div class="form-group" id="divInfoPwd">
                         <label for="infopwd" id="lblInfoPwd">
                             <b>Password</b>
                         </label>
                         <input type="text" class="form-control" id="txtInfoPwd" placeholder="Password" name="infopwd" required>
                     </div>
-
+                     {{/unless}}
                     <div class="form-group" id="divEmail">
                         <label for="email" id="lblEmail">
                             <b>Email Address</b>
                         </label>
-                        <input type="text" class="form-control" id="txtEmailAddress" placeholder="Email Address" name="email" required>
+                        <input type="text" class="form-control" id="txtEmailAddress" placeholder="Email Address" name="email" required {{#if user.email}} value='{{user.email}}' {{/if}}>
                     </div>
 
                     <div class="form-group" id="divUserImage">
                         <label for="userimage" id="lblUserImage">
                             <b>User Image</b>
                         </label>
-                        <input type="text" class="form-control" id="txtUserImage" placeholder="http://image" name="useriamge" required>
+                        <input type="text" class="form-control" id="txtUserImage" placeholder="http://image" name="useriamge" required {{#if user.photo}} value='{{user.photo}}' {{/if}}>
                     </div>
 
                     <div class="form-group" id="divUserBio">
                         <label for="userbio" id="lblUserBio">
                             <b>Bio About You</b>
                         </label>
-                        <textarea type="text" class="form-control" id="txtUserBio" rows="5"></textarea>
+                        <textarea type="text" class="form-control" id="txtUserBio" rows="5">{{#if user.bio}} {{user.bio}} {{/if}}</textarea>
                     </div>
 
                     <button type="submit" class="btn btn-success btn-block" id="btnUserInfoSave">
                         <span class="glyphicon glyphicon-save"></span>
-                        <strong> Save and Submit</strong>
+                        <strong>{{#if user.id}} Update Profile {{else}} Submit {{/if}}</strong>
                     </button>
                 </form>
             </div>
