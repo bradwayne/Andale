@@ -5,7 +5,7 @@
             <div class="col-md-6">
                 <div class="eventNavBtn myEvents">
                     <button type="submit" class="btn btn-primary" id="cmdsubmitMyEventsBtn">
-                        <strong>MY EVENTS</strong>
+                        <strong>INTERESTS</strong>
                     </button>
                 </div>
                 <div class="eventNavBtn allEvents">
@@ -31,21 +31,26 @@
             <div class="modal-content">
                 <div class="modal-header" style="padding:15px 30px">
                     <h4 class="modalHeading">
-                        <strong>Intersted In</strong>
+                        <strong>Interests</strong>
                     </h4>
                 </div>
-                <div class="modal-body" style="padding:40px 30px;">
+                <div class="modal-body" style="padding:40px 50px;">
                     <div class="row">
                         <div class="form-group" id="divInterests">
                             <label for="interests" id="lblInterests">
                                 {{#if otherEvents}} {{#each otherEvents}}
-                                <a href='/event_details/{{this.id}}'>{{this.name}}
-                                </a>- is looking for {{this.attendants}} player(s)
-                                <br> Hosted by
+                                <b href='/event_details/{{this.id}}'>{{this.name}}
+                                </b>
+                                <br>Total Number of Player(s) Needed :{{this.attendants}}
+                                <br>Gender Specific : {{this.gender}}
+                                <br>Location :
+                                <i>{{this.location}}</i>
+                                <br>Starting At : {{this.start_time}} Ending At: {{this.end_time}}
+                                <br>Hosted by : 
                                 <i>{{this.host}}</i>
                                 <i>{{this.Event.host}}</i>
                                 <br>
-                                <button class="cmdGoing" data-event-id='{{this.id}}'>
+                                <button class="cmd cmdGoing" data-event-id='{{this.id}}'>
                                     <strong>Sign Up</strong>
                                 </button>
                                 <br>
@@ -64,25 +69,31 @@
     <div class="col-sm-6">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header" style="padding:15px 30px">
+                <div class="modal-header" style="padding:15px 50px">
                     <h4 class="modalHeading">
                         <strong>Signed Up Events</strong>
                     </h4>
                 </div>
-                <div class="modal-body" style="padding:40px 30px;">
+                <div class="modal-body" style="padding:40px 50px;">
                     <div class="row">
                         <div class="form-group" id="divSignedUp">
                             <label for="signedUp" id="lblSignedUp">
                                 {{#if likeEventInfo}} {{#each likeEventInfo}}
-                                <a href='/event_details/{{this.EventId}}'>{{this.Event.name}}
-                                </a>- is looking for {{this.Event.attendants}} player(s)
-                                <br> Hosted by
+                                <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}
+                                </b>
+                                <br>Total Number of Player(s) Needed :{{this.attendants}}
+                                <br>Gender Specific : {{this.gender}}
+                                <br>Location :
+                                <i>{{this.location}}</i>
+                                <br>Starting At : {{this.start_time}} Ending At: {{this.end_time}}
+                                <br>Hosted by :
+                                <i>{{this.host}}</i>
                                 <i>{{this.Event.host}}</i>
                                 <br> {{!-- this will send them to the activity blog page --}}
-                                <button class="cmdDetails" data-event-id='{{this.EventId}}'>View Details</button>
+                                <button class="cmd cmdDetails" data-event-id='{{this.EventId}}'>View Details</button>
 
 
-                                <button class="cmdCancel" data-event-id='{{this.EventId}}'>Remove</button>
+                                <button class="cmd cmdCancel" data-event-id='{{this.EventId}}'>Remove</button>
 
                                 <br>
                                 <br /> {{/each}} {{else}} you did not commit to any event.. {{/if}} {{!-- list of activities user
@@ -107,18 +118,23 @@
                     <strong>All Events</strong>
                 </h4>
             </div>
-            <div class="modal-body" style="padding:40px 30px;">
+            <div class="modal-body" style="padding:40px 50px;">
                 <div class="row">
                     <div class="form-group" id="divEvents">
                         <label for="events" id="lblEvents">
                             {{#if otherEvents}} {{#each otherEvents}}
-                            <a href='/event_details/{{this.id}}'>{{this.name}}
-                            </a>- is looking for {{this.attendants}} player(s)
-                            <br> Hosted by
+                            <b href='/event_details/{{this.id}}'>{{this.name}}
+                            </b>
+                            <br>Total Number of Player(s) Needed :{{this.attendants}}
+                            <br>Gender Specific : {{this.gender}}
+                            <br>Location :
+                            <i>{{this.location}}</i>
+                            <br>Starting At : {{this.start_time}} Ending At: {{this.end_time}}
+                            <br>Hosted by :
                             <i>{{this.host}}</i>
                             <i>{{this.Event.host}}</i>
                             <br>
-                            <button class="cmdGoing" data-event-id='{{this.id}}'>
+                            <button class="cmd cmdGoing" data-event-id='{{this.id}}'>
                                 <strong>Sign Up</strong>
                             </button>
                             <br>
@@ -142,7 +158,7 @@
                     <strong>Events Near You</strong>
                 </h4>
             </div>
-            <div class="modal-body" style="padding:40px 30px;">
+            <div class="modal-body" style="padding:40px 50px;">
                 <div class="row">
                     <div class="form-group" id="divNearYou">
                         <label for="nearYou" id="lblNearYou">

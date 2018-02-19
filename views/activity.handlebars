@@ -22,16 +22,25 @@
                         <strong>Activity</strong>
                     </h4>
                 </div>
-                <div class="modal-body" style="padding:40px 30px;">
+                <div class="modal-body" style="padding:40px 50px;">
                     <div class="row">
                         <div class="form-group" id="divActivityDetails">
                             <label for="activity" id="lblActivityDetails">
-                                <div>
-                                    <h3>Activity : {{this.activity}}</h3>
-                                </div>
-                                <div>Start Time : {{this.start_time}}</div>
-                                <div>End Time : {{this.end_time}}</div>
-                                <div>More Info : {{this.details}}</div>
+                                {{#if likeEventInfo}} {{#each likeEventInfo}}
+                                <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}
+                                </b>
+                                <br>Total Number of Player(s) Needed :{{this.Event.attendants}}
+                                <br>Location :
+                                <i>{{this.location}}</i>
+                                <br> Hosted by :
+                                <i>{{this.Event.host}}</i>
+                                <br> 
+                                <br>Gender :
+                                <I>{{this.gender}}</I>
+                                
+
+                                <br>
+                                <br /> {{/each}} {{else}} you did not commit to any event.. {{/if}} 
                             </label>
                             <br>
                         </div>
@@ -51,7 +60,7 @@
                         <strong>Activity Blog</strong>
                     </h4>
                 </div>
-                <div class="modal-body" style="padding:40px 30px;">
+                <div class="modal-body" style="padding:40px 50px;">
                     <div class="row">
                         <div class="form-group" id="divBlogField">
                             <label for="blog" id="lblBlogField">
