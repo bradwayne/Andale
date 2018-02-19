@@ -19,13 +19,16 @@ $(function () {
   // $('#signUp').modal()
   })
   if (window.location.href.indexOf('/user/')) {
-    $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
-    $('#aSignUpBtn').removeAttr('href')
-    $('#signUp').modal()
-    $('#aSignUpBtn').click(function () {
+    if(sessionStorage.getItem('sessionUserName')){
+      $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
+      $('#aSignUpBtn').removeAttr('href')
       $('#signUp').modal()
-    })
-    sessionStorage.removeItem('sessionNextPage')
+      $('#aSignUpBtn').click(function () {
+        $('#signUp').modal()
+      })
+      sessionStorage.removeItem('sessionNextPage')
+    }
+    
   }
 
   $('#aLogInNav').click(function () {})

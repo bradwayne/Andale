@@ -529,11 +529,15 @@ module.exports = function (app) {
           title: 'User Profile',
           user: user
         }
-        for (var i = 0; i < user.UserSports.length; i++) {
-          arrSportId.push(user.UserSports[i].SportId)
+        if(user.UserSports){
+          for (var i = 0; i < user.UserSports.length; i++) {
+            arrSportId.push(user.UserSports[i].SportId)
+          }
         }
-        for (var i = 0; i < user.UserEvents.length; i++) {
-          arrEventId.push(user.UserEvents[i].EventId)
+        if(user.UserEvents){
+          for (var i = 0; i < user.UserEvents.length; i++) {
+            arrEventId.push(user.UserEvents[i].EventId)
+          }
         }
         console.log(arrSportId)
         console.log(arrEventId)
