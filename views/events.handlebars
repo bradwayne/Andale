@@ -2,7 +2,7 @@
 <div class="body">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="eventNavBtn myEvents">
                     <button type="submit" class="btn btn-primary" id="cmdsubmitMyEventsBtn">
                         <strong>INTERESTS</strong>
@@ -16,6 +16,11 @@
                 <div class="eventNavBtn nearYouEvents">
                     <button type="submit" class="btn btn-primary" id="cmdsubmitEventsNearBtn">
                         <strong>EVENTS NEAR YOU</strong>
+                    </button>
+                </div>
+                <div class="eventNavBtn nearYouEvents">
+                    <button type="submit" class="btn btn-primary" id="cmdsubmitCreateEventBtn">
+                        <strong>CREATE EVENT</strong>
                     </button>
                 </div>
             </div>
@@ -220,4 +225,9 @@
         });
     });
 
+    $(document).ready(function () {
+        $("#cmdsubmitCreateEventBtn").click(function () {
+            $("#createEvent").modal();
+        });
+    });
 </script>
