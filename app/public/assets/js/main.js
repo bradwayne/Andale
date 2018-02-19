@@ -18,17 +18,48 @@ $(function () {
     window.location.href = '/user'
   // $('#signUp').modal()
   })
-  if (window.location.href.indexOf('/user/')) {
-    if(sessionStorage.getItem('sessionUserName')){
+  if (window.location.href.indexOf('/user/') > -1) {
+    if (sessionStorage.getItem('sessionUserName')) {
       $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
       $('#aSignUpBtn').removeAttr('href')
       $('#signUp').modal()
       $('#aSignUpBtn').click(function () {
         $('#signUp').modal()
       })
+      if (sessionStorage.getItem('sessionUserId')) {
+        $('#signUp :input').addClass('currentUser')
+      }else {
+        $('#signUp :input').addClass('newUser')
+      }
+
+      var sliderValue = $('#slider')
+      $('.slider.currentUser').each(function () {
+        console.log($(this).attr('data-slider-value'))
+        var value = $(this).attr('data-slider-value')
+        console.log('here')
+        if (value) {
+          console.log('here')
+          $(this).data('value', value)
+          $(this).val('data-slider-value')
+        }
+      })
+       $('.slider').slider({
+        precision: 2,
+      }) 
+      $('.newSportSlider').slider({
+        precision: 2,
+        value: 0
+      }) 
+      
+      // for(var i =0; i < sliderValue.length; i++){
+      //    console.log("here")
+      //    console.log(sliderValue[i])
+      // $('.slider.currentUser[data-value*='+sliderValue[i]+ ']').attr("data-value", sliderValue[i])
+      // }
+
+      console.log('remove session in user redirect')
       sessionStorage.removeItem('sessionNextPage')
     }
-    
   }
 
   $('#aLogInNav').click(function () {})
@@ -42,13 +73,18 @@ $(function () {
   }
 
   if (sessionStorage.getItem('sessionNextPage') === 'sign up') {
+    console.log('sign up session here')
     if (window.location.href.indexOf('/user') > -1) {
-      console.log('here')
       $('#signUp').modal()
       sessionStorage.removeItem('sessionNextPage')
     }
-  }else if (sessionStorage.getItem('sessionNextPage') === 'my event') {
-    if (window.location.href.indexOf('/event') > -1) {
+  }
+  if (window.location.href.indexOf('/event/') > -1) {
+    console.log('here')
+    console.log(sessionStorage.getItem('sessionNextPage'))
+    if (sessionStorage.getItem('sessionNextPage') === 'my event') {
+      console.log('here')
+
       console.log('in event page')
       console.log('something pop up')
       $('#myEvents').modal()
@@ -56,11 +92,22 @@ $(function () {
     }
   }
 
+  $('#aLogOutNav').click(function () {
+    console.log('user logged out successfully, clear session items')
+    $('#aSignUpBtn').hide()
+    clearSession()
+    window.location.href = '/'
+  })
+
   $('#cmdsubmitLogin').click(function () {
     username = $('#txtLoginUserName').val()
     password = $('#pwdLoginPwd').val()
     console.log(username, password)
     getUserCredentials(username, password)
+    setTimeout(() => {
+      setWebSession('my event')
+      window.location.href = '/event/' + sessionStorage.getItem('sessionUserId')
+    }, 5000)
   })
 
   function getUserCredentials (username, password) {
@@ -86,8 +133,6 @@ $(function () {
           console.log(xhr.responseJSON)
           console.log(xhr.responseJSON.rows[0])
           setUserSession(userInfo)
-          setWebSession('my event')
-          window.location.href = '/event/' + userInfo.id
         }
       }
     })
@@ -458,7 +503,7 @@ $(function () {
         last_name: $('.txtCurrentLastName').val(),
         location: $('.txtCurrentLocation').val(),
         hometown: $('.txtCurrentHometown').val(),
-        email : $('.txtCurrentEmail').val(),
+        email: $('.txtCurrentEmail').val(),
         photo: $('.txtCurrentPhoto').val(),
         bio: $('.taCurrentBio').val()
       }
