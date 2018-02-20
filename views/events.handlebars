@@ -1,13 +1,15 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsoBvfyTjb2cv09tBpnkZxhRF6MTKIgOM&libraries=places&callback=initMap" async defer></script>
 <!-- modal buttons -->
 <div class="body">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="eventNavBtn myInterests">
+                {{#if user}}
                     <button type="submit" class="btn btn-primary" id="cmdsubmitMyInterestsBtn">
                         <strong>INTERESTS</strong>
                     </button>
                 </div>
+                {{/if}}
                 <div class="eventNavBtn allEvents">
                     <button type="submit" class="btn btn-primary" id="cmdsubmitAllEventsBtn">
                         <strong>ALL EVENTS</strong>
@@ -50,7 +52,7 @@
                                 <br>Number of Player(s) Commited : {{this.numberAttending}}
                                 <br>Gender Specific :
                                 <i>{{this.gender}}</i>
-                                <br>Location :
+                                <br>Starting At : <i class='time'>{{this.start_time}}</i> Ending At: <i class='time'>{{this.end_time}}</i>
                                 <i>{{this.location}}</i>
                                 <br>Starting At :
                                 <i>{{this.start_time}}</i> Ending At:
@@ -132,7 +134,7 @@
                 <div class="row">
                     <div class="form-group" id="divEvents">
                         <label for="events" id="lblEvents">
-                            {{#if events}} {{#each events}}
+                            {{#if allEvents}} {{#each allEvents}}
                             <b href='/event_details/{{this.id}}'>{{this.name}}
                             </b>
                             <br>Total Number of Player(s) Needed : {{this.attendants}}
@@ -147,9 +149,11 @@
                             <i>{{this.host}}</i>
                             <i>{{this.Event.host}}</i>
                             <br>
+                            {{#if user}}
                             <button class="cmd cmdGoing" data-event-id='{{this.id}}'>
                                 <strong>Sign Up</strong>
                             </button>
+                            {{/if}}
                             <br>
                             <br /> {{/each}} {{/if}} {{!-- list of all events based on users interests
                             <span>First Event</span> --}}
@@ -173,6 +177,9 @@
             </div>
             <div class="modal-body" style="padding:40px 50px;">
                 <div class="row">
+                    location : <input type='text' id='txtSearchLocation' class="controls" placeholder='cleveland, oh' /> <br />
+                    radius : <input type='text' id='txtRadius' placeholder='5000' value='5000' />
+                    <div id="mapCanvas" style="width: 500px; height: 400px"></div>
                     <div class="form-group" id="divNearYou">
                         <label for="nearYou" id="lblNearYou">
                             <h1>{{this.dataValues.name}}</h1>
@@ -298,49 +305,8 @@
 <div class="background-image-eventpage">
 </div>
 
-<script>
-
-    //  nav modal btn ///////////////////////////////////////////////////
-    $(document).ready(function () {
-        $("#aLogInNav").click(function () {
-            $("#logIn").modal();
-        });
-    });
-
-    $(document).ready(function () {
-        $("#aSignUpNav").click(function () {
-            $("#signUp").modal();
-        });
-    });
-
-    $(document).ready(function () {
-        $("#aSignUpBtn").click(function () {
-            $("#signUp").modal();
-        });
-    });
-
-    // field modal btn //////////////////////////////////////////////////
-    $(document).ready(function () {
-        $("#cmdsubmitMyInterestsBtn").click(function () {
-            $("#myInterests").modal();
-        });
-    });
-
-    $(document).ready(function () {
-        $("#cmdsubmitAllEventsBtn").click(function () {
-            $("#allEvents").modal();
-        });
-    });
-
-    $(document).ready(function () {
-        $("#cmdsubmitEventsNearBtn").click(function () {
-            $("#eventNear").modal();
-        });
-    });
-
     $(document).ready(function () {
         $("#cmdsubmitCreateEventBtn").click(function () {
             $("#createEvent").modal();
         });
     });
-</script>

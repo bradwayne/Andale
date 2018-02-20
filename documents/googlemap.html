@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Place details</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+   
+    <script>
+        // This example requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+
+        function initMap() {
+            var arrMap = [
+                
+            ]
+            var currentLocation = {};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 41.505493, lng: -81.681290 },
+                zoom: 15
+            });
+            var geocoder = new google.maps.Geocoder();
+            document.getElementById('submit').addEventListener('click', function () {
+                geocodeAddress(geocoder, map);
+            });
+            function geocodeAddress(geocoder, resultsMap) {
+                var address = document.getElementById('address').value;
+                geocoder.geocode({ 'address': address }, function (results, status) {
+                    if (status === 'OK') {
+                        resultsMap.setCenter(results[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                            map: resultsMap,
+                            position: results[0].geometry.location
+                        });
+                        console.log(results);
+                        currentLocation.location = results[0].geometry.location
+                        currentLocation.PlaceId = results[0].place_id;
+                        console.log(currentLocation);
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+                setTimeout(() => {
+                    var infowindow = new google.maps.InfoWindow();
+                    var service = new google.maps.places.PlacesService(map);
+                    console.log("here")
+                    service.getDetails({
+                        placeId: currentLocation.PlaceId
+                    }, function (place, status) {
+                        console.log("here too?")
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: currentLocation
+                            });
+                            google.maps.event.addListener(marker, 'click', function () {
+                                console.log("here too?")
+                                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                                    'Place ID: ' + place.place_id + '<br>' +
+                                    place.formatted_address + '</div>');
+                                console.log(place);
+                                infowindow.open(map, this);
+                            });
+                        }
+                    });
+                    var circle = new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: currentLocation.location,
+                        radius: 5000
+                    })
+                }, 500);
+
+                
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input id='address' value='cleveland, oh' type="text" placeholder="cleveland, oh" />
+    <button id="submit">submit</button>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsoBvfyTjb2cv09tBpnkZxhRF6MTKIgOM&libraries=places&callback=initMap"
+        async defer></script>
+    </script>
+</body>
+
+</html>

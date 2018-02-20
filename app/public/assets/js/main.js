@@ -1,7 +1,20 @@
 $(function () {
   $('#aLogInNav').click(function () {
-    $('#logIn').modal()
+    if ((window.location.href.indexOf('/user') > -1) || (window.location.href.indexOf('/event') > -1)) {
+      setWebSession('login')
+      window.location.href = '/'
+    }else {
+      $('#logIn').modal()
+      sessionStorage.removeItem('sessionNextPage')
+    }
   })
+  if (sessionStorage.getItem('sessionNextPage') == 'login') {
+    $('#logIn').modal()
+    sessionStorage.removeItem('sessionNextPage')
+  }else if (sessionStorage.getItem('sessionNextPage') == 'details') {
+    $('#activity').modal()
+    sessionStorage.removeItem('sessionNextPage')
+  }
   $('#cmdsubmitMyEventsBtn').click(function () {
     $('#myEvents').modal()
   })
@@ -30,11 +43,11 @@ $(function () {
     }
   })
 
-  $('.cmdDetails').click(function(){
-      setTimeout(() => {
-        window.location.href = '/event_details/'+$(this).attr("data-event-id");    
-      }, 5000);
-      
+  $('.cmdDetails').click(function () {
+    setTimeout(() => {
+      setWebSession('details')
+      window.location.href = '/event_details/' + $(this).attr('data-event-id')
+    }, 5000)
   })
   if (window.location.href.indexOf('/user/') > -1) {
     if (sessionStorage.getItem('sessionUserName')) {
@@ -95,10 +108,12 @@ $(function () {
   if (sessionStorage.getItem('sessionNextPage') === 'sign up') {
     console.log('sign up session here')
     if (window.location.href.indexOf('/user') > -1) {
+      $('.sport-section').hide()
       $('#signUp').modal()
       sessionStorage.removeItem('sessionNextPage')
     }
   }else if (window.location.href.indexOf('/event') > -1) {
+    $('#eventNear').modal()
     if (!sessionStorage.getItem('sessionUserId')) {
       $('.myEvents').hide()
     }else {
@@ -569,4 +584,52 @@ $(function () {
     }
   // console.log(objUpdate)
   })
+
+  /*   var map
+    window.initMap = function () {
+      // Create a map object and specify the DOM element for display.
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+      })
+    } */
+  var marker1, marker2
+
+  window.initMap = function () {
+    var mapOptions = {
+      center: new google.maps.LatLng(41.505493, -81.681290),
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var input = $("#txtSearchLocation");
+
+    var map = new google.maps.Map(document.getElementById('mapCanvas'),
+      mapOptions)
+    marker1 = new google.maps.Marker({
+      position: new google.maps.LatLng(41.505493, -81.681290)
+    })
+    marker2 = new google.maps.Marker({
+      position: new google.maps.LatLng(41.485493, -81.681290)
+    })
+    var userLocation = {
+      currentLocation: {
+        center: {lat: 41.505493, lng: -81.681290},
+        population: 2000
+      }
+    }
+
+    console.log(userLocation.currentLocation.center)
+    marker1.setMap(map)
+    marker2.setMap(map)
+    var circle = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map,
+      center: userLocation.currentLocation.center,
+      radius: 5000
+    })
+  }
 })
