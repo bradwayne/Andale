@@ -49,22 +49,28 @@
                         <div class="form-group" id="divInterests">
                             <label for="interests" id="lblInterests">
                                 {{#if otherEvents}} {{#each otherEvents}}
-                                <b href='/event_details/{{this.id}}'>{{this.name}}
-                                </b>
-                                <br>Total Number of Player(s) Needed : 
+                                <b href='/event_details/{{this.id}}'>{{this.name}}</b>
+                                <br>
+                                Total Number of Player(s) Needed : 
                                 <i>{{this.attendants}}</i>
-                                <br>Number of Player(s) Commited : 
+                                <br>
+                                Number of Player(s) Commited : 
                                 <i>{{this.numberAttending}}</i>
-                                <br>Gender Specific : 
+                                <br>
+                                Gender Specific : 
                                 <i>{{this.gender}}</i>
-                                <br>Starting At :
-                                <i>{{this.gender}}</i>
-                                <br>Starting At :
-                                <i class='time'>{{this.start_time}}</i><br /> Ending At:
-                                <i class='time'>{{this.end_time}}</i><br />
-                                <br>Location :
+                                <br>
+                                <br>
+                                Starting At :
+                                <i class='time'>{{this.start_time}}</i><br/> 
+                                Ending At:
+                                <i class='time'>{{this.end_time}}</i>
+                                <br>
+                                <br>
+                                Location :
                                 <i>{{this.location}}</i>
-                                <br>Hosted by :
+                                <br>
+                                Hosted by :
                                 <i>{{this.host}}</i>
                                 <i>{{this.Event.host}}</i>
                                 <br>
@@ -72,7 +78,10 @@
                                     <strong>Sign Up</strong>
                                 </button>
                                 <br>
-                                <br /> {{/each}} {{else}} add some sports in <a href='/user/{{user.id}}'>user profile</a> to get started!   {{/if}} {{!-- list of activities user selected from the user page
+                                <br>
+                                <div>-----------------------------------------------------------------------------------------------------------------</div>
+
+                                <br/> {{/each}} {{else}} add some sports in <a href='/user/{{user.id}}'>user profile</a> to get started!   {{/if}} {{!-- list of activities user selected from the user page
                                 <span>First Interest</span> --}}
                             </label>
                         </div>
@@ -97,29 +106,38 @@
                         <div class="form-group" id="divSignedUp">
                             <label for="signedUp" id="lblSignedUp">
                                 {{#if likeEventInfo}} {{#each likeEventInfo}}
-                                <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}
-                                </b>
-                                <br>Total Number of Player(s) Needed : 
+                                <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}</b>
+                                <br>
+                                Total Number of Player(s) Needed : 
                                 <i>{{this.Event.attendants}}</i>
-                                <br>Number of Player(s) Commited : 
+                                <br>
+                                Number of Player(s) Commited : 
                                 <i>{{this.Event.numberAttending}}</i>
-                                <br>Gender Specific : 
+                                <br>
+                                Gender Specific : 
                                 <i>{{this.Event.gender}}</i>
-                                <br>Location :
+                                <br>
+                                <br>
+                                Starting At :
+                                <i  class="time">{{this.Event.start_time}}</i> <br/>
+                                Ending At : 
+                                <i class="time">{{this.Event.end_time}}</i>
+                                <br>
+                                <br>
+                                Location :
                                 <i>{{this.Event.location}}</i>
-                                <br>Starting At :
-                                <i  class="time">{{this.Event.start_time}}</i> <br />Ending At : <i class="time">{{this.Event.end_time}}</i>
-                                <br>Ending At : 
-                                <i>{{this.Event.end_time}}</i>
-                                <br>Hosted by :
+                                <br>
+                                Hosted by :
                                 <i>{{this.Event.host}}</i>
                                 <br> {{!-- this will send them to the activity blog page --}}
                                 <button class="cmd cmdDetails" data-event-id='{{this.EventId}}'>View Details</button>
 
 
                                 <button class="cmd cmdCancel" data-event-id='{{this.EventId}}'>Remove</button>
-
                                 <br>
+                                <br>
+                                <div>-----------------------------------------------------------------------------------------------------------------</div>
+
                                 <br /> {{/each}} {{else}} you did not commit to any event.. {{/if}} {{!-- list of activities user
                                 has signed up for
                                 <span>First Signed Up Event</span> --}}
@@ -147,27 +165,38 @@
                     <div class="form-group" id="divAllEvents">
                         <label for="allEvents" id="lblAllEvents">
                             {{#if allEvents}} {{#each allEvents}}
-                            <b href='/event_details/{{this.id}}'>{{this.name}}
-                            </b>
-                            <br>Total Number of Player(s) Needed : <i>{{this.attendants}}</i>
-                            <br>Gender Specific :
+                            <b href='/event_details/{{this.id}}'>{{this.name}}</b>
+                            <br>
+                            Total Number of Player(s) Needed : 
+                            <i>{{this.attendants}}</i>
+                            <br>
+                            Gender Specific :
                             <i>{{this.gender}}</i>
-                            <br>Location :
-                            <i>{{this.location}}</i>
-                            <br>Starting At :
-                            <i class="time">{{this.start_time}}</i> <br />
+                            <br>
+                            <br>
+                            Starting At :
+                            <i class="time">{{this.start_time}}</i> <br/>
                             Ending At :
                             <i class="time">{{this.end_time}}</i>
-                            <br>Hosted by :
+                            <br>
+                            <br>
+                            Location :
+                            <i>{{this.location}}</i>
+                            <br>
+                            Hosted by :
                             <i>{{this.host}}</i>
                             <i>{{this.Event.host}}</i>
                             <br> {{#if user}}
                             <button class="cmd cmdGoing" data-event-id='{{this.id}}'>
                                 <strong>Sign Up</strong>
                             </button>
+
                             {{/if}}
+
                             <br>
-                            <br /> {{/each}} {{/if}} {{!-- list of all events based on users interests
+                            <div>-----------------------------------------------------------------------------------------------------------------</div>
+
+                            <br/> {{/each}} {{/if}} {{!-- list of all events based on users interests
                             <span>First Event</span> --}}
                         </label>
                     </div>
@@ -395,9 +424,12 @@
                                 {{#if user.Events}} {{#each user.Events}}
                                 <b href='/event_details/{{this.id}}'>{{this.name}}
                                 </b>
-                                <br>Total Number of Player(s) Needed : {{this.attendants}}
-                                <br>Number of Player(s) Commited : {{this.Event.numberAttending}}
-                                <br>Gender Specific : {{this.gender}}
+                                <br>Total Number of Player(s) Needed : 
+                                <i>{{this.attendants}}</i>
+                                <br>Number of Player(s) Commited : 
+                                <i>{{this.Event.numberAttending}}</i>
+                                <br>Gender Specific : 
+                                <i>{{this.gender}}</i>
                                 <br>Location :
                                 <i>{{this.location}}</i>
                                 <br>Starting At :
@@ -411,6 +443,9 @@
                                 <button class="cmd cmdRemoveEvent" data-event-id='{{this.id}}'>Remove</button>
 
                                 <br>
+                                <br>
+                                <div>-----------------------------------------------------------------------------------------------------------------</div>
+
                                 <br /> {{/each}} {{else}} You have not host any event.. {{/if}} {{!-- list of activities user
                                 has signed up for
                                 <span>First Signed Up Event</span> --}}

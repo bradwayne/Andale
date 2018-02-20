@@ -20,11 +20,6 @@ span {
     padding-right: 5px;
 }
 
-/* .glyph-icon {
-    color: white;
-    margin-right: 10px;
-} */
-
 .modalHeading {
     font-size: 30px;
     letter-spacing: 1px;
@@ -58,6 +53,7 @@ b {
     font-size: 25px;
 }
 
-.modal-content {
-    opacity: .90;
+.modal-body a {
+    text-decoration: none;
+    color: inherit;
 }
