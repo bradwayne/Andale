@@ -44,6 +44,7 @@
                     </h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
+                    <div id="msg-center" class="alert alert-danger text-center">testing</div>
                     <div class="row">
                         <div class="form-group" id="divInterests">
                             <label for="interests" id="lblInterests">
@@ -70,7 +71,7 @@
                                     <strong>Sign Up</strong>
                                 </button>
                                 <br>
-                                <br /> {{/each}} {{/if}} {{!-- list of activities user selected from the user page
+                                <br /> {{/each}} {{else}} add some sports in <a href='/user/{{user.id}}'>user profile</a> to get started!   {{/if}} {{!-- list of activities user selected from the user page
                                 <span>First Interest</span> --}}
                             </label>
                         </div>

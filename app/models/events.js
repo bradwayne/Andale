@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     location: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: {
         args: false,
         msg: 'Event must have a location'
@@ -64,16 +64,16 @@ module.exports = function (sequelize, DataTypes) {
       validate: {
         isInt: {
           args: true,
-          msg: 'Attendants must be numeric'
+          msg: 'Invalid phone number'
         }
       }
     },
     email_contact: {
       type: DataTypes.STRING,
       validate: {
-        is: {
-          args: '/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
-          msg: 'Please enter a valid email address'
+        isEmail: {
+          args: true,
+          msg: 'Please enter a valid email-address'
         }
       }
     },
@@ -90,8 +90,8 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       validate: {
         max: {
-          args: [5],
-          msg: 'Level must be not greater than 5'
+          args: [10],
+          msg: 'Level must be not greater than 10'
         },
         min: {
           args: [1],

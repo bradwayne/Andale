@@ -1,4 +1,5 @@
 $(function () {
+  $('#msg-center').hide()
   $('.slider').slider({
     precision: 2
   })
@@ -63,6 +64,13 @@ $(function () {
     }, 5000)
   })
   if (window.location.href.indexOf('/user/') > -1) {
+    if (sessionStorage.getItem('sessionMsgCenter')) {
+      $('#msg-center').html(sessionStorage.getItem('sessionMsgCenter'))
+      $('#msg-center').show()
+      $('#msg-center').addClass('alert-success').removeClass('alert-danger')
+
+      sessionStorage.removeItem('sessionMsgCenter')
+    }
     if (sessionStorage.getItem('sessionUserName')) {
       $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
       $('#aSignUpBtn').removeAttr('href')
@@ -119,6 +127,13 @@ $(function () {
       sessionStorage.removeItem('sessionNextPage')
     }
   }else if (window.location.href.indexOf('/event') > -1) {
+    if (sessionStorage.getItem('sessionMsgCenter')) {
+      $('#msg-center').html(sessionStorage.getItem('sessionMsgCenter'))
+      $('#msg-center').show()
+      $('#msg-center').addClass('alert-success').removeClass('alert-danger')
+
+      sessionStorage.removeItem('sessionMsgCenter')
+    }
     // $('#eventNear').modal()
     if (!sessionStorage.getItem('sessionUserId')) {
       $('.myInterests').hide()
@@ -292,7 +307,7 @@ $(function () {
     })
   }
   function replacingSequelizeError (obj) {
-    obj = 'Validation error' + obj.replace(/Validation error:/g, '')
+    obj = 'Please fix the following error: ' + obj.replace(/Validation error:/g, '<br />')
     console.log(obj)
     return obj
   }
@@ -322,7 +337,7 @@ $(function () {
         console.log('in updateProfile function')
         console.log(xhr)
         if (xhr.responseJSON) {
-          if (xhr.responseJSON.indexOf('Validation error') > -1) {
+          if (xhr.responseJSON.indexOf('Please fix the following error: ') > -1) {
             return replacingSequelizeError(xhr.responseJSON)
           }else {
             console.log('user added successfully')
@@ -377,7 +392,9 @@ $(function () {
           console.log(xhr)
           if (xhr.status == 200) {
             console.log('user sport edit successfully')
-          // location.reload()
+            sessionStorage.setItem('sessionMsgCenter', 'Sports added/removed successfully! Check out event page for upcoming events!')
+            sessionStorage.setItem('sessionNextPage', 'my event')
+            location.reload()
           }else {
             console.log(xhr.responseJSON)
           }
@@ -460,6 +477,8 @@ $(function () {
     } catch(e) {
       console.log(e)
     } finally {
+      sessionStorage.setItem('sessionMsgCenter', 'Sports added/removed successfully! Check out event page for upcoming events!')
+      sessionStorage.setItem('sessionNextPage', 'my event')
       setTimeout(() => {
         location.reload()
       }, 500)
@@ -478,6 +497,8 @@ $(function () {
     } catch(e) {
       console.log(e)
     }finally {
+      sessionStorage.setItem('sessionMsgCenter', 'You have remove yourselves from an event.')
+      sessionStorage.setItem('sessionNextPage', 'my event')
       setTimeout(() => {
         location.reload()
       }, 500)
@@ -495,6 +516,8 @@ $(function () {
     } catch(e) {
       console.log(e)
     }finally {
+      sessionStorage.setItem('sessionMsgCenter', 'You have sign up for an event!')
+      sessionStorage.setItem('sessionNextPage', 'my event')
       setTimeout(() => {
         location.reload()
       }, 500)
@@ -528,9 +551,16 @@ $(function () {
             if (xhr.responseJSON.indexOf('Validation error') > -1) {
               // console.log(xhr.responseJSON)
               console.log('Thorwing error')
-              replacingSequelizeError(xhr.responseJSON)
+              $('#msg-center').addClass('alert-danger')
+              $('#msg-center').show()
+              $('#msg-center').html(replacingSequelizeError(xhr.responseJSON))
             }
           }else {
+            sessionStorage.setItem('sessionMsgCenter', 'User profile created successfully, select some sports to get going!')
+            $('#msg-center').empty()
+            $('#msg-center').addClass('alert-success').removeClass('alert-danger')
+            $('#msg-center').show()
+            $('#msg-center').html('User profile created successfully')
             console.log('no error found, user added successfully')
             getUserCredentials(objSignUp.username, objSignUp.password)
             setWebSession('user profile')
@@ -571,7 +601,7 @@ $(function () {
           console.log(xhr)
           if (xhr.responseJSON) {
             if (xhr.responseJSON.indexOf('Validation error') > -1) {
-              // console.log(xhr.responseJSON)
+              console.log(xhr.responseJSON)
               console.log('Thorwing error')
               replacingSequelizeError(xhr.responseJSON)
             }

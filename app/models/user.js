@@ -76,8 +76,11 @@ module.exports = function (sequelize, DataTypes) {
         }
       }
     },
-    location: {
+    city: {
       type: DataTypes.STRING
+    },
+    state: {
+        type: DataTypes.STRING
     },
     hometown: {
       type: DataTypes.STRING
