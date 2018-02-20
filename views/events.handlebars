@@ -255,15 +255,31 @@
                             </label>
                             <div class="form-inline">
                                 <div class="form-group" id="divStartsAtDate">
-                                    <input type="text" class="form-control txtLocation" id="txtLocationCity" placeholder="City" name="location" style="width:auto"
+                                    <input type="text" class="form-control txtLocation" id="txtStartsAtDate" placeholder="mm/dd/yyyy" name="startAt" style="width:auto"
                                         {{#if user.location}} value='{{user.location}}' {{/if}}>
                                 </div>
                                 <div class="form-group" id="divStartsAtTime">
-                                    <input type="text" class="form-control" id="txtLocationState" placeholder="State" name="location" style="width:auto">
+                                    <input type="text" class="form-control" id="txtStartAtTime" placeholder="12:00" name="startAt" style="width:auto">
                                 </div>
                             </div>
                             </label>
                         </div>
+                        <div class="form-group" id="divStartAt">
+                            <label for="location" id="lblStartsAt">
+                                <span>Event Ends At</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group" id="divEndsAtDate">
+                                    <input type="text" class="form-control txtLocation" id="txtEndsAtDate" placeholder="mm/dd/yyyy" name="EndsAt" style="width:auto"
+                                        {{#if user.location}} value='{{user.location}}' {{/if}}>
+                                </div>
+                                <div class="form-group" id="divEndsAtTime">
+                                    <input type="text" class="form-control" id="txtEndsAtTime" placeholder="12:00" name="EndsAt" style="width:auto">
+                                </div>
+                            </div>
+                            </label>
+                        </div>
+
 
 
 
