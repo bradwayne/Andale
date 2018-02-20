@@ -136,7 +136,7 @@
                                         <strong>{{this.Sport.name}} - level {{this.level}} </strong>
                                         </label>
                                         <br />
-                                        <input class="slider" type="text" data-id="{{this.SportId}}" data-slider-value={{#if this.level}}{{this.level}}{{else}}0{{/if}}
+                                        <input class="slider currentUser" type="text" data-id="{{this.SportId}}" data-slider-value={{#if this.level}}{{this.level}}{{else}}0{{/if}}
                                             data-value={{#if this.level}}{{this.level}}{{else}}0{{/if}} value={{#if this.level}}{{this.level}}{{else}}0{{/if}}/>
                                         <br>
                                         <br>
@@ -174,11 +174,11 @@
                                     <div class="row">
                                         {{#each otherSports}}
                                         <div class="col-md-6">
-                                            <label for="slider" class="sportChoices"></label>
+                                            <label for="slider" class="sportChoices">
                                             <strong>Sport name : {{this.name}}</strong>
                                             </label>
                                             <br />
-                                            <input class="newSportSlider" type="text" data-id="{{this.id}}" value="{{#if this.level}} {{this.level}} {{else}} 0 {{/if}}"
+                                            <input class="newSportSlider" type="text" data-id="{{this.id}}" value="{{#if this.level}}{{this.level}}{{else}}0{{/if}}"
                                             />
                                             <br>
                                             <br>
