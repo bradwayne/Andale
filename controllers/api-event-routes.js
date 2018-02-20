@@ -42,12 +42,17 @@ module.exports = function (app) {
             title: 'Events User Hosting',
             user: userHostedEvents
           }
-          for (var i = 0; i < eventToDisplay.user.UserEvents.length; i++) {
-            arrEventId.push(eventToDisplay.user.UserEvents[i].EventId)
+          if (eventToDisplay.user.UserEvents){
+            for (var i = 0; i < eventToDisplay.user.UserEvents.length; i++) {
+              arrEventId.push(eventToDisplay.user.UserEvents[i].EventId)
+            }
           }
-          for (var i = 0; i < eventToDisplay.user.UserSports.length; i++) {
-            arrSportId.push(eventToDisplay.user.UserSports[i].SportId)
+          if (eventToDisplay.user.UserSports){
+            for (var i = 0; i < eventToDisplay.user.UserSports.length; i++) {
+              arrSportId.push(eventToDisplay.user.UserSports[i].SportId)
+            }
           }
+          
 
           console.log(arrEventId)
           db.UserEvent.findAll({

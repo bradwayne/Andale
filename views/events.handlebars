@@ -51,13 +51,18 @@
                                 {{#if otherEvents}} {{#each otherEvents}}
                                 <b href='/event_details/{{this.id}}'>{{this.name}}
                                 </b>
-                                <br>Total Number of Player(s) Needed : {{this.attendants}}
-                                <br>Number of Player(s) Commited : {{this.numberAttending}}
-                                <br>Gender Specific :
+                                <br>Total Number of Player(s) Needed : 
+                                <i>{{this.attendants}}</i>
+                                <br>Number of Player(s) Commited : 
+                                <i>{{this.numberAttending}}</i>
+                                <br>Gender Specific : 
+                                <i>{{this.gender}}</i>
+                                <br>Starting At :
                                 <i>{{this.gender}}</i>
                                 <br>Starting At :
                                 <i class='time'>{{this.start_time}}</i><br /> Ending At:
                                 <i class='time'>{{this.end_time}}</i><br />
+                                <br>Location :
                                 <i>{{this.location}}</i>
                                 <br>Hosted by :
                                 <i>{{this.host}}</i>
@@ -94,13 +99,18 @@
                                 {{#if likeEventInfo}} {{#each likeEventInfo}}
                                 <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}
                                 </b>
-                                <br>Total Number of Player(s) Needed : {{this.Event.attendants}}
-                                <br>Number of Player(s) Commited : {{this.Event.numberAttending}}
-                                <br>Gender Specific : {{this.Event.gender}}
+                                <br>Total Number of Player(s) Needed : 
+                                <i>{{this.Event.attendants}}</i>
+                                <br>Number of Player(s) Commited : 
+                                <i>{{this.Event.numberAttending}}</i>
+                                <br>Gender Specific : 
+                                <i>{{this.Event.gender}}</i>
                                 <br>Location :
                                 <i>{{this.Event.location}}</i>
                                 <br>Starting At :
                                 <i  class="time">{{this.Event.start_time}}</i> <br />Ending At : <i class="time">{{this.Event.end_time}}</i>
+                                <br>Ending At : 
+                                <i>{{this.Event.end_time}}</i>
                                 <br>Hosted by :
                                 <i>{{this.Event.host}}</i>
                                 <br> {{!-- this will send them to the activity blog page --}}
@@ -139,7 +149,7 @@
                             {{#if allEvents}} {{#each allEvents}}
                             <b href='/event_details/{{this.id}}'>{{this.name}}
                             </b>
-                            <br>Total Number of Player(s) Needed : {{this.attendants}}
+                            <br>Total Number of Player(s) Needed : <i>{{this.attendants}}</i>
                             <br>Gender Specific :
                             <i>{{this.gender}}</i>
                             <br>Location :
@@ -242,6 +252,23 @@
                             <label class="radio-inline" id="lblGenderUnspecified">
                                 <input type="radio" name="gender" value='unspecified'>Both</label>
                         </div>
+
+                        <div class="form-group" id="divAgeBracket">
+                            <label for="ageBracket" id="lblAgeBracket">
+                                <span>Age Bracket</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group" id="divAgeBracketMin">
+                                    <strong>Min : </strong>
+                                    <input type="text" class="form-control txtAgeBracket" id="txtAgeBracketMin" placeholder="Min" name="ageBracket" style="width:auto">
+                                </div>
+                                <div class="form-group" id="divAgeBracketMax">
+                                    <strong>Max : </strong>
+                                    <input type="text" class="form-control" id="txtAgeBracketMax" placeholder="Max" name="ageBracket" style="width:auto">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group" id="divLocation">
                             <label for="location" id="lblLocation">
                                 <span>Location</span>
@@ -289,6 +316,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group" id="divHostedBy">
+                            <label for="hostedBy" id="lblHostedBy">
+                                <span>Hosted By : </span>
+                            </label>
+                            <input type="text" class="form-control txtHostedBy" id="txtHostedBy" placeholder="User Name">
+                        </div>
+                        <div class="form-group" id="divContactNumber">
+                            <label for="contactNumber" id="lblContactNumber">
+                                <span>Contact Number : </span>
+                            </label>
+                            <input type="text" class="form-control txtContactNumber" id="txtContactNumber" placeholder="Contact Number">
+                        </div>
+
+                        <div class="form-group" id="divEmailAddress">
+                            <label for="EmailAddress" id="lblEmailAddress">
+                                <span>Email Address : </span>
+                            </label>
+                            <input type="text" class="form-control txtEmailAddress" id="txtEmailAddress" placeholder="Email Address">
+                        </div>
+
                         <button type="submit" class="btn btn-success btn-block" id={{#if user}} "cmdSaveChanges"{{else}} "cmdSignUp"{{/if}}>
                             <span class="glyphicon glyphicon-ok"></span>
                             <strong>{{#if user.id}} Create / Update Event {{else}} Submit Profile {{/if}}</strong>

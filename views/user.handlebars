@@ -64,7 +64,7 @@
                             {{#unless user.dob}}
                             <div class="form-group" id="divDateBirth">
                                 <label for="dateBirth" id="lblDateBirth">
-                                    <b>Date Of Birth</b>
+                                    <span>Date Of Birth</span>
                                 </label>
                                 <br>
                                 <input type="date" class="form-control dpDob" id="txtDateBirth" name="dateBirth" required />
@@ -72,7 +72,7 @@
                             {{/unless}} {{#unless user.username}}
                             <div class="form-group" id="divInfoUserName">
                                 <label for="infousername" id="lblInfoUserName">
-                                    <b>User Name</b>
+                                    <span>User Name</span>
                                 </label>
                                 <input type="text" class="form-control txtUserName" id="txtInfoUserName" placeholder="User Name" name="infousername" required
                                 />
@@ -80,14 +80,14 @@
                             {{/unless}} {{#unless user.password}}
                             <div class="form-group" id="divInfoPwd">
                                 <label for="infopwd" id="lblInfoPwd">
-                                    <b>Password</b>
+                                    <span>Password</span>
                                 </label>
                                 <input type="password" class="form-control txtPassword" id="txtInfoPwd" placeholder="Password" name="infopwd" required />
                             </div>
                             {{/unless}}
                             <div class="form-group" id="divEmail">
                                 <label for="email" id="lblEmail">
-                                    <b>Email Address</b>
+                                    <span>Email Address</span>
                                 </label>
                                 <input type="text" class="form-control txtEmail" id="txtEmailAddress" placeholder="Email Address" name="email" required {{#if
                                     user.email}} value='{{user.email}}' {{/if}}>
@@ -95,7 +95,7 @@
 
                             <div class="form-group" id="divUserImage">
                                 <label for="userimage" id="lblUserImage">
-                                    <b>User Image</b>
+                                    <span>User Image</span>
                                 </label>
                                 <input type="text" class="form-control txtPhoto" id="txtUserImage" placeholder="http://image" name="useriamge" required {{#if
                                     user.photo}} value='{{user.photo}}' {{/if}}>
@@ -103,7 +103,7 @@
 
                             <div class="form-group" id="divUserBio">
                                 <label for="userbio" id="lblUserBio">
-                                    <b>Bio About You</b>
+                                    <span>Bio About You</span>
                                 </label>
                                 <textarea type="text" class="form-control taBio" id="txtUserBio" rows="5">{{#if user.bio}} {{user.bio}} {{/if}}</textarea>
                             </div>
