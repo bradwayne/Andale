@@ -1,4 +1,11 @@
 $(function () {
+  $('.slider').slider({
+    precision: 2
+  })
+  $('.newSportSlider').slider({
+    precision: 2,
+    value: 0
+  })
   $('#aLogInNav').click(function () {
     if ((window.location.href.indexOf('/user') > -1) || (window.location.href.indexOf('/event') > -1)) {
       setWebSession('login')
@@ -26,6 +33,9 @@ $(function () {
   })
   $('#cmdsubmitEventsNearBtn').click(function () {
     $('#eventNear').modal()
+  })
+  $('#cmdsubmitMyInterestsBtn').click(function () {
+    $('#myInterests').modal()
   })
 
   $('#hypSignUpBtn').click(function () {
@@ -77,13 +87,6 @@ $(function () {
           $(this).val('data-slider-value')
         }
       })
-      $('.slider').slider({
-        precision: 2
-      })
-      $('.newSportSlider').slider({
-        precision: 2,
-        value: 0
-      })
 
       console.log('remove session in user redirect')
       sessionStorage.removeItem('sessionNextPage')
@@ -116,7 +119,7 @@ $(function () {
       sessionStorage.removeItem('sessionNextPage')
     }
   }else if (window.location.href.indexOf('/event') > -1) {
-    $('#eventNear').modal()
+    // $('#eventNear').modal()
     if (!sessionStorage.getItem('sessionUserId')) {
       $('.myInterests').hide()
     }else {
@@ -604,7 +607,7 @@ $(function () {
       zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-    var input = $("#txtSearchLocation");
+    var input = $('#txtSearchLocation')
 
     var map = new google.maps.Map(document.getElementById('mapCanvas'),
       mapOptions)
