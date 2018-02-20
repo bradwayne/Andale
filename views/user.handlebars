@@ -36,8 +36,8 @@
                                 <label class="radio-inline" id="lblGenderMale">
                                     <input type="radio" name="gender" value='male' checked="checked">Male</label>
                                 <label class="radio-inline" id="lblGenderFemale">
-                                    <input type="radio" name="gender" value='female'>Female</label>
-                                </label>
+                                    <input type="radio" name="gender" value='female'>Female
+
                             </div>
                             {{/unless}}
 
@@ -118,7 +118,7 @@
                 </div>
             </div>
         </div>
-    <div class="col-sm-6 sport-section">
+        <div class="col-sm-6 sport-section">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="padding-15px 30px">
@@ -134,9 +134,8 @@
                                     <div class="col-md-6">
                                         <label for="slider" class="sportChoices"></label>
                                         <strong>{{this.Sport.name}} - level {{this.level}} </strong>
-                                        </label>
                                         <br />
-                                        <input class="slider" type="text" data-id="{{this.SportId}}" data-slider-value={{#if this.level}}{{this.level}}{{else}}0{{/if}}
+                                        <input class="slider currentUser" type="text" data-id="{{this.SportId}}" data-slider-value={{#if this.level}}{{this.level}}{{else}}0{{/if}}
                                             data-value={{#if this.level}}{{this.level}}{{else}}0{{/if}} value={{#if this.level}}{{this.level}}{{else}}0{{/if}}/>
                                         <br>
                                         <br>
