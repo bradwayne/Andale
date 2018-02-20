@@ -80,7 +80,7 @@ module.exports = function (app) {
     }else {
       db.Events.findAll({
       }).then(function (allEvents) {
-        eventToDisplay.events = allEvents
+        eventToDisplay.allEvents = allEvents
         console.log('here')
         // res.json(eventToDisplay)
         res.render('events', eventToDisplay)
@@ -115,9 +115,9 @@ module.exports = function (app) {
                 include: db.User
               }).then(function (eventDiscussion) {
                 objEventDetails.discussion = eventDiscussion
-                res.json(objEventDetails)
+                //res.json(objEventDetails)
                 console.log(objEventDetails)
-              // res.render('activity', objEventDetails)
+                res.render('activity', objEventDetails)
               })
             })
           })
