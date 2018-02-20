@@ -58,9 +58,10 @@
                                 <br>Gender Specific : 
                                 <i>{{this.gender}}</i>
                                 <br>Starting At :
-                                <i class='time'>{{this.start_time}}</i> 
-                                <br>Ending At:
-                                <i class='time'>{{this.end_time}}</i>
+                                <i>{{this.gender}}</i>
+                                <br>Starting At :
+                                <i class='time'>{{this.start_time}}</i><br /> Ending At:
+                                <i class='time'>{{this.end_time}}</i><br />
                                 <br>Location :
                                 <i>{{this.location}}</i>
                                 <br>Hosted by :
@@ -107,7 +108,7 @@
                                 <br>Location :
                                 <i>{{this.Event.location}}</i>
                                 <br>Starting At :
-                                <i>{{this.Event.start_time}}</i> 
+                                <i  class="time">{{this.Event.start_time}}</i> <br />Ending At : <i class="time">{{this.Event.end_time}}</i>
                                 <br>Ending At : 
                                 <i>{{this.Event.end_time}}</i>
                                 <br>Hosted by :
@@ -154,9 +155,9 @@
                             <br>Location :
                             <i>{{this.location}}</i>
                             <br>Starting At :
-                            <i>{{this.start_time}}</i> 
-                            <br>Ending At :
-                            <i>{{this.end_time}}</i>
+                            <i class="time">{{this.start_time}}</i> <br />
+                            Ending At :
+                            <i class="time">{{this.end_time}}</i>
                             <br>Hosted by :
                             <i>{{this.host}}</i>
                             <i>{{this.Event.host}}</i>
@@ -198,8 +199,8 @@
                             <h1>{{this.dataValues.name}}</h1>
                             <div>Host by : {{this.dataValues.host}}</div>
                             <div>Looking for : {{this.dataValues.sex}} with skill level of {{this.dataValues.level}}</div>
-                            <div>Start Time : {{this.dataValues.start_time}}</div>
-                            <div>End Time : {{this.dataValues.end_time}}</div>
+                            <div>Start Time : <i class="time">{{this.dataValues.start_time}}</i></div>
+                            <div>End Time : <i class="time">{{this.dataValues.end_time}}</i></div>
                             <div>More Info : {{this.dataValues.details}}</div>
                             {{!-- list of activities nearest to user based on interests
                             <span>First event near you</span> --}}
@@ -369,7 +370,7 @@
                                 <br>Location :
                                 <i>{{this.Event.location}}</i>
                                 <br>Starting At :
-                                <i>{{this.Event.start_time}} Ending At : {{this.Event.end_time}}</i>
+                                <i class="time">{{this.Event.start_time}}</i> Ending At : <i class="time">{{this.Event.end_time}}</i>
                                 <br>Hosted by :
                                 <i>{{this.Event.host}}</i>
                                 <br> {{!-- this will send them to the activity blog page --}}

@@ -7,6 +7,12 @@ $(function () {
     precision: 2,
     value: 0
   })
+
+  $('i.time').each(function () {
+    console.log($(this).text())
+    $(this).text(moment($(this).text()).format('YYYY-MM-DD hh:mm a'));
+  })
+
   $('#aLogInNav').click(function () {
     if ((window.location.href.indexOf('/user') > -1) || (window.location.href.indexOf('/event') > -1)) {
       setWebSession('login')
@@ -23,11 +29,8 @@ $(function () {
     $('#activity').modal()
     sessionStorage.removeItem('sessionNextPage')
   }
-  $("#cmdsubmitCreateEventBtn").click(function () {
-    $("#createEvent").modal();
-  });
-  $('#cmdsubmitMyInterestsBtn').click(function () {
-    $('#myInterests').modal()
+  $('#cmdsubmitMyEventsBtn').click(function () {
+    $('#myEvents').modal()
   })
   $('#cmdsubmitAllEventsBtn').click(function () {
     $('#allEvents').modal()
@@ -61,7 +64,7 @@ $(function () {
     setTimeout(() => {
       setWebSession('details')
       window.location.href = '/event_details/' + $(this).attr('data-event-id')
-    }, 5000)
+    }, 500)
   })
   if (window.location.href.indexOf('/user/') > -1) {
     if (sessionStorage.getItem('sessionMsgCenter')) {
@@ -140,9 +143,9 @@ $(function () {
     }
     // $('#eventNear').modal()
     if (!sessionStorage.getItem('sessionUserId')) {
-      $('.myInterests').hide()
+      $('.myEvents').hide()
     }else {
-      $('.myInterests').show()
+      $('.myEvents').show()
     }
     console.log('here')
     console.log(sessionStorage.getItem('sessionNextPage'))
@@ -174,7 +177,7 @@ $(function () {
     setTimeout(() => {
       setWebSession('my event')
       window.location.href = '/event/' + sessionStorage.getItem('sessionUserId')
-    }, 5000)
+    }, 500)
   })
 
   function getUserCredentials (username, password) {
@@ -576,7 +579,7 @@ $(function () {
                 window.location = '/'
               }
             // location.reload()
-            }, 8000)
+            }, 500)
           }
         }
       })
