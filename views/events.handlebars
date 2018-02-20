@@ -3,10 +3,9 @@
 <div class="body">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 {{#if user}}
-                <div class="eventNavBtn myEvents">
-                    <button type="submit" class="btn btn-primary" id="cmdsubmitMyEventsBtn">
+                    <button type="submit" class="btn btn-primary" id="cmdsubmitMyInterestsBtn">
                         <strong>INTERESTS</strong>
                     </button>
                 </div>
@@ -21,6 +20,11 @@
                         <strong>EVENTS NEAR YOU</strong>
                     </button>
                 </div>
+                <div class="eventNavBtn createEvents">
+                    <button type="submit" class="btn btn-primary" id="cmdsubmitCreateEventBtn">
+                        <strong>CREATE EVENT</strong>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -28,7 +32,7 @@
 
 <!-- //// my events btn - my interests modal ////////////////////////////////////////////////////////////////////// =-->
 
-<div class="modal fade" id="myEvents" role="dialog">
+<div class="modal fade" id="myInterests" role="dialog">
     <div class="col-sm-6">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -46,9 +50,13 @@
                                 </b>
                                 <br>Total Number of Player(s) Needed : {{this.attendants}}
                                 <br>Number of Player(s) Commited : {{this.numberAttending}}
-                                <br>Gender Specific : <i>{{this.gender}}</i>
-                                <br>Location : <i>{{this.location}}</i>
+                                <br>Gender Specific :
+                                <i>{{this.gender}}</i>
                                 <br>Starting At : <i class='time'>{{this.start_time}}</i> Ending At: <i class='time'>{{this.end_time}}</i>
+                                <i>{{this.location}}</i>
+                                <br>Starting At :
+                                <i>{{this.start_time}}</i> Ending At:
+                                <i>{{this.end_time}}</i>
                                 <br>Hosted by :
                                 <i>{{this.host}}</i>
                                 <i>{{this.Event.host}}</i>
@@ -89,7 +97,8 @@
                                 <br>Gender Specific : {{this.Event.gender}}
                                 <br>Location :
                                 <i>{{this.Event.location}}</i>
-                                <br>Starting At : <i>{{this.Event.start_time}} Ending At : {{this.Event.end_time}}</i>
+                                <br>Starting At :
+                                <i>{{this.Event.start_time}} Ending At : {{this.Event.end_time}}</i>
                                 <br>Hosted by :
                                 <i>{{this.Event.host}}</i>
                                 <br> {{!-- this will send them to the activity blog page --}}
@@ -129,9 +138,13 @@
                             <b href='/event_details/{{this.id}}'>{{this.name}}
                             </b>
                             <br>Total Number of Player(s) Needed : {{this.attendants}}
-                            <br>Gender Specific : <i>{{this.gender}}</i>
-                            <br>Location : <i>{{this.location}}</i>
-                            <br>Starting At : <i>{{this.start_time}}</i> Ending At : <i>{{this.end_time}}</i>
+                            <br>Gender Specific :
+                            <i>{{this.gender}}</i>
+                            <br>Location :
+                            <i>{{this.location}}</i>
+                            <br>Starting At :
+                            <i>{{this.start_time}}</i> Ending At :
+                            <i>{{this.end_time}}</i>
                             <br>Hosted by :
                             <i>{{this.host}}</i>
                             <i>{{this.Event.host}}</i>
@@ -185,5 +198,99 @@
     </div>
 </div>
 
+<!-- //// create event btn  - events ear you modal ////////////////////////////////////////////////////////// =-->
+
+<div class="modal fade" id="createEvent" role="dialog">
+    <div class="col-sm-6">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:15px 30px">
+                    <h4 class="modalHeading">
+                        <strong>Create Event</strong>
+                    </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <div class="row">
+                        <div class="form-group" id="divCreateEvent">
+                            <label for="createEvent" id="lblCreateEvent">
+                                <span>Event Name</span>
+                            </label>
+                            <input type="text" class="form-control txtcreateEventName" id="txtcreateEventName" placeholder="Event Name">
+                        </div>
+
+                        <div class="form-group" id="divTotalPlayers">
+                            <label for="createEvent" id="lblTotalPlayers">
+                                <span>Total Players Needed
+                                    <em>(including yourself)</em>
+                                </span>
+                            </label>
+                            <input type="text" class="form-control txtTotalPlayers" id="txtTotalPlayers" placeholder="Total Players Needed">
+                        </div>
+
+                        <div class="form-group" id="divGender">
+                            <label for="gender" id="lblGender">
+                                <span>Gender</span>
+                            </label>
+                            <label class="radio-inline" id="lblGenderMale">
+                                <input type="radio" name="gender" value='male' checked="checked">Male</label>
+                            <label class="radio-inline" id="lblGenderFemale">
+                                <input type="radio" name="gender" value='female'>Female</label>
+                            </label>
+                            <label class="radio-inline" id="lblGenderUnspecified">
+                                <input type="radio" name="gender" value='unspecified'>Both</label>
+                            </label>
+                        </div>
+                        <div class="form-group" id="divLocation">
+                            <label for="location" id="lblLocation">
+                                <span>Location</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group" id="divLocationCity">
+                                    <input type="text" class="form-control txtLocation" id="txtLocationCity" placeholder="City" name="location" style="width:auto"
+                                        {{#if user.location}} value='{{user.location}}' {{/if}}>
+                                </div>
+                                <div class="form-group" id="divLocationState">
+                                    <input type="text" class="form-control" id="txtLocationState" placeholder="State" name="location" style="width:auto">
+                                </div>
+                            </div>
+                            </label>
+                        </div>
+
+                        <div class="form-group" id="divStartAt">
+                            <label for="location" id="lblStartsAt">
+                                <span>Event Starts At</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group" id="divStartsAtDate">
+                                    <input type="text" class="form-control txtLocation" id="txtLocationCity" placeholder="City" name="location" style="width:auto"
+                                        {{#if user.location}} value='{{user.location}}' {{/if}}>
+                                </div>
+                                <div class="form-group" id="divStartsAtTime">
+                                    <input type="text" class="form-control" id="txtLocationState" placeholder="State" name="location" style="width:auto">
+                                </div>
+                            </div>
+                            </label>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
 <div class="background-image-eventpage">
 </div>
+
+    $(document).ready(function () {
+        $("#cmdsubmitCreateEventBtn").click(function () {
+            $("#createEvent").modal();
+        });
+    });
