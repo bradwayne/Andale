@@ -23,8 +23,11 @@ $(function () {
     $('#activity').modal()
     sessionStorage.removeItem('sessionNextPage')
   }
-  $('#cmdsubmitMyEventsBtn').click(function () {
-    $('#myEvents').modal()
+  $("#cmdsubmitCreateEventBtn").click(function () {
+    $("#createEvent").modal();
+  });
+  $('#cmdsubmitMyInterestsBtn').click(function () {
+    $('#myInterests').modal()
   })
   $('#cmdsubmitAllEventsBtn').click(function () {
     $('#allEvents').modal()
@@ -133,9 +136,9 @@ $(function () {
     }
     // $('#eventNear').modal()
     if (!sessionStorage.getItem('sessionUserId')) {
-      $('.myEvents').hide()
+      $('.myInterests').hide()
     }else {
-      $('.myEvents').show()
+      $('.myInterests').show()
     }
     console.log('here')
     console.log(sessionStorage.getItem('sessionNextPage'))
