@@ -1,3 +1,5 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsoBvfyTjb2cv09tBpnkZxhRF6MTKIgOM&libraries=places&callback=initMap"
+    async defer></script>
 <div class="body">
     <div class="container">
         <div class="row">
@@ -28,18 +30,52 @@
                                 <label for="activity" id="lblActivityDetails">
                                     <b>{{details.name}}
                                     </b>
+<<<<<<< HEAD
                                     <br>Total Number of Player(s) Needed :
                                     <i>{{details.attendants}}</i>
+=======
+                                    <br>Total Number of Player(s) Needed :{{details.attendants}}
+                                    <br>Commits :
+                                    <i class="time">{{details.numberAttending}}</i>
+>>>>>>> b836d753e24f4a89ae995d4247a6953bb17e61b6
                                     <br>Location :
                                     <i>{{details.location}}</i>
                                     <br> Hosted by :
                                     <i>{{details.host}}</i>
+<<<<<<< HEAD
                                     <br>Gender :
                                     <i>{{details.gender}}</i>
+=======
+                                    <br>Fees : 
+                                    <i>{{details.fees}}</i>
+                                    <br>Gender :
+                                    <i>{{details.gender}}</i>
+                                    <br>Start Time :
+                                    <i class="time">{{details.start_time}}</i>
+                                    <br>End Time :
+                                    <i class="time">{{details.end_time}}</i>
+                                    
+>>>>>>> b836d753e24f4a89ae995d4247a6953bb17e61b6
                                     <br>
                                     <br />
                                 </label>
                                 <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" id="divUsers">
+                                <div class="row">
+                                    {{#if attendingUsers}}
+                                    {{#each attendingUsers}}
+                                    <div class="col-md-3">
+                                        <img class="img-thumbnail" src="{{this.photo}}">
+                                        <br />
+                                        <label class="lblUserName"> {{this.first_name}} {{this.last_name}}</label>
+
+                                    </div>
+                                    {{/each}}
+                                    {{/if}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -67,6 +103,7 @@
                                         <i></i>
                                     </div>
                                 </label>
+                                <div id="mapCanvas" style="width: 500px; height: 400px"></div>
                             </div>
                         </div>
                     </div>
@@ -89,6 +126,17 @@
                     <div class="modal-body" style="padding:40px 50px;">
                         <div class="row">
                             <div class="form-group" id="divEventBlog">
+                                {{#if discussion}}
+                                {{#each discussion}}
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                       {{this.message}}<br />
+                                        <p class="text-right">by : {{this.User.first_name}}, {{this.User.last_name}}</span>
+                                        <p class="text-right"><i class="time">{{this.createdAt}}</i></p>
+                                    </div>
+                                </div>
+                                {{/each}}
+                                 {{/if}}
                                 <label for="userbio" id="lblEventBlog">
                                     <b>Event Communication Chat</b>
                                 </label>

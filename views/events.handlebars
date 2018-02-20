@@ -422,19 +422,25 @@
                         <div class="form-group" id="divSignedUp">
                             <label for="signedUp" id="lblSignedUp">
                                 {{#if user.Events}} {{#each user.Events}}
-                                <b href='/event_details/{{this.id}}'>{{this.name}}
-                                </b>
-                                <br>Total Number of Player(s) Needed : 
+                                <a href='/event_details/{{this.id}}'>{{this.name}}</a>
+                                <br>
+                                Total Number of Player(s) Needed : 
                                 <i>{{this.attendants}}</i>
-                                <br>Number of Player(s) Commited : 
+                                <br>
+                                Number of Player(s) Commited : 
                                 <i>{{this.Event.numberAttending}}</i>
-                                <br>Gender Specific : 
+                                <br>
+                                Gender Specific : 
                                 <i>{{this.gender}}</i>
-                                <br>Location :
+                                <br>
+                                Location :
                                 <i>{{this.location}}</i>
-                                <br>Starting At :
-                                <i class="time">{{this.start_time}}</i> Ending At : <i class="time">{{this.end_time}}</i>
-                                <br>Hosted by :
+                                <br>
+                                Starting At :
+                                <i class="time">{{this.start_time}}</i> 
+                                Ending At : <i class="time">{{this.end_time}}</i>
+                                <br>
+                                Hosted by :
                                 <i>{{this.host}}</i>
                                 <br> {{!-- this will send them to the activity blog page --}}
                                 <button class="cmd cmdEditDetails" data-event-id='{{this.id}}'><a href='/event/{{this.UserId}}/{{this.id}}'>Edit Details</a></button>
