@@ -10,7 +10,7 @@ $(function () {
 
   $('i.time').each(function () {
     console.log($(this).text())
-    $(this).text(moment($(this).text()).format('YYYY-MM-DD hh:mm a'));
+    $(this).text(moment($(this).text()).format('YYYY-MM-DD hh:mm a'))
   })
 
   $('#aLogInNav').click(function () {
@@ -40,6 +40,9 @@ $(function () {
   })
   $('#cmdsubmitMyInterestsBtn').click(function () {
     $('#myInterests').modal()
+  })
+  $('#cmdsubmitCreateEventBtn').click(function () {
+    $('#createEvent').modal()
   })
 
   $('#hypSignUpBtn').click(function () {
@@ -588,13 +591,13 @@ $(function () {
   $('#cmdSaveChanges').click(function () {
     try {
       var objUpdate = {
-        first_name: $('.txtCurrentFirstName').val(),
-        last_name: $('.txtCurrentLastName').val(),
-        location: $('.txtCurrentLocation').val(),
-        hometown: $('.txtCurrentHometown').val(),
-        email: $('.txtCurrentEmail').val(),
-        photo: $('.txtCurrentPhoto').val(),
-        bio: $('.taCurrentBio').val()
+        first_name: $('#txtFirstName').val(),
+        last_name: $('#txtLastName').val(),
+        city: $('#txtLocationCity').val(),
+        state: $('#txtLocationState').val(),
+        email: $('#txtCurrentEmail').val(),
+        photo: $('#txtUserImage').val(),
+        bio: $('#txtUserBio').val()
       }
       $.ajax('/api/user/' + sessionStorage.getItem('sessionUserId'), {
         type: 'PUT',
@@ -612,7 +615,8 @@ $(function () {
             console.log('no error found, user profile updated successfully')
             setTimeout(() => {
               console.log('proceed with page reload')
-            // location.reload()
+              sessionStorage.setItem('sessionMsgCenter', 'Profile updated successfully!')
+              location.reload()
             }, 500)
           }
         }
@@ -622,6 +626,56 @@ $(function () {
       console.log(e)
     }
   // console.log(objUpdate)
+  })
+
+  $('#cmdCreateEvent').click(function () {
+    try {
+      var objNewEvent = {
+        name: $('#txtcreateEventName').val(),
+        location: $('#txtLocation').val(),
+        attendants: $('#txtTotalPlayers').val(),
+        fees: $('#txtFees').val(),
+        host: $('#txtHostedBy').val(),
+        phone_contact: $('#txtContactNumber').val(),
+        email_contact: $('#txtEmailAddress').val(),
+        gender: document.querySelector('input[name="gender"]:checked').value,
+        level: $('#txtLevel').val(),
+        age: $('#txtAge').val(),
+        start_time: $('#txtStartsAtDate').val() + ' ' + $('#txtStartAtTime').val(),
+        end_time: $('#txtEndsAtDate').val() + '' + $('#txtEndsAtTime').val(),
+        geolocation_x: '',
+        geolocation_y: ''
+      }
+      console.log(sessionStorage.getItem('sessionUserId'))
+      console.log(objNewEvent)
+      $.ajax('/api/event/' + sessionStorage.getItem('sessionUserId'), {
+        type: 'POST',
+        data: objNewEvent,
+        success: function (data, status, xhr) {
+          console.log(' in create event function')
+          console.log(xhr)
+          if (xhr.responseJSON) {
+            if (xhr.responseJSON.indexOf('Validation error') > -1) {
+              console.log(xhr.responseJSON)
+              $('.alert.create-event').empty();
+              $('.alert.create-event').html(replacingSequelizeError(xhr.responseJSON))
+              $('.alert.create-event').addClass('alert-danger')
+              $('.alert.create-event').show()
+            }else {
+              console.log('no error found, event created successfully')
+              sessionStorage.setItem('sessionMsgCenter', 'Event created successfully!')
+              sessionStorage.setItem('sessionNextPage', 'my event')
+              setTimeout(() => {
+                location.reload()
+              }, 500)
+            }
+          }
+        }
+      })
+    } catch (e) {
+      console.log('in create event function')
+      console.log(e)
+    }
   })
 
   /*   var map

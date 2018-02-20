@@ -42,17 +42,16 @@ module.exports = function (app) {
             title: 'Events User Hosting',
             user: userHostedEvents
           }
-          if (eventToDisplay.user.UserEvents){
+          if (eventToDisplay.user.UserEvents) {
             for (var i = 0; i < eventToDisplay.user.UserEvents.length; i++) {
               arrEventId.push(eventToDisplay.user.UserEvents[i].EventId)
             }
           }
-          if (eventToDisplay.user.UserSports){
+          if (eventToDisplay.user.UserSports) {
             for (var i = 0; i < eventToDisplay.user.UserSports.length; i++) {
               arrSportId.push(eventToDisplay.user.UserSports[i].SportId)
             }
           }
-          
 
           console.log(arrEventId)
           db.UserEvent.findAll({
@@ -120,7 +119,7 @@ module.exports = function (app) {
                 include: db.User
               }).then(function (eventDiscussion) {
                 objEventDetails.discussion = eventDiscussion
-                //res.json(objEventDetails)
+                // res.json(objEventDetails)
                 console.log(objEventDetails)
                 res.render('activity', objEventDetails)
               })
@@ -132,16 +131,16 @@ module.exports = function (app) {
     }
   })
   /* function objValidation(obj){
-      var errMessage = [];
+      var errMessage = []
       if(obj.name){
           if(obj.name.length > 255 || obj.name.length < 1){
             errMesasge.push("Event name must be between 1 and 255 characters")
           }
       }else{
-          errMessage.push("Event name cannot be blank");
+          errMessage.push("Event name cannot be blank")
       }
       if(!obj.location){
-          errMesasge.push("Location is empty");
+          errMesasge.push("Location is empty")
       }
       if(obj.attedants){
           if(!typeof(obj.attedants) == "number"){
@@ -150,15 +149,15 @@ module.exports = function (app) {
       }
       if(obj.fees){
           if(!typeof(obj.fees) == "number"){
-              errMessage.push("Fees must be numeric");
+              errMessage.push("Fees must be numeric")
           }
       }
       if(!obj.host){
-        errMessage.push("Host cannot be empty");
+        errMessage.push("Host cannot be empty")
       }
       if(obj.phone_contact){
           if(!typeof(obj.phone_contact)){
-              errMessage.push("Phone number must be integer");
+              errMessage.push("Phone number must be integer")
           }
       }
       if(obj.gender !== 'male' || obj.gender !== 'female' || obj.gender != 'unspecified'){
@@ -167,11 +166,7 @@ module.exports = function (app) {
       
   } */
   app.post('/api/event/:user_id', function (req, res, next) {
-    //validation happens here..
-
-
-    //
-
+    console.log('here')
     var user_id = req.params.user_id
     db.Events.create({
       name: req.body.name,
@@ -187,11 +182,21 @@ module.exports = function (app) {
       details: req.body.details,
       start_time: req.body.start_time,
       end_time: req.body.end_time,
-      geolocation_x : req.body.geolocation_x,
-      geolocation_y : req.body.geolocatoin_y,
+      geolocation_x: req.body.geolocation_x,
+      geolocation_y: req.body.geolocatoin_y,
       userId: req.params.user_id
-    }).then(function (results) {
-      res.status(200).end()
+    }).then(function (err, results) {
+      if (err) {
+        return res.status(500).end()
+      }
+
+      // Send back the ID of the new todo
+      res.json({ id: result.insertId })
+      console.log({ id: result.insertId })
+    }).catch(function (err) {
+      console.log('error in sequelize')
+      console.log(err.message)
+      res.json(err.message)
     })
   })
 

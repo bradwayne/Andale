@@ -224,6 +224,7 @@
                     </h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
+                    <div id="msg-center" class="alert alert-danger text-center create-event"></div>
                     <div class="row">
                         <div class="form-group" id="divCreateEvent">
                             <label for="createEvent" id="lblCreateEvent">
@@ -254,32 +255,42 @@
                         </div>
 
                         <div class="form-group" id="divAgeBracket">
-                            <label for="ageBracket" id="lblAgeBracket">
-                                <span>Age Bracket</span>
+                            <label for="ageRequirement" id="lblAge">
+                                <span>Minimum Age Requirement</span>
                             </label>
                             <div class="form-inline">
-                                <div class="form-group" id="divAgeBracketMin">
-                                    <strong>Min : </strong>
-                                    <input type="text" class="form-control txtAgeBracket" id="txtAgeBracketMin" placeholder="Min" name="ageBracket" style="width:auto">
-                                </div>
-                                <div class="form-group" id="divAgeBracketMax">
-                                    <strong>Max : </strong>
-                                    <input type="text" class="form-control" id="txtAgeBracketMax" placeholder="Max" name="ageBracket" style="width:auto">
+                                <div class="form-group">
+                                    <input type="text" class="form-control txtAgeBracket" id="txtAge" placeholder="1" name="ageRequirement" style="width:auto">
                                 </div>
                             </div>
                         </div>
-
+                        <div class="form-group" id="divLevelRequirement">
+                            <label for="levelRequirement" id="lblAge">
+                                <span>Level Requirement</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="txtLevel" placeholder="1-10" name="ageBracket" style="width:auto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divFees">
+                            <label for="fees" id="lblFees">
+                                <span>Fees</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="txtFees" placeholder="10" name="fees" style="width:auto">
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group" id="divLocation">
                             <label for="location" id="lblLocation">
                                 <span>Location</span>
                             </label>
                             <div class="form-inline">
                                 <div class="form-group" id="divLocationCity">
-                                    <input type="text" class="form-control txtLocation" id="txtLocationCity" placeholder="City" name="location" style="width:auto"
-                                        {{#if user.location}} value='{{user.location}}' {{/if}}>
-                                </div>
-                                <div class="form-group" id="divLocationState">
-                                    <input type="text" class="form-control" id="txtLocationState" placeholder="State" name="location" style="width:auto">
+                                    <input type="text" class="form-control txtLocation" id="txtLocation" placeholder="Location" name="location" style="width:auto">
                                 </div>
                             </div>
                         </div>
@@ -336,7 +347,7 @@
                             <input type="text" class="form-control txtEmailAddress" id="txtEmailAddress" placeholder="Email Address">
                         </div>
 
-                        <button type="submit" class="btn btn-success btn-block" id={{#if user}} "cmdSaveChanges"{{else}} "cmdSignUp"{{/if}}>
+                        <button type="submit" class="btn btn-success btn-block" id={{#if user}} "cmdCreateEvent"{{else}} "cmdSignUp"{{/if}}>
                             <span class="glyphicon glyphicon-ok"></span>
                             <strong>{{#if user.id}} Create / Update Event {{else}} Submit Profile {{/if}}</strong>
                         </button>
