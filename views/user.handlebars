@@ -34,9 +34,11 @@
                                     <span>Gender</span>
                                 </label>
                                 <label class="radio-inline" id="lblGenderMale">
-                                    <input type="radio" name="gender" value='male' checked="checked">Male</label>
+                                    <input type="radio" name="gender" value='male' checked="checked">Male
+                                </label>
                                 <label class="radio-inline" id="lblGenderFemale">
                                     <input type="radio" name="gender" value='female'>Female
+                                </label>
 
                             </div>
                             {{/unless}}
@@ -54,7 +56,6 @@
                                         <input type="text" class="form-control" id="txtLocationState" placeholder="State" name="location" style="width:auto">
                                     </div>
                                 </div>
-                                </label>
                             </div>
 
                             {{#unless user.dob}}
@@ -78,7 +79,7 @@
                                 <label for="infopwd" id="lblInfoPwd">
                                     <b>Password</b>
                                 </label>
-                                <input type="password" class="form-control txtPassword" id="txtInfoPwd" placeholder="Password" name="infopwd" required>
+                                <input type="password" class="form-control txtPassword" id="txtInfoPwd" placeholder="Password" name="infopwd" required />
                             </div>
                             {{/unless}}
                             <div class="form-group" id="divEmail">
@@ -103,19 +104,18 @@
                                 </label>
                                 <textarea type="text" class="form-control taBio" id="txtUserBio" rows="5">{{#if user.bio}} {{user.bio}} {{/if}}</textarea>
                             </div>
-
                             <button type="submit" class="btn btn-success btn-block" id={{#if user}} "cmdSaveChanges"{{else}} "cmdSignUp"{{/if}}>
                                 <span class="glyphicon glyphicon-save"></span>
                                 <strong>{{#if user.id}} Update Profile {{else}} Submit Profile {{/if}}</strong>
                             </button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger btn-default pull-left" id="btnUserInfoCancel" data-dismiss="modal">
-                                <span class="glyphicon glyphicon-remove"></span>Cancel</button>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" id="btnUserInfoCancel" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove"></span>Cancel</button>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="col-sm-6 sport-section">
@@ -174,7 +174,7 @@
                                         {{#each otherSports}}
                                         <div class="col-md-6">
                                             <label for="slider" class="sportChoices">
-                                            <strong>Sport name : {{this.name}}</strong>
+                                                <strong>Sport name : {{this.name}}</strong>
                                             </label>
                                             <br />
                                             <input class="newSportSlider" type="text" data-id="{{this.id}}" value="{{#if this.level}}{{this.level}}{{else}}0{{/if}}"
@@ -204,65 +204,6 @@
         </div>
     </div>
 </div>
-
-
-
-{{!--
-<div class="modal fade" id="signUp" role="dialog">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="padding:15px 30px">
-                        <h4 class="modalHeading">
-                            <strong> Other Sports</strong>
-                        </h4>
-                    </div>
-                    <div class="modal-body" style="padding:40px 30px;">
-                        <div role="form">
-                            <div class="form-group">
-                                <div class="slider-container">
-
-                                    <div class="row">
-                                        {{#each otherSports}}
-                                        <div class="col-md-6">
-                                            <label for="slider" class="sportChoices"></label>
-                                            <strong>Sport name : {{this.name}}</strong>
-                                            </label>
-                                            <br />
-                                            <input class="newSportSlider" type="text" value="{{#if this.level}} {{this.level}} {{else}} 0 {{/if}}" />
-                                            <br>
-                                            <br>
-                                        </div>
-                                        {{/each}}
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-success btn-block" id="cmdAddSports">
-                                <span class="glyphicon glyphicon-save"></span>
-                                <strong>Submit</strong>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger btn-default pull-left" id="btnActivInterestCancel" data-dismiss="modal">
-                            <span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-
-<!-- sports selector ////////////////////////////////////////////////////////////////////////////// -->
-
-
-
-
 
 <div class="background-image-userpage">
 </div>
