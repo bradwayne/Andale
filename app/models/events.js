@@ -8,10 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: {
-        args: false,
-        msg: 'Event name cannot be empty'
-      },
+      allowNull: false,
       validate: {
         len: {
           args: [1, 255],
@@ -21,20 +18,11 @@ module.exports = function (sequelize, DataTypes) {
     },
     location: {
       type: DataTypes.TEXT,
-      allowNull: {
-        args: false,
-        msg: 'Event must have a location'
-      }
+      allowNull: false
     },
     attendants: {
       type: DataTypes.INTEGER,
       defaultValue: 1,
-      validate: {
-        isInt: {
-          args: true,
-          msg: 'Attendants must be numeric'
-        }
-      }
     },
     fees: {
       type: DataTypes.FLOAT,
@@ -48,10 +36,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     host: {
       type: DataTypes.STRING,
-      allowNull: {
-        args: false,
-        msg: 'Host name cannot be empty'
-      },
+      allowNull: false,
       validate: {
         len: {
           args: [1, 255],
@@ -61,12 +46,6 @@ module.exports = function (sequelize, DataTypes) {
     },
     phone_contact: {
       type: DataTypes.BIGINT(11),
-      validate: {
-        isInt: {
-          args: true,
-          msg: 'Invalid phone number'
-        }
-      }
     },
     email_contact: {
       type: DataTypes.STRING,
@@ -81,7 +60,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       validate: {
         isIn: {
-          args: [[ 'Male', 'Female', 'Unspecified']],
+          args: [[ 'male', 'female', 'unspecified']],
           msg: 'The value must be one of these : male, female, or unspecified'
         }
       }
@@ -102,10 +81,6 @@ module.exports = function (sequelize, DataTypes) {
     age: {
       type: DataTypes.INTEGER,
       validate: {
-        isInt: {
-          args: true,
-          msg: 'Age must be an integer'
-        }
       }
     },
     details: {
@@ -113,25 +88,11 @@ module.exports = function (sequelize, DataTypes) {
     },
     start_time: {
       type: DataTypes.DATE,
-      validate: {
-        notNull: {
-          args: true,
-          msg: 'Start time cannot be empty'
-        },
-        isAfter: {
-          args: DataTypes.NOW,
-          msg: 'Date cannot be earlier than today'
-        }
-      }
+      allowNull: false,
     },
     end_time: {
       type: DataTypes.DATE,
-      validate: {
-        notNull: {
-          args: true,
-          msg: 'End time cannot be empty'
-        }
-      }
+      allowNull: false,
     },
     numberAttending: {
       type: DataTypes.INTEGER,

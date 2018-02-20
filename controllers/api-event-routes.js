@@ -4,6 +4,19 @@ var Sequelize = require('sequelize')
 var Op = Sequelize.Op
 
 module.exports = function (app) {
+  app.get('/api/editEvent/:eventId', function (req, res, next) {
+    console.log(req.body)
+    db.Events.findOne({
+      where: {id: req.params.eventId}
+    }).then(function (results) {
+      console.log(results)
+      if (results) {
+        res.json(results)
+      }else {
+        res.json('Error getting data')
+      }
+    })
+  })
   app.get('/api/event/:orderParam/:orderMethod?', function (req, res, next) {
     var eventToDisplay = {}
     var orderStatement = {}
@@ -28,7 +41,7 @@ module.exports = function (app) {
 
   })
 
-  app.get('/event/:id?', function (req, res, next) {
+  app.get('/event/:id?/:edit?', function (req, res, next) {
     var arrEventId = []
     var arrSportId = []
     var eventToDisplay = {}
@@ -74,9 +87,20 @@ module.exports = function (app) {
                 db.Events.findAll({})
                   .then(function (allEvents) {
                     eventToDisplay.allEvents = allEvents
-                    console.log('here')
-                    // res.json(eventToDisplay)
-                    res.render('events', eventToDisplay)
+                    db.Sport.findAll({})
+                      .then(function (allSports) {
+                        eventToDisplay.allSports = allSports
+                        db.Events.findOne({where: {
+                            id: req.params.edit
+                          },
+                          include: db.Sport
+                        }).then(function (toEdit) {
+                          eventToDisplay.eventToEdit = toEdit
+                          console.log('here')
+                          // res.json(eventToDisplay)
+                          res.render('events', eventToDisplay)
+                        })
+                      })
                   })
               })
           })
@@ -183,16 +207,19 @@ module.exports = function (app) {
       start_time: req.body.start_time,
       end_time: req.body.end_time,
       geolocation_x: req.body.geolocation_x,
-      geolocation_y: req.body.geolocatoin_y,
-      userId: req.params.user_id
-    }).then(function (err, results) {
-      if (err) {
+      geolocation_y: req.body.geolocation_y,
+      UserId: req.params.user_id,
+      SportId: req.body.sport_id
+    }).then(function (results) {
+      /* if (err) {
+          console.log(err)
         return res.status(500).end()
-      }
+      } */
 
       // Send back the ID of the new todo
-      res.json({ id: result.insertId })
-      console.log({ id: result.insertId })
+      res.status(200).end()
+    // res.json({ id: results.insertId })
+    // console.log({ id: results.insertId })
     }).catch(function (err) {
       console.log('error in sequelize')
       console.log(err.message)
@@ -202,7 +229,7 @@ module.exports = function (app) {
 
   app.put('/api/event/:event_id', function (req, res, next) {
     var event_id = req.params.event_id
-    db.Events.create({
+    db.Events.update({
       name: req.body.name,
       location: req.body.location,
       attendants: req.body.attendants,
@@ -217,9 +244,14 @@ module.exports = function (app) {
       start_time: req.body.start_time,
       end_time: req.body.end_time,
       userId: req.params.event_id
+    }, {
+      where: {
+        id: req.params.event_id
+      }
     }).then(function (results) {
       if (results.changedRows === 0) {
-        return res.status(404).end()
+        res.json(results).end()
+      // return res.status(404).end()
       }else {
         res.status(200).end()
       }

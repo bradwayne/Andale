@@ -1,5 +1,7 @@
 $(function () {
   $('#msg-center').hide()
+  $('.create-event').hide()
+  $('.ddl-sports').chosen({width: '100%'})
   $('.slider').slider({
     precision: 2
   })
@@ -627,24 +629,76 @@ $(function () {
     }
   // console.log(objUpdate)
   })
+  $(".cmdEditDetails").click(function(){
+      console.log("set session to remember event id to edit");
+      sessionStorage.setItem("sessionEventId", $(this).attr("data-event-id"))
 
+   });
+$("#cmdEditEvent").click(function(){
+    try{
+        var objEditEvent = {
+            name: $('#txtcreateEventName').val().trim(),
+            location: $('#txtLocation').val().trim(),
+            attendants: $('#txtTotalPlayers').val().trim(),
+            fees: $('#txtFees').val().trim(),
+            host: $('#txtHostedBy').val().trim(),
+            phone_contact: $('#txtContactNumber').val().trim(),
+            email_contact: $('#txtEmailAddress').val().trim(),
+            gender: document.querySelector('input[name="gender"]:checked').value,
+            level: $('#txtLevel').val().trim(),
+            age: $('#txtAge').val().trim(),
+            start_time: moment($('#txtStartsAtDate').val() + ' ' + $('#txtStartAtTime').val()).format(),
+            end_time: moment($('#txtEndsAtDate').val() + ' ' + $('#txtEndsAtTime').val()).format(),
+            sport_id: $('.ddl-sports').chosen().val(),
+            geolocation_x: '',
+            geolocation_y: '',
+            details: $('#txtEventDetails').val().trim()
+        }
+        console.log(sessionStorage.getItem('sessionuserId'))
+        console.log(objEditEvent);
+        console.log("event id in session" + sessionStorage.getItem("SessionEventId"));
+        $.ajax('/api/event/'+ sessionStorage.getItem("sessionEventId"), {
+            type: 'PUT',
+            data: objEditEvent,
+            success: function(data, status, xhr){
+                console.log(xhr);
+                if(xhr.status == 200){
+                    console.log("edit successfully");
+                    sessionStorage.removeItem("sessionEventId")
+                    sessionStorage.setItem("sessionNextPage", "my event")
+                    sessionStorage.setItem("sessionMsgCenter", "Event edited successfully");
+                    window.location.href = '/event/'+ sessionStorage.getItem("sessionUserId");
+
+                }else{
+                    console.log("something wrong");
+                }
+            }
+        })
+    }
+    catch(err){
+        console.log('in edit event function')
+        console.log(e)
+    }
+})
   $('#cmdCreateEvent').click(function () {
     try {
       var objNewEvent = {
-        name: $('#txtcreateEventName').val(),
-        location: $('#txtLocation').val(),
-        attendants: $('#txtTotalPlayers').val(),
-        fees: $('#txtFees').val(),
-        host: $('#txtHostedBy').val(),
-        phone_contact: $('#txtContactNumber').val(),
-        email_contact: $('#txtEmailAddress').val(),
+        name: $('#txtcreateEventName').val().trim(),
+        location: $('#txtLocation').val().trim(),
+        attendants: $('#txtTotalPlayers').val().trim(),
+        fees: $('#txtFees').val().trim(),
+        host: $('#txtHostedBy').val().trim(),
+        phone_contact: $('#txtContactNumber').val().trim(),
+        email_contact: $('#txtEmailAddress').val().trim(),
         gender: document.querySelector('input[name="gender"]:checked').value,
-        level: $('#txtLevel').val(),
-        age: $('#txtAge').val(),
-        start_time: $('#txtStartsAtDate').val() + ' ' + $('#txtStartAtTime').val(),
-        end_time: $('#txtEndsAtDate').val() + '' + $('#txtEndsAtTime').val(),
+        level: $('#txtLevel').val().trim(),
+        age: $('#txtAge').val().trim(),
+        start_time: moment($('#txtStartsAtDate').val() + ' ' + $('#txtStartAtTime').val()).format(),
+        end_time: moment($('#txtEndsAtDate').val() + ' ' + $('#txtEndsAtTime').val()).format(),
+        sport_id: $('.ddl-sports').chosen().val(),
         geolocation_x: '',
-        geolocation_y: ''
+        geolocation_y: '',
+        details: $('#txtEventDetails').val().trim()
       }
       console.log(sessionStorage.getItem('sessionUserId'))
       console.log(objNewEvent)
@@ -655,9 +709,9 @@ $(function () {
           console.log(' in create event function')
           console.log(xhr)
           if (xhr.responseJSON) {
-            if (xhr.responseJSON.indexOf('Validation error') > -1) {
+            if ((xhr.responseJSON.indexOf('Validation error') > -1) || (xhr.responseJSON.indexOf('Incorrect') > -1)) {
               console.log(xhr.responseJSON)
-              $('.alert.create-event').empty();
+              $('.alert.create-event').empty()
               $('.alert.create-event').html(replacingSequelizeError(xhr.responseJSON))
               $('.alert.create-event').addClass('alert-danger')
               $('.alert.create-event').show()
@@ -669,6 +723,13 @@ $(function () {
                 location.reload()
               }, 500)
             }
+          }else {
+            console.log('no error found, event created successfully')
+            sessionStorage.setItem('sessionMsgCenter', 'Event created successfully!')
+            sessionStorage.setItem('sessionNextPage', 'my event')
+            setTimeout(() => {
+              location.reload()
+            }, 500)
           }
         }
       })
@@ -677,6 +738,8 @@ $(function () {
       console.log(e)
     }
   })
+
+
 
   /*   var map
     window.initMap = function () {
