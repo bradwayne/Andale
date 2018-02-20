@@ -393,8 +393,8 @@
                         <div class="form-group" id="divSignedUp">
                             <label for="signedUp" id="lblSignedUp">
                                 {{#if user.Events}} {{#each user.Events}}
-                                <b href='/event_details/{{this.id}}'>{{this.name}}
-                                </b>
+                                <b><a href='/event_details/{{this.id}}'>{{this.name}}</b>
+                                </a>
                                 <br>Total Number of Player(s) Needed : {{this.attendants}}
                                 <br>Number of Player(s) Commited : {{this.Event.numberAttending}}
                                 <br>Gender Specific : {{this.gender}}

@@ -143,7 +143,7 @@ module.exports = function (app) {
                 include: db.User
               }).then(function (eventDiscussion) {
                 objEventDetails.discussion = eventDiscussion
-                // res.json(objEventDetails)
+                //res.json(objEventDetails)
                 console.log(objEventDetails)
                 res.render('activity', objEventDetails)
               })

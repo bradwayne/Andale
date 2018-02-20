@@ -1,14 +1,14 @@
 INSERT INTO users
     (first_name, last_name, gender, username,email, password, city, state, hometown, dob, photo, bio, createdAt, updatedAt)
 VALUES
-    ('SK', 'Tan', 'Male', 'sktan', 'sk.tan97@gmail.com', 'abcd123', 'Cleveland', 'OH', 'Penang, Malaysia', '1986-09-07', '', 'trying to burn off da belly fat, i am interested in any intense cardio', NOW(), NOW()),
-    ('Lebron', 'James', 'Male', 'bronbron', 'lebron@james.com', 'abcd123', 'Cleveland', 'OH', 'Akron, OH', '1988-01-27', '', 'ima humble kid from akron yo, lets ball', NOW(), NOW()),
-    ('Peter', 'Gade', 'Male', 'pgade', 'peter@gade.com', '1234abc', 'Chicago', 'MI', 'Chicago, MI', '1979-04-07', '', 'international badminton player', NOW(), NOW()),
-    ('Muhammad', 'Ali', 'Male', 'muhammadAli', 'muhammad@ali.com', 'aliali321', 'Louisville', 'KY', 'Louisville, KY', '1942-01-17', '', 'i hated every minute of training, but i said dont quit, suffer now and live the rest of your life as a champion', NOW(), NOW()),
-    ('Maria', 'Sharapova', 'Female', 'mpova', 'maria@sharapova.com', 'mariamaria100', 'Cleveland', 'OH', 'Cleveland, OH', '1987-04-19', '', 'my main goal is to stay healthy because when you are injured you realise how lucky you are to have your health.', NOW(), NOW()),
-    ('Ronda', 'Rousey' , 'Female' , 'rousey', 'ronda@rousey.com', 'rondayo123', 'Cleveland Heights', 'OH' , 'Riverside, CA', '1987-02-01', '', 'you have to fight because you cannot count on anyone else fighting for you. now, put on your boxing gloves', NOW(), NOW()),
-    ('Serena', 'Williams', 'Female' , 'serenaWilliams', 'serena@williams.com', 'serenavenus155', 'Cleveland Heights', 'OH', 'Saginaw, MI', '1981-09-26', '', 'i definitely have found a balance. i have had so many offers in the past to do different movies or different things and i always choose tournaments over it.', NOW(), NOW()),
-    ('Hope', 'Solo', 'Female', 'isolou', 'hope@solo.com', 'youhope543', 'Cleveland', 'OH', 'Richland, WA', '1981-07-30', '', 'Even when quitting seems like the best option, theres always a reason to keep going.', NOW(), NOW());
+    ('SK', 'Tan', 'Male', 'sktan', 'sk.tan97@gmail.com', 'abcd123', 'Cleveland', 'OH', 'Penang, Malaysia', '1986-09-07', 'http://i65.tinypic.com/ifnbzc.jpg', 'trying to burn off da belly fat, i am interested in any intense cardio', NOW(), NOW()),
+    ('Lebron', 'James', 'Male', 'bronbron', 'lebron@james.com', 'abcd123', 'Cleveland', 'OH', 'Akron, OH', '1988-01-27', 'http://i63.tinypic.com/142sdn7.jpg', 'ima humble kid from akron yo, lets ball', NOW(), NOW()),
+    ('Peter', 'Gade', 'Male', 'pgade', 'peter@gade.com', '1234abc', 'Chicago', 'MI', 'Chicago, MI', '1979-04-07', 'http://i67.tinypic.com/son32f.jpg', 'international badminton player', NOW(), NOW()),
+    ('Muhammad', 'Ali', 'Male', 'muhammadAli', 'muhammad@ali.com', 'aliali321', 'Louisville', 'KY', 'Louisville, KY', '1942-01-17', 'http://i64.tinypic.com/2rpe4g9.jpg', 'i hated every minute of training, but i said dont quit, suffer now and live the rest of your life as a champion', NOW(), NOW()),
+    ('Maria', 'Sharapova', 'Female', 'mpova', 'maria@sharapova.com', 'mariamaria100', 'Cleveland', 'OH', 'Cleveland, OH', '1987-04-19', 'http://i63.tinypic.com/2yvm7bs.jpg', 'my main goal is to stay healthy because when you are injured you realise how lucky you are to have your health.', NOW(), NOW()),
+    ('Ronda', 'Rousey' , 'Female' , 'rousey', 'ronda@rousey.com', 'rondayo123', 'Cleveland Heights', 'OH' , 'Riverside, CA', '1987-02-01', 'http://i65.tinypic.com/292p313.jpg', 'you have to fight because you cannot count on anyone else fighting for you. now, put on your boxing gloves', NOW(), NOW()),
+    ('Serena', 'Williams', 'Female' , 'serenaWilliams', 'serena@williams.com', 'serenavenus155', 'Cleveland Heights', 'OH', 'Saginaw, MI', '1981-09-26', 'http://i68.tinypic.com/w9w4t4.jpg', 'i definitely have found a balance. i have had so many offers in the past to do different movies or different things and i always choose tournaments over it.', NOW(), NOW()),
+    ('Hope', 'Solo', 'Female', 'isolou', 'hope@solo.com', 'youhope543', 'Cleveland', 'OH', 'Richland, WA', '1981-07-30', 'http://i63.tinypic.com/2s0l73n.jpg', 'Even when quitting seems like the best option, theres always a reason to keep going.', NOW(), NOW());
 
 
 INSERT INTO sports
@@ -81,6 +81,6 @@ INSERT INTO eventdiscussions
     (message, createdAt, updatedAt, EventId, UserId)
 VALUES
     ('This is a great event. We Rock', NOW(), NOW(), 2, 1),
-    ('Join us for some good exercise. And the sport is fun also', NOW(), NOW(), 1, 3),
-    ('Who got ball?', NOW(), NOW(), 1, 9),
+    ('Join us for some good exercise. And the sport is fun also', NOW(), NOW(), 1, 1),
+    ('Who got ball?', NOW(), NOW(), 1, 2),
     ('Cleveland OH, where? i need details, man', NOW(), NOW(), 1, 2);
