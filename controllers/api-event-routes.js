@@ -23,7 +23,7 @@ module.exports = function (app) {
         eventDisplay: events
       }
     })
-    res.send(eventToDisplay)
+    res.json(eventToDisplay)
     // res.render('index' , eventToDisplay)
 
   })
@@ -126,8 +126,47 @@ module.exports = function (app) {
       res.json('event id not found')
     }
   })
-
+  /* function objValidation(obj){
+      var errMessage = [];
+      if(obj.name){
+          if(obj.name.length > 255 || obj.name.length < 1){
+            errMesasge.push("Event name must be between 1 and 255 characters")
+          }
+      }else{
+          errMessage.push("Event name cannot be blank");
+      }
+      if(!obj.location){
+          errMesasge.push("Location is empty");
+      }
+      if(obj.attedants){
+          if(!typeof(obj.attedants) == "number"){
+            errMessage.push("Attedance must be integer")
+          }
+      }
+      if(obj.fees){
+          if(!typeof(obj.fees) == "number"){
+              errMessage.push("Fees must be numeric");
+          }
+      }
+      if(!obj.host){
+        errMessage.push("Host cannot be empty");
+      }
+      if(obj.phone_contact){
+          if(!typeof(obj.phone_contact)){
+              errMessage.push("Phone number must be integer");
+          }
+      }
+      if(obj.gender !== 'male' || obj.gender !== 'female' || obj.gender != 'unspecified'){
+          errMessage.push("Gender cannot be empty")
+      }
+      
+  } */
   app.post('/api/event/:user_id', function (req, res, next) {
+    //validation happens here..
+
+
+    //
+
     var user_id = req.params.user_id
     db.Events.create({
       name: req.body.name,
@@ -143,6 +182,8 @@ module.exports = function (app) {
       details: req.body.details,
       start_time: req.body.start_time,
       end_time: req.body.end_time,
+      geolocation_x : req.body.geolocation_x,
+      geolocation_y : req.body.geolocatoin_y,
       userId: req.params.user_id
     }).then(function (results) {
       res.status(200).end()

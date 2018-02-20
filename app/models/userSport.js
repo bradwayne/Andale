@@ -4,8 +4,8 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       validate: {
         max: {
-          args: [5],
-          msg: 'Level must be not greater than 5'
+          args: [10],
+          msg: 'Level must be not greater than 10'
         },
         min: {
           args: [1],

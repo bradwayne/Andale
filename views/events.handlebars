@@ -42,6 +42,7 @@
                     </h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
+                    <div id="msg-center" class="alert alert-danger text-center">testing</div>
                     <div class="row">
                         <div class="form-group" id="divInterests">
                             <label for="interests" id="lblInterests">
@@ -55,8 +56,8 @@
                                 <br>Starting At : <i class='time'>{{this.start_time}}</i> Ending At: <i class='time'>{{this.end_time}}</i>
                                 <i>{{this.location}}</i>
                                 <br>Starting At :
-                                <i>{{this.start_time}}</i> Ending At:
-                                <i>{{this.end_time}}</i>
+                                <i class="time">{{this.start_time}}</i> Ending At:
+                                <i class="time">{{this.end_time}}</i>
                                 <br>Hosted by :
                                 <i>{{this.host}}</i>
                                 <i>{{this.Event.host}}</i>
@@ -65,7 +66,7 @@
                                     <strong>Sign Up</strong>
                                 </button>
                                 <br>
-                                <br /> {{/each}} {{/if}} {{!-- list of activities user selected from the user page
+                                <br /> {{/each}} {{else}} add some sports in <a href='/user/{{user.id}}'>user profile</a> to get started!   {{/if}} {{!-- list of activities user selected from the user page
                                 <span>First Interest</span> --}}
                             </label>
                         </div>
@@ -98,7 +99,7 @@
                                 <br>Location :
                                 <i>{{this.Event.location}}</i>
                                 <br>Starting At :
-                                <i>{{this.Event.start_time}} Ending At : {{this.Event.end_time}}</i>
+                                <i  class="time">{{this.Event.start_time}}</i> Ending At : <i class="time">{{this.Event.end_time}}</i>
                                 <br>Hosted by :
                                 <i>{{this.Event.host}}</i>
                                 <br> {{!-- this will send them to the activity blog page --}}
