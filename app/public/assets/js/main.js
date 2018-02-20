@@ -115,9 +115,13 @@ $(function () {
     console.log('user is not log in, hide user profile')
     $('#aSignUpBtn').hide()
     $('#aSignUpNav').show()
+    $('#aLogInNav').show()
+    $('#aLogOutNav').hide()
   }else {
     $('#aSignUpNav').hide()
     $('#aSignUpBtn').show()
+    $('#aLogInNav').hide()
+    $('#aLogOutNav').show()
     $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
     $('#aSignUpBtn').attr('href', '/user/' + sessionStorage.getItem('sessionUserId'))
   }
