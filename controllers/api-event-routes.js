@@ -285,4 +285,24 @@ module.exports = function (app) {
       }
     })
   })
+
+  app.delete('/api/event/:event_id', function(req, res, next){
+    var EventId = req.params.event_id;
+    if(EventId){
+      db.Events.destroy({
+        where: { id: EventId }
+      }).then(function(result){
+        console.log('affected Rows : ' + result.affectedRows)
+        if (result.changedRows == 0) {
+          return res.status(404).end()
+        } else {
+          console.log("Event deleted successfully!")
+          res.status(200).end()
+        }
+      })
+    }else{
+      res.json("Event ID is not provided, delete failed");
+    }
+    
+  })
 }

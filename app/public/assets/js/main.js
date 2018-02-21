@@ -164,6 +164,8 @@ $(function () {
     }else if (sessionStorage.getItem('sessionNextPage') === 'all event') {
       console.log('in event page, going to all event')
       $('#allEvents').modal()
+    }else if (sessionStorage.getItem('sesionNextPage') === 'create event'){
+      $('#createEvent').model();
     }
   }
 
@@ -638,6 +640,28 @@ $(function () {
       sessionStorage.setItem("sessionEventId", $(this).attr("data-event-id"))
 
    });
+  $(".cmdRemoveEvent").click(function(){
+    var objEvent = {
+      eventId : $(this).attr("data-event-id")
+    }
+    console.log($(this).attr("data-event-id"))
+    $.ajax('/api/event/' + $(this).attr("data-event-id"), {
+      type: 'DELETE',
+      data : objEvent,
+      success : function(data, status, xhr){
+        console.log(xhr);
+        if(xhr.status == 200){
+          console.log("event deleted successfully!");
+          sessionStorage.removeItem("sesionNextPage")
+          sessionStorage.setItem("sessionNextPage", "host event");
+          location.reload()
+        }else{
+          console.log("event delete failed");
+          
+        }
+      }
+    })
+  })
 $("#cmdEditEvent").click(function(){
     try{
         var objEditEvent = {
@@ -722,7 +746,7 @@ $("#cmdEditEvent").click(function(){
             }else {
               console.log('no error found, event created successfully')
               sessionStorage.setItem('sessionMsgCenter', 'Event created successfully!')
-              sessionStorage.setItem('sessionNextPage', 'my event')
+              sessionStorage.setItem('sessionNextPage', 'create event')
               setTimeout(() => {
                 location.reload()
               }, 500)
