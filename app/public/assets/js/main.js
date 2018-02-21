@@ -477,20 +477,14 @@ $(function () {
     sessionStorage.setItem('sessionPhoto', (data.photo))
     sessionStorage.setItem('sessionBio', (data.bio))
     console.log(sessionStorage)
-
-  // NOTE: to get sessionItem. 
-  // console.log('id :' + sessionStorage.getItem('sessionUserId'))
   }
+
   function clearSession () {
     console.log('clear user session')
     sessionStorage.clear()
   }
 
   var inputs = $('.txtLevel')
-
-  // createNewUser()
-  // getEvent()
-  // getUserCredentials()
 
   $('#cmdChangeLevel').click(function () {
     try {
