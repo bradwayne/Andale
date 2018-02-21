@@ -165,7 +165,7 @@ $(function () {
       console.log('in event page, going to all event')
       $('#allEvents').modal()
     }else if (sessionStorage.getItem('sesionNextPage') === 'create event'){
-      $('#createEvent').model();
+      $('#createEvent').modal();
     }
   }
 
@@ -299,6 +299,8 @@ $(function () {
         console.log('not going to event function')
         if (xhr.status == 200) {
           console.log('event removed from user event successfully!')
+          sessionStorage.setItem("sessionNextPage", "my event")
+          location.reload();
         }else {
           console.log(xhr.responseJSON)
         }
@@ -314,6 +316,8 @@ $(function () {
         console.log('going to event function')
         if (xhr.status == 200) {
           console.log('user set to attend event!!')
+          sessionStorage.setItem("sessionNextPage", "my event")
+          location.reload();
         }else {
           console.log(xhr.responseJSON)
         }
@@ -653,7 +657,7 @@ $(function () {
         if(xhr.status == 200){
           console.log("event deleted successfully!");
           sessionStorage.removeItem("sesionNextPage")
-          sessionStorage.setItem("sessionNextPage", "host event");
+          sessionStorage.setItem("sessionNextPage", "create event");
           location.reload()
         }else{
           console.log("event delete failed");
@@ -693,7 +697,7 @@ $("#cmdEditEvent").click(function(){
                 if(xhr.status == 200){
                     console.log("edit successfully");
                     sessionStorage.removeItem("sessionEventId")
-                    sessionStorage.setItem("sessionNextPage", "my event")
+                    sessionStorage.setItem("sessionNextPage", "create event")
                     sessionStorage.setItem("sessionMsgCenter", "Event edited successfully");
                     window.location.href = '/event/'+ sessionStorage.getItem("sessionUserId");
 
@@ -754,7 +758,7 @@ $("#cmdEditEvent").click(function(){
           }else {
             console.log('no error found, event created successfully')
             sessionStorage.setItem('sessionMsgCenter', 'Event created successfully!')
-            sessionStorage.setItem('sessionNextPage', 'my event')
+            sessionStorage.setItem('sessionNextPage', 'create event')
             setTimeout(() => {
               location.reload()
             }, 500)
