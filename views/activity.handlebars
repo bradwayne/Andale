@@ -59,8 +59,11 @@
                                 <br>
                             </div>
                         </div>
+                        <hr>
                         <div class="row">
                             <div class="form-group" id="divUsers">
+                                <div class="commitedPlayers"><strong>- Players Who Have Commited To This Event -</strong></div>
+                                <br>
                                 <div class="row">
                                     {{#if attendingUsers}} {{#each attendingUsers}}
                                     <div class="col-md-3">
@@ -138,7 +141,12 @@
                                 <label for="userbio" id="lblEventBlog">
                                     <b>Event Communication Chat</b>
                                 </label>
-                                <textarea type="text" class="form-control" id="txtEventBlog" rows="10"></textarea>
+                                <textarea type="text" class="form-control" id="txtEventBlog" rows="5"></textarea>
+                                <br>
+                                <button type="submit" class="btn btn-success btn-block" id="cmdAddSports">
+                                    <span class="glyphicon glyphicon-send"></span>
+                                    <strong>Submit Post</strong>
+                                </button>
                             </div>
                         </div>
                     </div>
