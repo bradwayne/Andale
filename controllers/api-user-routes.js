@@ -111,11 +111,11 @@ module.exports = function (app) {
       console.log('Result return : ' + credentials.count)
       if (credentials.count > 0) {
         console.log('Found user!')
-        res.send(credentials)
+        res.send(credentials).end();
         console.log(JSON.stringify(credentials))
       }else {
         // res.send("403 error")
-        res.json({error: 'User not found!'})
+        res.json({error: 'User not found!'}).end()
       // next('User not found!')
       }
     }).catch(function (err) {
@@ -281,8 +281,8 @@ module.exports = function (app) {
       gender: req.body.gender,
       email: req.body.email,
       password: req.body.password,
-      location: req.body.location,
-      hometown: req.body.hometown,
+      city : req.body.city,
+      state : req.body.state,
       dob: req.body.dob,
       photo: req.body.photo,
       bio: req.body.bio
