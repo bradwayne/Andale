@@ -78,7 +78,10 @@ module.exports = function (app) {
             db.Events.findAll({
               where: {
                 id: {[Op.notIn]: arrEventId},
-                SportId: {[Op.in]: arrSportId}
+                SportId: {[Op.in]: arrSportId},
+                UserId: {[Op.ne]: req.params.id},
+                gender: {[Op.in]: [eventToDisplay.user.gender.toLowerCase() , 'unspecified']},
+                numberAttending: {[Op.lt]: Sequelize.col('attendants')}, //compare two columns in a same table
               }
             })
               .then(function (otherEvents) {
@@ -143,7 +146,7 @@ module.exports = function (app) {
                 include: db.User
               }).then(function (eventDiscussion) {
                 objEventDetails.discussion = eventDiscussion
-                //res.json(objEventDetails)
+                // res.json(objEventDetails)
                 console.log(objEventDetails)
                 res.render('activity', objEventDetails)
               })
@@ -284,5 +287,24 @@ module.exports = function (app) {
         res.status(200).end()
       }
     })
+  })
+
+  app.delete('/api/event/:event_id', function (req, res, next) {
+    var EventId = req.params.event_id
+    if (EventId) {
+      db.Events.destroy({
+        where: { id: EventId }
+      }).then(function (result) {
+        console.log('affected Rows : ' + result.affectedRows)
+        if (result.changedRows == 0) {
+          return res.status(404).end()
+        } else {
+          console.log('Event deleted successfully!')
+          res.status(200).end()
+        }
+      })
+    }else {
+      res.json('Event ID is not provided, delete failed')
+    }
   })
 }

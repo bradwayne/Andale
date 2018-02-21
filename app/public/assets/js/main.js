@@ -109,19 +109,19 @@ $(function () {
     }
   }
 
-  $('#aLogInNav').click(function () {})
-
   if (!sessionStorage.getItem('sessionUserId')) {
     console.log('user is not log in, hide user profile')
     $('#aSignUpBtn').hide()
     $('#aSignUpNav').show()
     $('#aLogInNav').show()
     $('#aLogOutNav').hide()
+    $('.createEvents').hide()
   }else {
     $('#aSignUpNav').hide()
     $('#aSignUpBtn').show()
     $('#aLogInNav').hide()
     $('#aLogOutNav').show()
+    $('.createEvents').show()
     $('.profile-username').text(sessionStorage.getItem('sessionUserName').toUpperCase() + "'s")
     $('#aSignUpBtn').attr('href', '/user/' + sessionStorage.getItem('sessionUserId'))
   }
@@ -143,8 +143,6 @@ $(function () {
       $('#msg-center').html(sessionStorage.getItem('sessionMsgCenter'))
       $('#msg-center').show()
       $('#msg-center').addClass('alert-success').removeClass('alert-danger')
-
-      sessionStorage.removeItem('sessionMsgCenter')
     }
     // $('#eventNear').modal()
     if (!sessionStorage.getItem('sessionUserId')) {
@@ -164,7 +162,17 @@ $(function () {
     }else if (sessionStorage.getItem('sessionNextPage') === 'all event') {
       console.log('in event page, going to all event')
       $('#allEvents').modal()
+    }else if (sessionStorage.getItem('sessionNextPage') === 'create event') {
+      $('#createEvent').modal()
+      console.log('here')
+      if (sessionStorage.getItem('sessionMsgCenter')) {
+        $('.create-event').show()
+        $('.create-event').addClass('alert-success').removeClass('alert-danger')
+        $('.create-event').html(sessionStorage.getItem('sessionMsgCenter'))
+      }
     }
+    sessionStorage.removeItem('sessionNextPage')
+    sessionStorage.removeItem('sessionMsgCenter')
   }
 
   $('#aLogOutNav').click(function () {
@@ -178,14 +186,11 @@ $(function () {
     username = $('#txtLoginUserName').val()
     password = $('#pwdLoginPwd').val()
     console.log(username, password)
+    setWebSession('my event')
     getUserCredentials(username, password)
-    setTimeout(() => {
-      setWebSession('my event')
-      window.location.href = '/event/' + sessionStorage.getItem('sessionUserId')
-    }, 500)
   })
 
-  function getUserCredentials (username, password) {
+  var getUserCredentials = function (username, password) {
     var successBool = false
     var credentials = {
       username: username,
@@ -194,23 +199,59 @@ $(function () {
     console.log(credentials)
     $.ajax('/api/getUser/' + credentials.username + '/' + credentials.password , {
       type: 'GET',
-      data: credentials,
-      success: function (data, status, xhr) {
-        console.log('success')
-        successBool = true
-        console.log(status)
-        console.log(xhr.responseJSON.error)
-        if (xhr.responseJSON.error == 'User not found!') {
+    data: credentials})
+      .then(function (result) {
+        console.log(result)
+        if (result.error == 'User not found!') {
           console.log('User either enter wrong username or password')
+          $('#msg-center').show()
+          $('#msg-center').addClass('alert-danger')
+          $('#msg-center').text('Invalid username or password!')
+          successBool = false
         }else {
-          // setUserSession(xhr.re)
-          var userInfo = xhr.responseJSON.rows[0]
-          console.log(xhr.responseJSON)
-          console.log(xhr.responseJSON.rows[0])
+          console.log('here')
+          var userInfo = result.rows[0]
+          console.log(result)
+          console.log(result.rows[0])
           setUserSession(userInfo)
+          setTimeout(() => {
+            console.log('proceed with page reload')
+            if (sessionStorage.getItem('sessionUserId')) {
+              if (sessionStorage.getItem('sessionNextPage') == 'my event') {
+                window.location.href = '/event/' + sessionStorage.getItem('sessionUserId')
+              } else if (sessionStorage.getItem('sessionNextPage') == 'user profile') {
+                window.location.href = '/user/' + sessionStorage.getItem('sessionUserId')
+              }
+            }else {
+              window.location = '/'
+            }
+          // location.reload()
+          }, 500)
         }
-      }
-    })
+      })
+  /* success: function (data, status, xhr) {
+    console.log('success')
+    console.log(status)
+    console.log(xhr.responseJSON.error)
+    console.log('xhr')
+    console.log(xhr)
+    if (xhr.responseJSON.error == 'User not found!') {
+      console.log('User either enter wrong username or password')
+      $('#msg-center').show()
+      $('#msg-center').addClass('alert-danger')
+      $('#msg-center').text('Invalid username or password!')
+      throw(xhr.responseJSON.error)    
+
+    }else {
+      console.log('here')
+      var userInfo = xhr.responseJSON.rows[0]
+      console.log(xhr.responseJSON)
+      console.log(xhr.responseJSON.rows[0])
+      setUserSession(userInfo)
+      successBool = true
+      return true
+    }
+  } */
   }
   function createNewUser () {
     var credentials = {
@@ -297,6 +338,8 @@ $(function () {
         console.log('not going to event function')
         if (xhr.status == 200) {
           console.log('event removed from user event successfully!')
+          sessionStorage.setItem('sessionNextPage', 'my event')
+          location.reload()
         }else {
           console.log(xhr.responseJSON)
         }
@@ -312,6 +355,8 @@ $(function () {
         console.log('going to event function')
         if (xhr.status == 200) {
           console.log('user set to attend event!!')
+          sessionStorage.setItem('sessionNextPage', 'my event')
+          location.reload()
         }else {
           console.log(xhr.responseJSON)
         }
@@ -425,26 +470,21 @@ $(function () {
     sessionStorage.setItem('sessionGender', (data.gender))
     sessionStorage.setItem('sessionUserName', (data.username))
     sessionStorage.setItem('sessionEmail', (data.email))
-    sessionStorage.setItem('sessionLocation', (data.location))
+    sessionStorage.setItem('sessionCity', (data.city))
+    sessionStorage.setItem('sessionState', (data.state))
     sessionStorage.setItem('sessionHometown', (data.hometown))
     sessionStorage.setItem('sessionDOB', (data.dob))
     sessionStorage.setItem('sessionPhoto', (data.photo))
     sessionStorage.setItem('sessionBio', (data.bio))
     console.log(sessionStorage)
-
-  // NOTE: to get sessionItem. 
-  // console.log('id :' + sessionStorage.getItem('sessionUserId'))
   }
+
   function clearSession () {
     console.log('clear user session')
     sessionStorage.clear()
   }
 
   var inputs = $('.txtLevel')
-
-  // createNewUser()
-  // getEvent()
-  // getUserCredentials()
 
   $('#cmdChangeLevel').click(function () {
     try {
@@ -538,7 +578,7 @@ $(function () {
 
   $('#cmdSignUp').click(function () {
     // more validation
-
+    setWebSession('user profile')
     try {
       var objSignUp = {
         username: $('.txtUserName').val(),
@@ -575,16 +615,6 @@ $(function () {
             $('#msg-center').html('User profile created successfully')
             console.log('no error found, user added successfully')
             getUserCredentials(objSignUp.username, objSignUp.password)
-            setWebSession('user profile')
-            setTimeout(() => {
-              console.log('proceed with page reload')
-              if (sessionStorage.getItem('sessionUserId')) {
-                window.location.href = '/user/' + sessionStorage.getItem('sessionUserId')
-              }else {
-                window.location = '/'
-              }
-            // location.reload()
-            }, 500)
           }
         }
       })
@@ -633,57 +663,78 @@ $(function () {
     }
   // console.log(objUpdate)
   })
-  $(".cmdEditDetails").click(function(){
-      console.log("set session to remember event id to edit");
-      sessionStorage.setItem("sessionEventId", $(this).attr("data-event-id"))
+  $('.cmdEditDetails').click(function () {
+    console.log('set session to remember event id to edit')
+    setWebSession('create event')
+    location.reload()
 
-   });
-$("#cmdEditEvent").click(function(){
-    try{
-        var objEditEvent = {
-            name: $('#txtcreateEventName').val().trim(),
-            location: $('#txtLocation').val().trim(),
-            attendants: $('#txtTotalPlayers').val().trim(),
-            fees: $('#txtFees').val().trim(),
-            host: $('#txtHostedBy').val().trim(),
-            phone_contact: $('#txtContactNumber').val().trim(),
-            email_contact: $('#txtEmailAddress').val().trim(),
-            gender: document.querySelector('input[name="gender"]:checked').value,
-            level: $('#txtLevel').val().trim(),
-            age: $('#txtAge').val().trim(),
-            start_time: moment($('#txtStartsAtDate').val() + ' ' + $('#txtStartAtTime').val()).format(),
-            end_time: moment($('#txtEndsAtDate').val() + ' ' + $('#txtEndsAtTime').val()).format(),
-            sport_id: $('.ddl-sports').chosen().val(),
-            geolocation_x: '',
-            geolocation_y: '',
-            details: $('#txtEventDetails').val().trim()
+    sessionStorage.setItem('sessionEventId', $(this).attr('data-event-id'))
+  })
+  $('.cmdRemoveEvent').click(function () {
+    var objEvent = {
+      eventId: $(this).attr('data-event-id')
+    }
+    console.log($(this).attr('data-event-id'))
+    $.ajax('/api/event/' + $(this).attr('data-event-id'), {
+      type: 'DELETE',
+      data: objEvent,
+      success: function (data, status, xhr) {
+        console.log(xhr)
+        if (xhr.status == 200) {
+          console.log('event deleted successfully!')
+          sessionStorage.removeItem('sesionNextPage')
+          sessionStorage.setItem('sessionNextPage', 'create event')
+          location.reload()
+        }else {
+          console.log('event delete failed')
         }
-        console.log(sessionStorage.getItem('sessionuserId'))
-        console.log(objEditEvent);
-        console.log("event id in session" + sessionStorage.getItem("SessionEventId"));
-        $.ajax('/api/event/'+ sessionStorage.getItem("sessionEventId"), {
-            type: 'PUT',
-            data: objEditEvent,
-            success: function(data, status, xhr){
-                console.log(xhr);
-                if(xhr.status == 200){
-                    console.log("edit successfully");
-                    sessionStorage.removeItem("sessionEventId")
-                    sessionStorage.setItem("sessionNextPage", "my event")
-                    sessionStorage.setItem("sessionMsgCenter", "Event edited successfully");
-                    window.location.href = '/event/'+ sessionStorage.getItem("sessionUserId");
-
-                }else{
-                    console.log("something wrong");
-                }
-            }
-        })
+      }
+    })
+  })
+  $('#cmdEditEvent').click(function () {
+    try {
+      var objEditEvent = {
+        name: $('#txtcreateEventName').val().trim(),
+        location: $('#txtLocation').val().trim(),
+        attendants: $('#txtTotalPlayers').val().trim(),
+        fees: $('#txtFees').val().trim(),
+        host: $('#txtHostedBy').val().trim(),
+        phone_contact: $('#txtContactNumber').val().trim(),
+        email_contact: $('#txtEmailAddress').val().trim(),
+        gender: document.querySelector('input[name="gender"]:checked').value,
+        level: $('#txtLevel').val().trim(),
+        age: $('#txtAge').val().trim(),
+        start_time: moment($('#txtStartsAtDate').val() + ' ' + $('#txtStartAtTime').val()).format(),
+        end_time: moment($('#txtEndsAtDate').val() + ' ' + $('#txtEndsAtTime').val()).format(),
+        sport_id: $('.ddl-sports').chosen().val(),
+        geolocation_x: '',
+        geolocation_y: '',
+        details: $('#txtEventDetails').val().trim()
+      }
+      console.log(sessionStorage.getItem('sessionuserId'))
+      console.log(objEditEvent)
+      console.log('event id in session' + sessionStorage.getItem('SessionEventId'))
+      $.ajax('/api/event/' + sessionStorage.getItem('sessionEventId'), {
+        type: 'PUT',
+        data: objEditEvent,
+        success: function (data, status, xhr) {
+          console.log(xhr)
+          if (xhr.status == 200) {
+            console.log('edit successfully')
+            sessionStorage.removeItem('sessionEventId')
+            sessionStorage.setItem('sessionNextPage', 'create event')
+            sessionStorage.setItem('sessionMsgCenter', 'Event edited successfully')
+            window.location.href = '/event/' + sessionStorage.getItem('sessionUserId')
+          }else {
+            console.log('something wrong')
+          }
+        }
+      })
+    } catch(err) {
+      console.log('in edit event function')
+      console.log(e)
     }
-    catch(err){
-        console.log('in edit event function')
-        console.log(e)
-    }
-})
+  })
   $('#cmdCreateEvent').click(function () {
     try {
       var objNewEvent = {
@@ -722,7 +773,7 @@ $("#cmdEditEvent").click(function(){
             }else {
               console.log('no error found, event created successfully')
               sessionStorage.setItem('sessionMsgCenter', 'Event created successfully!')
-              sessionStorage.setItem('sessionNextPage', 'my event')
+              sessionStorage.setItem('sessionNextPage', 'create event')
               setTimeout(() => {
                 location.reload()
               }, 500)
@@ -730,7 +781,7 @@ $("#cmdEditEvent").click(function(){
           }else {
             console.log('no error found, event created successfully')
             sessionStorage.setItem('sessionMsgCenter', 'Event created successfully!')
-            sessionStorage.setItem('sessionNextPage', 'my event')
+            sessionStorage.setItem('sessionNextPage', 'create event')
             setTimeout(() => {
               location.reload()
             }, 500)
@@ -742,8 +793,6 @@ $("#cmdEditEvent").click(function(){
       console.log(e)
     }
   })
-
-
 
   /*   var map
     window.initMap = function () {
