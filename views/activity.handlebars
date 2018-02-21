@@ -28,36 +28,33 @@
                         <div class="row">
                             <div class="form-group" id="divActivityDetails">
                                 <label for="activity" id="lblActivityDetails">
-                                    <b>{{details.name}}
-                                    </b>
-<<<<<<< HEAD
-                                    <br>Total Number of Player(s) Needed :
+                                    <b>{{details.name}}</b>
+                                    <br> 
+                                    Total Number of Player(s) Needed :
                                     <i>{{details.attendants}}</i>
-=======
-                                    <br>Total Number of Player(s) Needed :{{details.attendants}}
-                                    <br>Commits :
-                                    <i class="time">{{details.numberAttending}}</i>
->>>>>>> b836d753e24f4a89ae995d4247a6953bb17e61b6
-                                    <br>Location :
-                                    <i>{{details.location}}</i>
-                                    <br> Hosted by :
-                                    <i>{{details.host}}</i>
-<<<<<<< HEAD
-                                    <br>Gender :
+                                    <br> 
+                                    Number of Player(s) Commited :
+                                    <i>{{this.numberAttending}}</i>
+                                    <br> 
+                                    Gender Specific :
                                     <i>{{details.gender}}</i>
-=======
-                                    <br>Fees : 
-                                    <i>{{details.fees}}</i>
-                                    <br>Gender :
-                                    <i>{{details.gender}}</i>
-                                    <br>Start Time :
-                                    <i class="time">{{details.start_time}}</i>
-                                    <br>End Time :
-                                    <i class="time">{{details.end_time}}</i>
-                                    
->>>>>>> b836d753e24f4a89ae995d4247a6953bb17e61b6
                                     <br>
-                                    <br />
+                                    <br> 
+                                    Start Time :
+                                    <i class="time">{{details.start_time}}</i>
+                                    <br> 
+                                    End Time :
+                                    <i class="time">{{details.end_time}}</i>
+                                    <br>
+                                    <br>
+                                    Location :
+                                    <i>{{details.location}}</i>
+                                    <br> 
+                                    Hosted by :
+                                    <i>{{details.host}}</i>
+                                    <br>
+                                    Fees :
+                                    <i>{{details.fees}}</i>
                                 </label>
                                 <br>
                             </div>
@@ -65,16 +62,14 @@
                         <div class="row">
                             <div class="form-group" id="divUsers">
                                 <div class="row">
-                                    {{#if attendingUsers}}
-                                    {{#each attendingUsers}}
+                                    {{#if attendingUsers}} {{#each attendingUsers}}
                                     <div class="col-md-3">
                                         <img class="img-thumbnail" src="{{this.photo}}">
-                                        <br />
+                                        <br>
                                         <label class="lblUserName"> {{this.first_name}} {{this.last_name}}</label>
 
                                     </div>
-                                    {{/each}}
-                                    {{/if}}
+                                    {{/each}} {{/if}}
                                 </div>
                             </div>
                         </div>
@@ -98,8 +93,10 @@
                             <div class="form-group" id="divEventWeather">
                                 <label for="eventWeather" id="lblEventWeather">
                                     <div class="weatherHeading">Event Weather</div>
-                                    <div>Temp :
-                                        <i></i> Humidity :
+                                    <div>
+                                        Temp :
+                                        <i></i>
+                                        Humidity :
                                         <i></i>
                                     </div>
                                 </label>
@@ -126,17 +123,18 @@
                     <div class="modal-body" style="padding:40px 50px;">
                         <div class="row">
                             <div class="form-group" id="divEventBlog">
-                                {{#if discussion}}
-                                {{#each discussion}}
+                                {{#if discussion}} {{#each discussion}}
                                 <div class="panel panel-default">
                                     <div class="panel-body">
-                                       {{this.message}}<br />
+                                        {{this.message}}
+                                        <br />
                                         <p class="text-right">by : {{this.User.first_name}}, {{this.User.last_name}}</span>
-                                        <p class="text-right"><i class="time">{{this.createdAt}}</i></p>
+                                            <p class="text-right">
+                                                <i class="time">{{this.createdAt}}</i>
+                                            </p>
                                     </div>
                                 </div>
-                                {{/each}}
-                                 {{/if}}
+                                {{/each}} {{/if}}
                                 <label for="userbio" id="lblEventBlog">
                                     <b>Event Communication Chat</b>
                                 </label>

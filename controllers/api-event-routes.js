@@ -97,7 +97,7 @@ module.exports = function (app) {
                         }).then(function (toEdit) {
                           eventToDisplay.eventToEdit = toEdit
                           console.log('here')
-                          // res.json(eventToDisplay)
+                          //  res.json(eventToDisplay)
                           res.render('events', eventToDisplay)
                         })
                       })
