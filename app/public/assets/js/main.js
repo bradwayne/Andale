@@ -623,6 +623,38 @@ $(function () {
     }
   })
 
+  $('#cmdPostMsg').click(function () {
+    if ($('#txtEventBlog').val()) {
+      try {
+        var objMsg = {
+          EventId: $('.eventDetailsOnMap').attr('data-id'),
+          message: $('#txtEventBlog').val(),
+          UserId: sessionStorage.getItem('sessionUserId')
+        }
+        $.ajax('/api/eventdiscussions/' + $('.eventDetailsOnMap').attr('data-id'), {
+          type: 'POST',
+          data: objMsg
+        }).then(function (results) {
+          console.log('after post message')
+          console.log(results)
+          if (results) {
+            sessionStorage.setItem('sessionMsgCenter', 'post submitted successfully!')
+            setWebSession('event detail')
+            setTimeout(() => {
+              location.reload()
+            }, 500)
+          }else {
+            throw(results)
+          }
+        })
+      } catch(e) { console.log(e) }
+    }else {
+      $('#msg-center').show()
+      $('#msg-center').addClass('alert-danger')
+      $('#msg-center').html('Message cannot be empty')
+    }
+  })
+
   $('#cmdSaveChanges').click(function () {
     try {
       var objUpdate = {
@@ -792,9 +824,10 @@ $(function () {
       console.log(e)
     }
   })
+  var map
+  var infoWindow = null
+  var eventWindow = null
 
-  var map, infoWindow
-  addressArr = ['case western university, cleveland, OH', 'mayfield height middle school, cleveland, OH', 'beachwood mall, cleveland, oh', 'shaker heights, OH']
   var allEvents = function (eventName, eventLocation, eventPhone, placeId, lat, lng, address) {
     this.eventName = eventName
     this.eventLocation = eventLocation
@@ -806,8 +839,6 @@ $(function () {
   }
 
   var arrAddressCoordinate = []
-
-
 
   $('.eventDetailsOnMap').each(function () {
     var event = new allEvents(
@@ -825,7 +856,7 @@ $(function () {
     }).then(function (data) {
       var objadddressCoordinate = {}
       if (data.status == 'OK') {
-        console.log(data.results[0])
+        // console.log(data.results[0])
         address.eventPlaceId = data.results[0].place_id
         address.eventLat = data.results[0].geometry.location.lat
         address.eventLng = data.results[0].geometry.location.lng
@@ -848,37 +879,47 @@ $(function () {
     var map = new google.maps.Map(document.getElementById('mapCanvas'),
       mapOptions)
 
-    infoWindow = new google.maps.InfoWindow
+    infoWindow = new google.maps.InfoWindow()
+    eventWindow = new google.maps.InfoWindow()
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+        if (window.location.href.indexOf('/event_details') > -1) {
+          var pos = {
+            lat: arrAddressCoordinate[0].eventLat,
+            lng: arrAddressCoordinate[0].eventLng
+          }
+        }else {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
         }
+
         map.setCenter(pos)
         var marker = new google.maps.Marker({
           position: pos,
           map: map,
-          title: 'Current Location'
+          icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
         })
-
-        var circle = new google.maps.Circle({
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35,
-          map: map,
-          center: pos,
-          radius: 5000
-        })
+        if (window.location.href.indexOf('/event_details') == -1) {
+          var circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: pos,
+            radius: 5000
+          })
+        }
 
         console.log('arr : ')
         console.log(arrAddressCoordinate)
-        setTimeout(() => {
+        if (window.location.href.indexOf('/event_details') == -1) {
           for (var i = 0; i < arrAddressCoordinate.length; i++) {
-            var eventWindow = new google.maps.InfoWindow({
-                content : '<div>' + arrAddressCoordinate[i].eventName + '</div><div>'+ arrAddressCoordinate[i].eventPhone + '</div>'
+            eventWindow = new google.maps.InfoWindow({
+              content: '<div>' + arrAddressCoordinate[i].eventName + '</div><div>' + arrAddressCoordinate[i].eventPhone + '</div><div>' + arrAddressCoordinate[i].eventAddress + '</div>'
             })
             var pos = {
               lat: arrAddressCoordinate[i].eventLat,
@@ -889,11 +930,12 @@ $(function () {
               map: map,
               title: arrAddressCoordinate[i].eventAddress
             })
-            marker.addListener('click', function(){
-                eventWindow.open(map, marker);
+
+            marker.addListener('click', function () {
+              eventWindow.open(map, this)
             })
           }
-        }, 500)
+        }
       }, function () {
         handleLocationError(true, infoWindow, map.getCenter())
       })
@@ -908,4 +950,64 @@ $(function () {
       "Error: Your browser doesn't support geolocation.")
     infoWindow.open(map)
   }
+
+  // ////////////////////////////////////////////
+
+  // WEATHER API!!
+
+  // /////////////////////////////////////////////
+  setTimeout(() => {
+    console.log(arrAddressCoordinate[0])
+    console.log(arrAddressCoordinate[0].eventLat)
+    var queryURL = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + arrAddressCoordinate[0].eventLat + '&lon=' + arrAddressCoordinate[0].eventLng + '&mode=json&appid=29ac769a18c2d2cd2cf53ab49109f23b'
+
+    $.ajax({
+      url: queryURL,
+      method: 'GET'
+    })
+
+      .done(function (response) {
+        // response from weather api.
+
+        console.log(queryURL)
+        var arrWeather = []
+
+        for (var i = 0; i < response.list.length; i++) {
+          var objWeather = {
+            temp: '',
+            weather: '',
+            date: ''
+          }
+          console.log(response.list[i].main.temp)
+          objWeather.temp = 9 / 5 * (response.list[i].main.temp - 273) + 32
+          objWeather.weather = response.list[i].weather[0].main
+          objWeather.date = response.list[i].dt_txt
+          console.log(objWeather)
+          arrWeather.push(objWeather)
+        }
+        console.log(Math.round(objWeather.temp))
+        $('.wlc').html(arrAddressCoordinate[0].eventAddress)
+        $('.day3').html(moment(response.list[20].dt_txt).format('MMM D'))
+        $('.day4').html(moment(response.list[28].dt_txt).format('MMM D'))
+        $('.day5').html(moment(response.list[36].dt_txt).format('MMM D'))
+        $('.fc1').html(Math.round(arrWeather[4].temp) + '°F')
+        $('.fc2').html(Math.round(arrWeather[12].temp) + '°F')
+        $('.fc3').html(Math.round(arrWeather[20].temp) + '°F')
+        $('.fc4').html(Math.round(arrWeather[28].temp) + '°F')
+        $('.fc5').html(Math.round(arrWeather[36].temp) + '°F')
+        $('.w1').html(arrWeather[4].weather)
+        $('.w2').html(arrWeather[12].weather)
+        $('.w3').html(arrWeather[20].weather)
+        $('.w4').html(arrWeather[28].weather)
+        $('.w5').html(arrWeather[36].weather)
+
+        $('#weather1').text("Today's Forecast for: " + Math.round(arrWeather[4].temp) + '°F')
+        $('#weather2').text("Tomorrow's Forecast: " + Math.round(arrWeather[12].temp) + '°F')
+        $('#weather3').text('Forecast for ' + response.list[20].dt_txt + ': ' + Math.round(arrWeather[20].temp) + '°F')
+        $('#weather4').text('Forecast for: ' + response.list[28].dt_txt + ': ' + Math.round(arrWeather[28].temp) + '°F')
+        $('#weather5').text('Forecast for: ' + response.list[28].dt_txt + ': ' + Math.round(arrWeather[36].temp) + '°F')
+
+        console.log(response)
+      })
+  }, 1000)
 })
