@@ -29,7 +29,9 @@
         </div>
     </div>
 </div>
+
 <!-- //// my events btn - my interests modal ////////////////////////////////////////////////////////////////////// =-->
+
 <div class="modal fade" id="myInterests" role="dialog">
     <div class="col-sm-6">
         <div class="modal-dialog">
@@ -88,7 +90,9 @@
             </div>
         </div>
     </div>
+
     <!-- //// signed up events modal ////////////////////////////////////////////////////////// =-->
+
     <div class="col-sm-6">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -123,9 +127,11 @@
                                 <button class="btn btn-default cmd cmdDetails" data-event-id='{{this.EventId}}'>
                                     <strong>View Details</strong>
                                 </button>
+
                                 <button class="btn btn-default cmd cmdCancel" data-event-id='{{this.EventId}}'>
                                     <strong>Remove</strong>
                                 </button>
+
                                 <br>
                                 <br>
                                 <br/> {{/each}} {{else}} you did not commit to any event.. {{/if}}
@@ -137,7 +143,10 @@
         </div>
     </div>
 </div>
+
+
 <!-- //// all events modal ////////////////////////////////////////////////////////// =-->
+
 <div class="modal fade" id="allEvents" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -155,7 +164,7 @@
                                 data-end="{{this.end_time}}" data-phone="{{this.phone_contact}}">
                             <label for="allEvents" id="lblAllEvents">
                                 {{!-- {{#if allEvents}} {{#each allEvents}} --}}
-                            <b class='eventName' href='/event_details/{{this.id}}'>{{this.name}}</b>
+                                <b class='eventName' href='/event_details/{{this.id}}'>{{this.name}}</b>
                                 <br> Total Number of Player(s) Needed :
                                 <i>{{this.attendants}}</i>
                                 <br> Number of Player(s) Commited :
@@ -164,16 +173,17 @@
                                 <i>{{this.gender}}</i>
                                 <br>
                                 <br> Starting At :
-                            <i class="start time">{{this.start_time}}</i>
+                                <i class="start time">{{this.start_time}}</i>
                                 <br/> Ending At :
-                            <i class="end time">{{this.end_time}}</i>
+                                <i class="end time">{{this.end_time}}</i>
                                 <br>
                                 <br> Location :
-                            <i class='location'>{{this.location}}</i>
+                                <i class='location'>{{this.location}}</i>
                                 <br> {{#if user}}
                                 <button class="cmd cmdGoing" data-event-id='{{this.id}}'>
                                     <strong>Sign Up</strong>
                                 </button>
+
                                 {{/if}}
                                 <br>
                                 <br>
@@ -193,7 +203,9 @@
         </div>
     </div>
 </div>
+
 <!-- //// events near you modal ////////////////////////////////////////////////////////// =-->
+
 <div class="modal fade" id="eventNear" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -206,3 +218,279 @@
                 <div class="row">
                     <strong>Location : </strong>
                     <input type='text' id='txtSearchLocation' class="form-control controls" placeholder='cleveland, oh' />
+                    <br>
+                    <strong>Radius : </strong>
+                    <input type='text' id='txtRadius' class="form-control controls" placeholder='5000' value='5000' />
+                    <br>
+                    <div id="mapCanvas" style="width: 500px; height: 400px"></div>
+                    <div class="form-group" id="divNearYou">
+                        <label for="nearYou" id="lblNearYou">
+                            <h1>{{this.dataValues.name}}</h1>
+                            <div>Host by : {{this.dataValues.host}}</div>
+                            <div>Looking for : {{this.dataValues.sex}} with skill level of {{this.dataValues.level}}</div>
+                            <div>Start Time :
+                                <i class="time">{{this.dataValues.start_time}}</i>
+                            </div>
+                            <div>End Time :
+                                <i class="time">{{this.dataValues.end_time}}</i>
+                            </div>
+                            <div>More Info : {{this.dataValues.details}}</div>
+                            {{!-- list of activities nearest to user based on interests
+                            <span>First event near you</span> --}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- //// create event modal ////////////////////////////////////////////////////////// =-->
+
+<div class="modal fade" id="createEvent" role="dialog">
+    <div class="col-sm-6">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:15px 30px">
+                    <h4 class="modalHeading">
+                        <strong class='eventTitle'>{{#if eventToEdit}}Edit Event {{else}}Create Event{{/if}}</strong>
+                    </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <div id="msg-center" class="alert alert-danger text-center create-event"></div>
+                    <div class="row">
+                        <div class="form-group" id="divCreateEvent">
+                            <label for="createEvent" id="lblCreateEvent">
+                                <span>Event Name</span>
+                            </label>
+                            <input type="text" class="form-control txtcreateEventName" id="txtcreateEventName" placeholder="Event Name" value='{{#if eventToEdit}}{{eventToEdit.name}}{{/if}}'>
+                        </div>
+                        <div class="form-group" id="divSport">
+                            <label for="createEvent" id="lblSport">
+                                <span>Sport Category</span>
+                            </label>
+                            <select class="ddl-sports">
+                                {{#if eventToEdit}}
+                                <option data-id={{eventToEdit.Sport.id}} value={{eventToEdit.Sport.id}}>{{eventToEdit.Sport.name}}</option>
+                                {{else}}
+                                <option></option>
+                                {{/if}} {{#each allSports}}
+                                <option data-id={{this.id}} value={{this.id}}>{{this.name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group" id="divTotalPlayers">
+                            <label for="createEvent" id="lblTotalPlayers">
+                                <span>Total Players Needed
+                                    <em>(including yourself)</em>
+                                </span>
+                            </label>
+                            <input type="text" class="form-control txtTotalPlayers" id="txtTotalPlayers" placeholder="Total Players Needed" value='{{#if eventToEdit}}{{eventToEdit.attendants}}{{/if}}'>
+                        </div>
+
+                        <div class="form-group" id="divGender">
+                            <label for="gender" id="lblGender">
+                                <span>Gender</span>
+                            </label>
+                            <label class="radio-inline" id="lblGenderMale">
+                                <input type="radio" name="gender" value='male' checked="checked">Male</label>
+                            <label class="radio-inline" id="lblGenderFemale">
+                                <input type="radio" name="gender" value='female'>Female</label>
+                            <label class="radio-inline" id="lblGenderUnspecified">
+                                <input type="radio" name="gender" value='unspecified'>Both</label>
+                        </div>
+
+                        <div class="form-group" id="divAgeBracket">
+                            <label for="ageRequirement" id="lblAge">
+                                <span>Minimum Age Requirement</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control txtAgeBracket" id="txtAge" placeholder="1" name="ageRequirement" style="width:auto"
+                                        value='{{#if eventToEdit}}{{eventToEdit.age}}{{/if}}'>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divLevelRequirement">
+                            <label for="levelRequirement" id="lblAge">
+                                <span>Level Requirement</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="txtLevel" placeholder="1-10" name="ageBracket" style="width:auto" value='{{#if eventToEdit}}{{eventToEdit.level}}{{/if}}'>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divFees">
+                            <label for="fees" id="lblFees">
+                                <span>Fees</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="txtFees" placeholder="10" name="fees" style="width:auto" value='{{#if eventToEdit}}{{eventToEdit.fees}}{{/if}}'>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divLocation">
+                            <label for="location" id="lblLocation">
+                                <span>Location</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group" id="divLocationCity">
+                                    <input type="text" class="form-control txtLocation" id="txtLocation" placeholder="Location" name="location" style="width:auto"
+                                        value='{{#if eventToEdit}}{{eventToEdit.location}}{{/if}}'>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="divStartAt">
+                            <label for="location" id="lblStartsAt">
+                                <span>Event Starts At</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group" id="divStartsAtDate">
+                                    <strong>Date : </strong>
+                                    <input type="date" class="form-control txtLocation" id="txtStartsAtDate" placeholder="mm/dd/yyyy" name="startAt" style="width:auto">
+                                </div>
+                                <div class="form-group" id="divStartsAtTime">
+                                    <strong> Time : </strong>
+                                    <input type="time" class="form-control" id="txtStartAtTime" placeholder="12:00" name="startAt" style="width:auto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divStartAt">
+                            <label for="location" id="lblStartsAt">
+                                <span>Event Ends At</span>
+                            </label>
+                            <div class="form-inline">
+                                <div class="form-group" id="divEndsAtDate">
+                                    <strong>Date : </strong>
+                                    <input type="date" class="form-control txtLocation" id="txtEndsAtDate" placeholder="mm/dd/yyyy" name="EndsAt" style="width:auto"
+                                        {{#if user.location}} value='{{user.location}}' {{/if}}>
+                                </div>
+                                <div class="form-group" id="divEndsAtTime">
+                                    <strong>Time : </strong>
+                                    <input type="time" class="form-control" id="txtEndsAtTime" placeholder="12:00" name="EndsAt" style="width:auto">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divHostedBy">
+                            <label for="hostedBy" id="lblHostedBy">
+                                <span>Hosted By : </span>
+                            </label>
+                            <input type="text" class="form-control txtHostedBy" id="txtHostedBy" placeholder="User Name" value='{{#if eventToEdit}}{{eventToEdit.host}}{{/if}}'>
+                        </div>
+                        <div class="form-group" id="divContactNumber">
+                            <label for="contactNumber" id="lblContactNumber">
+                                <span>Contact Number : </span>
+                            </label>
+                            <input type="text" class="form-control txtContactNumber" id="txtContactNumber" placeholder="Contact Number" value='{{#if eventToEdit}}{{eventToEdit.phone_contact}}{{/if}}'>
+                        </div>
+
+                        <div class="form-group" id="divEmailAddress">
+                            <label for="EmailAddress" id="lblEmailAddress">
+                                <span>Email Address : </span>
+                            </label>
+                            <input type="text" class="form-control txtEmailAddress" id="txtEmailAddress" placeholder="Email Address" value='{{#if eventToEdit}}{{eventToEdit.email_contact}}{{/if}}'>
+                        </div>
+
+                        <div class="form-group" id="divDetails">
+                            <label for="Details" id="lblDetails">
+                                <span>Details : </span>
+                            </label>
+                            <br />
+                            <textarea type="text" class="form-control" id="txtEventDetails" rows="5">{{#if eventToEdit}}{{eventToEdit.details}}{{/if}}</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-block" id={{#if eventToEdit}} "cmdEditEvent"{{else}} "cmdCreateEvent"{{/if}}>
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <strong>{{#if eventToEdit}} Edit Event {{else}} Create Event{{/if}}</strong>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" id="btnUserInfoCancel" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-remove"></span>Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- //// hosted event modal ////////////////////////////////////////////////////////// =-->
+
+    <div class="col-sm-6">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:15px 50px">
+                    <h4 class="modalHeading">
+                        <strong>My Hosted Events</strong>
+                    </h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group" id="divSignedUp">
+                                <label for="signedUp" id="lblSignedUp">
+                                    {{#if user.Events}} {{#each user.Events}}
+                                    <b href='/event_details/{{this.id}}'>{{this.name}}</b>
+                                    <br> Total Number of Player(s) Needed :
+                                    <i>{{this.attendants}}</i>
+                                    <br> Number of Player(s) Commited :
+                                    <i>{{this.Event.numberAttending}}</i>
+                                    <br> Gender Specific :
+                                    <i>{{this.gender}}</i>
+                                    <br>
+                                    <br> Starting At :
+                                    <i class="time">{{this.start_time}}</i>
+                                    <br> Ending At :
+                                    <i class="time">{{this.end_time}}</i>
+                                    <br>
+                                    <br> Location :
+                                    <i>{{this.location}}</i>
+                                    <br> Hosted by :
+                                    <i>{{this.host}}</i>
+                                    <br> Fee :
+                                    <i>{{this.fees}}</i>
+                                    <br> {{!-- this will send them to the activity blog page --}}
+
+                                    <button class="cmd cmdDetails" data-event-id='{{this.EventId}}'>View Details</button>
+
+                                    <button class="btn btn-default cmd cmdEditDetails" id="idEditDeal" data-event-id='{{this.id}}'>
+                                        <a href='/event/{{this.UserId}}/{{this.id}}'>Edit Details</a>
+                                    </button>
+
+
+                                    <button class="btn btn-default cmd cmdRemoveEvent" data-event-id='{{this.id}}'>Remove</button>
+
+                                    <br>
+                                    <br>
+                                    <br /> {{/each}} {{else}} You have not hosted any event.. {{/if}} {{!-- list of activities
+                                    user has signed up for
+                                    <span>First Signed Up Event</span> --}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img class="img-thumbnail" src="{{user.photo}}">
+                                <br>
+                                <br>
+                                <strong>Hosted By : </strong>
+                                <br>
+                                <label class="lblUserName">
+                                    <i>{{user.first_name}}</i>
+                                    <i>{{user.last_name}}</i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="background-image-eventpage">
+</div>
