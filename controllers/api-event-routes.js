@@ -72,7 +72,7 @@ module.exports = function (app) {
               EventId: { [Op.in]: arrEventId },
               UserId: req.params.id
             },
-            include: [db.Events]
+            include: [{model : db.Events}]
           }).then(function (likeEventInfo) {
             eventToDisplay.likeEventInfo = likeEventInfo
             db.Events.findAll({
@@ -82,7 +82,8 @@ module.exports = function (app) {
                 UserId: {[Op.ne]: req.params.id},
                 gender: {[Op.in]: [eventToDisplay.user.gender.toLowerCase() , 'unspecified']},
                 numberAttending: {[Op.lt]: Sequelize.col('attendants')}, //compare two columns in a same table
-              }
+              },
+              include : [db.User],
             })
               .then(function (otherEvents) {
                 eventToDisplay.otherEvents = otherEvents
@@ -100,7 +101,7 @@ module.exports = function (app) {
                         }).then(function (toEdit) {
                           eventToDisplay.eventToEdit = toEdit
                           console.log('here')
-                          //  res.json(eventToDisplay)
+                            // res.json(eventToDisplay)
                           res.render('events', eventToDisplay)
                         })
                       })

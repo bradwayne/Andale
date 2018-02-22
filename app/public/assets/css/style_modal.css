@@ -45,8 +45,8 @@ b {
     color: white;
     float: right;
     margin-top: -25px;
-    padding: 5px;
     font-size: 15px;
+    padding: 5px 10px;
 }
 
 .weatherHeading {
@@ -56,4 +56,20 @@ b {
 .modal-body a {
     text-decoration: none;
     color: inherit;
+}
+
+.activityLineBreak {
+    border-bottom: 3px solid #ddd;
+}
+
+#editDealsBtn {
+    text-decoration: none;
+}
+
+.commitedPlayers {
+    text-align: center;
+}
+
+.comment-glyph {
+    color: #00ace6;
 }
