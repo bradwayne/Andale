@@ -13,6 +13,20 @@
 </div>
 
 <div class="modal fade" id="activity" role="dialog">
+
+    <div class="row">
+        <div class='container'>
+            <div class="col-md-12">
+                <div id="msg-center" class="alert">
+                </div>
+                <div class="alert alert-success" role="alert">
+                    <strong>event alert test</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="row">
         <div class="col-sm-6">
             <div class="modal-dialog">
@@ -182,7 +196,9 @@
                                         </div>
                                     </div>
                                     <div data-user-id='{{this.UserId}}' class="panel-footer post-delete-footer">
-                                        <button type="button" data-id="{{this.id}}" class="cmdDeletePost">Delete Post</button>
+                                        <button type="button" data-id="{{this.id}}" class="btn btn-default cmdDeletePost">
+                                            <strong>Delete Post</strong>
+                                        </button>
                                     </div>
                                 </div>
                                 {{/each}} {{/if}}
