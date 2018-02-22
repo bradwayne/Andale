@@ -1,4 +1,3 @@
-
 <div class="body">
     <div class="container">
         <div class="row">
@@ -131,31 +130,44 @@
                                 {{#if discussion}} {{#each discussion}}
                                 <div class="panel panel-default">
                                     <div class="panel-body">
-                                        {{this.message}}
-                                        <br />
-                                        <p class="text-right">by : {{this.User.first_name}}, {{this.User.last_name}}</span>
-                                            <p class="text-right">
+                                        <div class="col-sm-9">
+                                            <strong>{{this.message}}</strong>
+                                            <br/>
+                                            <br>
+                                            <p class="text-left">
                                                 <i class="time">{{this.createdAt}}</i>
                                             </p>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <img class="img-thumbnail" src="{{this.User.photo}}">
+                                            <br>
+                                            <br>
+                                            <p class="text-left"><strong>Post By : </strong>
+                                                <br> 
+                                                <span><strong>{{this.User.first_name}}, {{this.User.last_name}}</strong></span>
+                                        </div>
                                     </div>
                                 </div>
-                                {{/each}} {{/if}}
-                                <label for="userbio" id="lblEventBlog">
-                                    <b>Event Communication Chat</b>
-                                </label>
-                                <textarea type="text" class="form-control" id="txtEventBlog" rows="5"></textarea>
-                                <br>
-                                <button type="submit" class="btn btn-success btn-block" id="cmdAddSports">
-                                    <span class="glyphicon glyphicon-comment"></span>
-                                    <strong>Submit Post</strong>
-                                </button>
                             </div>
                         </div>
+                        {{/each}} {{/if}}
+                        <label for="userbio" id="lblEventBlog">
+                            <b>Event Communication Chat</b>
+                        </label>
+                        <textarea type="text" class="form-control" id="txtEventBlog" rows="5"></textarea>
+                        <br>
+                        <button type="submit" class="btn btn-success btn-block" id="cmdAddSports">
+                            <span class="glyphicon glyphicon-comment"></span>
+                            <strong>Submit Post</strong>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 

@@ -84,8 +84,8 @@
                             </label>
                         </div>
                     </div>
-                    {{/each}} {{else}} add some sports in
-                    <a href='/user/{{user.id}}'>user profile</a> to get started! {{/if}}
+                    {{/each}} {{else}} <strong>add some sports in</strong>
+                    <a href='/user/{{user.id}}'><strong>user profile</strong></a> <strong>to get started!</strong>{{/if}}
                 </div>
             </div>
         </div>
@@ -134,7 +134,7 @@
 
                                 <br>
                                 <br>
-                                <br/> {{/each}} {{else}} you did not commit to any event.. {{/if}}
+                                <br/> {{/each}} {{else}} you did not commit to any event. {{/if}}
                             </label>
                         </div>
                     </div>
@@ -195,6 +195,7 @@
                         <br>
                         <br>
                         <strong>Hosted By : </strong>
+                        <br>
                         <label class="lblUserName"> {{this.User.first_name}} {{this.User.last_name}}</label>
                     </div>
                 </div>
@@ -448,13 +449,13 @@
                                             <strong>View Details</strong>
                                         </a>
                                     </button>
-                                    
+
                                     <button class="btn btn-default cmd cmdEditDetails" id="idEditDeal" data-event-id='{{this.id}}'>
                                         <a href='/event/{{this.id}}/{{this.id}}'>
                                             <strong>Edit Event</strong>
                                         </a>
                                     </button>
-                                    
+
                                     <button class="btn btn-default cmd cmdRemoveEvent" data-event-id='{{this.id}}'>
                                         <strong>Remove</strong>
                                     </button>
