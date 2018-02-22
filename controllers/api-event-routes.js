@@ -125,7 +125,7 @@ module.exports = function (app) {
     if (req.params.eventId) {
       db.Events.findOne({
         where: { id: req.params.eventId},
-        include: [{model: db.EventDiscussion}, {model: db.Sport}]
+        include: [{model: db.EventDiscussion}, {model: db.Sport}, {model: db.User}]
       })
         .then(function (eventDetails) {
           objEventDetails.details = eventDetails
@@ -147,7 +147,7 @@ module.exports = function (app) {
                 include: db.User
               }).then(function (eventDiscussion) {
                 objEventDetails.discussion = eventDiscussion
-                // res.json(objEventDetails)
+                 /* res.json(objEventDetails) */
                 console.log(objEventDetails)
                 res.render('activity', objEventDetails)
               })

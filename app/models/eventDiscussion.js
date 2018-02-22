@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       validate: {
         len: {
-          args: [255],
+          args: [1, 255],
           msg: 'Message must be less than 255 characters'
         }
       }

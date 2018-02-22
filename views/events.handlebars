@@ -340,12 +340,12 @@
                             </label>
                             <div class="form-inline">
                                 <div class="form-group" id="divStartsAtDate">
-                                    <strong>Date : </strong>
-                                    <input type="date" class="form-control txtLocation" id="txtStartsAtDate" placeholder="mm/dd/yyyy" name="startAt" style="width:auto">
+                                    <strong>Date : </strong> {{getDate eventToEdit.start_time}}
+                                    <input type="date" class="form-control txtLocation" id="txtStartsAtDate" value={{#if eventToEdit.start_time}}'{{getDate eventToEdit.start_time}}'{{/if}} placeholder="mm/dd/yyyy" name="startAt" style="width:auto">
                                 </div>
                                 <div class="form-group" id="divStartsAtTime">
                                     <strong> Time : </strong>
-                                    <input type="time" class="form-control" id="txtStartAtTime" placeholder="12:00" name="startAt" style="width:auto">
+                                    <input type="time" class="form-control" id="txtStartAtTime" placeholder="12:00" value={{#if eventToEdit.start_time}}'{{getTime eventToEdit.start_time}}'{{/if}} name="startAt" style="width:auto">
                                 </div>
                             </div>
                         </div>
@@ -355,13 +355,13 @@
                             </label>
                             <div class="form-inline">
                                 <div class="form-group" id="divEndsAtDate">
-                                    <strong>Date : </strong>
-                                    <input type="date" class="form-control txtLocation" id="txtEndsAtDate" placeholder="mm/dd/yyyy" name="EndsAt" style="width:auto"
+                                    <strong>Date : </strong>  {{getDate eventToEdit.end_time}}
+                                    <input type="date" class="form-control txtLocation" id="txtEndsAtDate" value={{#if eventToEdit.end_time}}'{{getDate eventToEdit.end_time}}'{{/if}} placeholder="mm/dd/yyyy" name="EndsAt" style="width:auto"
                                         {{#if user.location}} value='{{user.location}}' {{/if}}>
                                 </div>
                                 <div class="form-group" id="divEndsAtTime">
                                     <strong>Time : </strong>
-                                    <input type="time" class="form-control" id="txtEndsAtTime" placeholder="12:00" name="EndsAt" style="width:auto">
+                                    <input type="time" class="form-control" id="txtEndsAtTime"  value={{#if eventToEdit.end_time}}'{{getTime eventToEdit.end_time}}'{{/if}} placeholder="12:00" name="EndsAt" style="width:auto">
                                 </div>
                             </div>
                         </div>
