@@ -164,7 +164,7 @@
                                 data-end="{{this.end_time}}" data-phone="{{this.phone_contact}}">
                             <label for="allEvents" id="lblAllEvents">
                                 {{!-- {{#if allEvents}} {{#each allEvents}} --}}
-                            <b class='eventName' href='/event_details/{{this.id}}'>{{this.name}}</b>
+                                <b class='eventName' href='/event_details/{{this.id}}'>{{this.name}}</b>
                                 <br> Total Number of Player(s) Needed :
                                 <i>{{this.attendants}}</i>
                                 <br> Number of Player(s) Commited :
@@ -173,12 +173,12 @@
                                 <i>{{this.gender}}</i>
                                 <br>
                                 <br> Starting At :
-                            <i class="start time">{{this.start_time}}</i>
+                                <i class="start time">{{this.start_time}}</i>
                                 <br/> Ending At :
-                            <i class="end time">{{this.end_time}}</i>
+                                <i class="end time">{{this.end_time}}</i>
                                 <br>
                                 <br> Location :
-                            <i class='location'>{{this.location}}</i>
+                                <i class='location'>{{this.location}}</i>
                                 <br> {{#if user}}
                                 <button class="cmd cmdGoing" data-event-id='{{this.id}}'>
                                     <strong>Sign Up</strong>
@@ -219,26 +219,16 @@
                     <strong>Location : </strong>
                     <input type='text' id='txtSearchLocation' class="form-control controls" placeholder='cleveland, oh' />
                     <br>
-                     <strong>Radius : </strong>
-                    <input type='text' id='txtRadius' class="form-control controls" placeholder='5000' value='5000' />
+                    <strong>Radius : </strong>
+                    <input type='text' id='txtRadius' class="form-control controls" placeholder='5000' value='5000' style="width:auto" />
+                    <br>
+                    <button type="submit" class="btn btn-success btn-default btn-block" id="cmdAddSports">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <strong>Search</strong>
+                    </button>
                     <br>
                     <div id="mapCanvas" style="width: 500px; height: 400px"></div>
-                    <div class="form-group" id="divNearYou">
-                        <label for="nearYou" id="lblNearYou">
-                            <h1>{{this.dataValues.name}}</h1>
-                            <div>Host by : {{this.dataValues.host}}</div>
-                            <div>Looking for : {{this.dataValues.sex}} with skill level of {{this.dataValues.level}}</div>
-                            <div>Start Time :
-                                <i class="time">{{this.dataValues.start_time}}</i>
-                            </div>
-                            <div>End Time :
-                                <i class="time">{{this.dataValues.end_time}}</i>
-                            </div>
-                            <div>More Info : {{this.dataValues.details}}</div>
-                            {{!-- list of activities nearest to user based on interests
-                            <span>First event near you</span> --}}
-                        </label>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -453,19 +443,26 @@
                                     <i>{{this.fees}}</i>
                                     <br> {{!-- this will send them to the activity blog page --}}
 
-                                    <button class="cmd cmdDetails" data-event-id='{{this.EventId}}'>View Details</button>
-
+                                    <button class="btn btn-default cmd cmdDetails" data-event-id='{{this.id}}'>
+                                        <a href='/event_details/{{this.id}}'>
+                                            <strong>View Details</strong>
+                                        </a>
+                                    </button>
+                                    
                                     <button class="btn btn-default cmd cmdEditDetails" id="idEditDeal" data-event-id='{{this.id}}'>
-                                        <a href='/event/{{this.UserId}}/{{this.id}}'>Edit Details</a>
+                                        <a href='/event/{{this.id}}/{{this.id}}'>
+                                            <strong>Edit Event</strong>
+                                        </a>
+                                    </button>
+                                    
+                                    <button class="btn btn-default cmd cmdRemoveEvent" data-event-id='{{this.id}}'>
+                                        <strong>Remove</strong>
                                     </button>
 
-
-                                    <button class="btn btn-default cmd cmdRemoveEvent" data-event-id='{{this.id}}'>Remove</button>
-
                                     <br>
                                     <br>
-                                    <br /> {{/each}} {{else}} You have not hosted any event.. {{/if}} {{!-- list of activities user
-                                    has signed up for
+                                    <br /> {{/each}} {{else}} You have not hosted any event.. {{/if}} {{!-- list of activities
+                                    user has signed up for
                                     <span>First Signed Up Event</span> --}}
                                 </label>
                             </div>
