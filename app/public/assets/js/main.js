@@ -795,27 +795,48 @@ $(function () {
 
   var map, infoWindow
   addressArr = ['case western university, cleveland, OH', 'mayfield height middle school, cleveland, OH', 'beachwood mall, cleveland, oh', 'shaker heights, OH']
+  var allEvents = function (eventName, eventLocation, eventPhone, placeId, lat, lng, address) {
+    this.eventName = eventName
+    this.eventLocation = eventLocation
+    this.eventPhone = eventPhone
+    this.eventPlaceId = placeId
+    this.eventLat = lat
+    this.eventLng = lng
+    this.eventAddress = address
+  }
+
   var arrAddressCoordinate = []
 
+
+
+  $('.eventDetailsOnMap').each(function () {
+    var event = new allEvents(
+      $(this).attr('data-name'),
+      $(this).attr('data-location'),
+      $(this).attr('data-phone')
+    )
+    arrAddressCoordinate.push(event)
+  })
+  console.log('the new array address coordinate :')
+  console.log(arrAddressCoordinate)
   function getGeoLocation (address) {
-    $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyAsoBvfyTjb2cv09tBpnkZxhRF6MTKIgOM', {
+    $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address=' + address.eventLocation + '&key=AIzaSyAsoBvfyTjb2cv09tBpnkZxhRF6MTKIgOM', {
       type: 'GET'
     }).then(function (data) {
       var objadddressCoordinate = {}
       if (data.status == 'OK') {
         console.log(data.results[0])
-        objadddressCoordinate.placeId = data.results[0].place_id
-        objadddressCoordinate.lat = data.results[0].geometry.location.lat
-        objadddressCoordinate.lng = data.results[0].geometry.location.lng
-        objadddressCoordinate.address = data.results[0].formatted_address
-        arrAddressCoordinate.push(objadddressCoordinate)
+        address.eventPlaceId = data.results[0].place_id
+        address.eventLat = data.results[0].geometry.location.lat
+        address.eventLng = data.results[0].geometry.location.lng
+        address.eventAddress = data.results[0].formatted_address
       }else {
         console.log('something wrong with your address')
       }
     })
   }
-  for (var i = 0; i < addressArr.length; i++) {
-    console.log(getGeoLocation(addressArr[i]))
+  for (var i = 0; i < arrAddressCoordinate.length; i++) {
+    getGeoLocation(arrAddressCoordinate[i])
   }
   console.log(arrAddressCoordinate)
   window.initMap = function () {
@@ -856,14 +877,20 @@ $(function () {
         console.log(arrAddressCoordinate)
         setTimeout(() => {
           for (var i = 0; i < arrAddressCoordinate.length; i++) {
+            var eventWindow = new google.maps.InfoWindow({
+                content : '<div>' + arrAddressCoordinate[i].eventName + '</div><div>'+ arrAddressCoordinate[i].eventPhone + '</div>'
+            })
             var pos = {
-              lat: arrAddressCoordinate[i].lat,
-              lng: arrAddressCoordinate[i].lng
+              lat: arrAddressCoordinate[i].eventLat,
+              lng: arrAddressCoordinate[i].eventLng
             }
             var marker = new google.maps.Marker({
               position: pos,
               map: map,
-              title: arrAddressCoordinate.formatted_address
+              title: arrAddressCoordinate[i].eventAddress
+            })
+            marker.addListener('click', function(){
+                eventWindow.open(map, marker);
             })
           }
         }, 500)
@@ -881,19 +908,4 @@ $(function () {
       "Error: Your browser doesn't support geolocation.")
     infoWindow.open(map)
   }
-
-/* console.log(userLocation.currentLocation.center)
-marker1.setMap(map)
-marker2.setMap(map)
-var circle = new google.maps.Circle({
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 2,
-  fillColor: '#FF0000',
-  fillOpacity: 0.35,
-  map: map,
-  center: userLocation.currentLocation.center,
-  radius: 5000
-}) 
-  }*/
 })
