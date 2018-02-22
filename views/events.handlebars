@@ -33,109 +33,125 @@
 <!-- //// my events btn - my interests modal ////////////////////////////////////////////////////////////////////// =-->
 
 <div class="modal fade" id="myInterests" role="dialog">
-    <div class="col-sm-6">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="padding:15px 30px">
-                    <h4 class="modalHeading">
-                        <strong>Interests</strong>
-                    </h4>
+
+    <div class="row">
+        <div class='container'>
+            <div class="col-md-12">
+                <div id="msg-center" class="alert">
                 </div>
-                <div class="modal-body" style="padding:40px 50px;">
-                    <div id="msg-center" class="alert alert-danger text-center">testing</div>
-                    {{#if otherEvents}} {{#each otherEvents}}
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="form-group" id="divInterests">
-                                <label for="interests" id="lblInterests">
-                                    <b href='/event_details/{{this.id}}'>{{this.name}}</b>
-                                    <br> Total Number of Player(s) Needed :
-                                    <i>{{this.attendants}}</i>
-                                    <br> Number of Player(s) Commited :
-                                    <i>{{this.numberAttending}}</i>
-                                    <br> Gender Specific :
-                                    <i>{{this.gender}}</i>
-                                    <br>
-                                    <br> Starting At :
-                                    <i class='time'>{{this.start_time}}</i>
-                                    <br/> Ending At:
-                                    <i class='time'>{{this.end_time}}</i>
-                                    <br>
-                                    <br> Location :
-                                    <i>{{this.location}}</i>
-                                    <br>
-                                    <button class="btn btn-default cmd cmdGoing" data-event-id='{{this.id}}'>
-                                        <strong>Sign Up</strong>
-                                    </button>
-                                    <br>
-                                    <br>
-                                    <br>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <img class="img-thumbnail" src="{{this.User.photo}}">
-                            <br>
-                            <br>
-                            <strong>Hosted By : </strong>
-                            <label class="lblUserName">
-                                <i>{{this.User.first_name}}</i>
-                                <i>{{this.User.last_name}}</i>
-                            </label>
-                        </div>
-                    </div>
-                    {{/each}} {{else}} <strong>add some sports in</strong>
-                    <a href='/user/{{user.id}}'><strong>user profile</strong></a> <strong>to get started!</strong>{{/if}}
+                <div class="alert alert-success" role="alert">
+                    <strong>event alert test</strong>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- //// signed up events modal ////////////////////////////////////////////////////////// =-->
-
-    <div class="col-sm-6">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="padding:15px 50px">
-                    <h4 class="modalHeading">
-                        <strong>Signed Up Events</strong>
-                    </h4>
+        <div class="col-sm-6">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:15px 30px">
+                        <h4 class="modalHeading">
+                            <strong>Interests</strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        {{#if otherEvents}} {{#each otherEvents}}
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group" id="divInterests">
+                                    <label for="interests" id="lblInterests">
+                                        <b href='/event_details/{{this.id}}'>{{this.name}}</b>
+                                        <br> Total Number of Player(s) Needed :
+                                        <i>{{this.attendants}}</i>
+                                        <br> Number of Player(s) Commited :
+                                        <i>{{this.numberAttending}}</i>
+                                        <br> Gender Specific :
+                                        <i>{{this.gender}}</i>
+                                        <br>
+                                        <br> Starting At :
+                                        <i class='time'>{{this.start_time}}</i>
+                                        <br/> Ending At:
+                                        <i class='time'>{{this.end_time}}</i>
+                                        <br>
+                                        <br> Location :
+                                        <i>{{this.location}}</i>
+                                        <br>
+                                        <button class="btn btn-default cmd cmdGoing" data-event-id='{{this.id}}'>
+                                            <strong>Sign Up</strong>
+                                        </button>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <img class="img-thumbnail" src="{{this.User.photo}}">
+                                <br>
+                                <br>
+                                <strong>Hosted By : </strong>
+                                <label class="lblUserName">
+                                    <i>{{this.User.first_name}}</i>
+                                    <i>{{this.User.last_name}}</i>
+                                </label>
+                            </div>
+                        </div>
+                        {{/each}} {{else}}
+                        <strong>add some sports in</strong>
+                        <a href='/user/{{user.id}}'>
+                            <strong>user profile</strong>
+                        </a>
+                        <strong>to get started!</strong>{{/if}}
+                    </div>
                 </div>
-                <div class="modal-body" style="padding:40px 50px;">
-                    <div class="row">
-                        <div class="form-group" id="divSignedUp">
-                            <label for="signedUp" id="lblSignedUp">
-                                {{#if likeEventInfo}} {{#each likeEventInfo}}
-                                <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}</b>
-                                <br> Total Number of Player(s) Needed :
-                                <i>{{this.Event.attendants}}</i>
-                                <br> Number of Player(s) Commited :
-                                <i>{{this.Event.numberAttending}}</i>
-                                <br> Gender Specific :
-                                <i>{{this.Event.gender}}</i>
-                                <br>
-                                <br> Starting At :
-                                <i class="time">{{this.Event.start_time}}</i>
-                                <br/> Ending At :
-                                <i class="time">{{this.Event.end_time}}</i>
-                                <br>
-                                <br> Location :
-                                <i>{{this.Event.location}}</i>
-                                <br> Hosted by :
-                                <i>{{this.Event.host}}</i>
-                                <br> {{!-- this will send them to the activity blog page --}}
-                                <button class="btn btn-default cmd cmdDetails" data-event-id='{{this.EventId}}'>
-                                    <strong>View Details</strong>
-                                </button>
+            </div>
+        </div>
 
-                                <button class="btn btn-default cmd cmdCancel" data-event-id='{{this.EventId}}'>
-                                    <strong>Remove</strong>
-                                </button>
+        <!-- //// signed up events modal ////////////////////////////////////////////////////////// =-->
 
-                                <br>
-                                <br>
-                                <br/> {{/each}} {{else}} you did not commit to any event. {{/if}}
-                            </label>
+        <div class="col-sm-6">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:15px 50px">
+                        <h4 class="modalHeading">
+                            <strong>Signed Up Events</strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <div class="row">
+                            <div class="form-group" id="divSignedUp">
+                                <label for="signedUp" id="lblSignedUp">
+                                    {{#if likeEventInfo}} {{#each likeEventInfo}}
+                                    <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}</b>
+                                    <br> Total Number of Player(s) Needed :
+                                    <i>{{this.Event.attendants}}</i>
+                                    <br> Number of Player(s) Commited :
+                                    <i>{{this.Event.numberAttending}}</i>
+                                    <br> Gender Specific :
+                                    <i>{{this.Event.gender}}</i>
+                                    <br>
+                                    <br> Starting At :
+                                    <i class="time">{{this.Event.start_time}}</i>
+                                    <br/> Ending At :
+                                    <i class="time">{{this.Event.end_time}}</i>
+                                    <br>
+                                    <br> Location :
+                                    <i>{{this.Event.location}}</i>
+                                    <br> Hosted by :
+                                    <i>{{this.Event.host}}</i>
+                                    <br> {{!-- this will send them to the activity blog page --}}
+                                    <button class="btn btn-default cmd cmdDetails" data-event-id='{{this.EventId}}'>
+                                        <strong>View Details</strong>
+                                    </button>
+
+                                    <button class="btn btn-default cmd cmdCancel" data-event-id='{{this.EventId}}'>
+                                        <strong>Remove</strong>
+                                    </button>
+
+                                    <br>
+                                    <br>
+                                    <br/> {{/each}} {{else}} you did not commit to any event. {{/if}}
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -341,11 +357,13 @@
                             <div class="form-inline">
                                 <div class="form-group" id="divStartsAtDate">
                                     <strong>Date : </strong> {{getDate eventToEdit.start_time}}
-                                    <input type="date" class="form-control txtLocation" id="txtStartsAtDate" value={{#if eventToEdit.start_time}}'{{getDate eventToEdit.start_time}}'{{/if}} placeholder="mm/dd/yyyy" name="startAt" style="width:auto">
+                                    <input type="date" class="form-control txtLocation" id="txtStartsAtDate" value={{#if eventToEdit.start_time}}
+                                        '{{getDate eventToEdit.start_time}}'{{/if}} placeholder="mm/dd/yyyy" name="startAt" style="width:auto">
                                 </div>
                                 <div class="form-group" id="divStartsAtTime">
                                     <strong> Time : </strong>
-                                    <input type="time" class="form-control" id="txtStartAtTime" placeholder="12:00" value={{#if eventToEdit.start_time}}'{{getTime eventToEdit.start_time}}'{{/if}} name="startAt" style="width:auto">
+                                    <input type="time" class="form-control" id="txtStartAtTime" placeholder="12:00" value={{#if eventToEdit.start_time}}
+                                        '{{getTime eventToEdit.start_time}}'{{/if}} name="startAt" style="width:auto">
                                 </div>
                             </div>
                         </div>
@@ -355,13 +373,15 @@
                             </label>
                             <div class="form-inline">
                                 <div class="form-group" id="divEndsAtDate">
-                                    <strong>Date : </strong>  {{getDate eventToEdit.end_time}}
-                                    <input type="date" class="form-control txtLocation" id="txtEndsAtDate" value={{#if eventToEdit.end_time}}'{{getDate eventToEdit.end_time}}'{{/if}} placeholder="mm/dd/yyyy" name="EndsAt" style="width:auto"
-                                        {{#if user.location}} value='{{user.location}}' {{/if}}>
+                                    <strong>Date : </strong> {{getDate eventToEdit.end_time}}
+                                    <input type="date" class="form-control txtLocation" id="txtEndsAtDate" value={{#if eventToEdit.end_time}}
+                                        '{{getDate eventToEdit.end_time}}'{{/if}} placeholder="mm/dd/yyyy" name="EndsAt" style="width:auto" {{#if user.location}}
+                                        value='{{user.location}}' {{/if}}>
                                 </div>
                                 <div class="form-group" id="divEndsAtTime">
                                     <strong>Time : </strong>
-                                    <input type="time" class="form-control" id="txtEndsAtTime"  value={{#if eventToEdit.end_time}}'{{getTime eventToEdit.end_time}}'{{/if}} placeholder="12:00" name="EndsAt" style="width:auto">
+                                    <input type="time" class="form-control" id="txtEndsAtTime" value={{#if eventToEdit.end_time}}
+                                        '{{getTime eventToEdit.end_time}}'{{/if}} placeholder="12:00" name="EndsAt" style="width:auto">
                                 </div>
                             </div>
                         </div>
