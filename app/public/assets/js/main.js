@@ -11,7 +11,6 @@ $(function () {
   })
 
   $('i.time').each(function () {
-    console.log($(this).text())
     $(this).text(moment($(this).text()).format('YYYY-MM-DD hh:mm a'))
   })
 
@@ -794,51 +793,107 @@ $(function () {
     }
   })
 
-  /*   var map
-    window.initMap = function () {
-      // Create a map object and specify the DOM element for display.
-      var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-      })
-    } */
-  var marker1, marker2
+  var map, infoWindow
+  addressArr = ['case western university, cleveland, OH', 'mayfield height middle school, cleveland, OH', 'beachwood mall, cleveland, oh', 'shaker heights, OH']
+  var arrAddressCoordinate = []
 
+  function getGeoLocation (address) {
+    $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyAsoBvfyTjb2cv09tBpnkZxhRF6MTKIgOM', {
+      type: 'GET'
+    }).then(function (data) {
+      var objadddressCoordinate = {}
+      if (data.status == 'OK') {
+        console.log(data.results[0])
+        objadddressCoordinate.placeId = data.results[0].place_id
+        objadddressCoordinate.lat = data.results[0].geometry.location.lat
+        objadddressCoordinate.lng = data.results[0].geometry.location.lng
+        objadddressCoordinate.address = data.results[0].formatted_address
+        arrAddressCoordinate.push(objadddressCoordinate)
+      }else {
+        console.log('something wrong with your address')
+      }
+    })
+  }
+  for (var i = 0; i < addressArr.length; i++) {
+    console.log(getGeoLocation(addressArr[i]))
+  }
+  console.log(arrAddressCoordinate)
   window.initMap = function () {
     var mapOptions = {
       center: new google.maps.LatLng(41.505493, -81.681290),
-      zoom: 10,
+      zoom: 12,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-    var input = $('#txtSearchLocation')
-
     var map = new google.maps.Map(document.getElementById('mapCanvas'),
       mapOptions)
-    marker1 = new google.maps.Marker({
-      position: new google.maps.LatLng(41.505493, -81.681290)
-    })
-    marker2 = new google.maps.Marker({
-      position: new google.maps.LatLng(41.485493, -81.681290)
-    })
-    var userLocation = {
-      currentLocation: {
-        center: {lat: 41.505493, lng: -81.681290},
-        population: 2000
-      }
-    }
 
-    console.log(userLocation.currentLocation.center)
-    marker1.setMap(map)
-    marker2.setMap(map)
-    var circle = new google.maps.Circle({
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
-      map: map,
-      center: userLocation.currentLocation.center,
-      radius: 5000
-    })
+    infoWindow = new google.maps.InfoWindow
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        map.setCenter(pos)
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          title: 'Current Location'
+        })
+
+        var circle = new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          map: map,
+          center: pos,
+          radius: 5000
+        })
+
+        console.log('arr : ')
+        console.log(arrAddressCoordinate)
+        setTimeout(() => {
+          for (var i = 0; i < arrAddressCoordinate.length; i++) {
+            var pos = {
+              lat: arrAddressCoordinate[i].lat,
+              lng: arrAddressCoordinate[i].lng
+            }
+            var marker = new google.maps.Marker({
+              position: pos,
+              map: map,
+              title: arrAddressCoordinate.formatted_address
+            })
+          }
+        }, 500)
+      }, function () {
+        handleLocationError(true, infoWindow, map.getCenter())
+      })
+    }else {
+      handleLocationError(false, infoWindow, map.getCenter())
+    }
   }
+  function handleLocationError (browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos)
+    infoWindow.setContent(browserHasGeolocation ?
+      'Error: The Geolocation service failed.' :
+      "Error: Your browser doesn't support geolocation.")
+    infoWindow.open(map)
+  }
+
+/* console.log(userLocation.currentLocation.center)
+marker1.setMap(map)
+marker2.setMap(map)
+var circle = new google.maps.Circle({
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35,
+  map: map,
+  center: userLocation.currentLocation.center,
+  radius: 5000
+}) 
+  }*/
 })

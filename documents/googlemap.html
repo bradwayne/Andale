@@ -44,6 +44,8 @@
                 var address = document.getElementById('address').value;
                 geocoder.geocode({ 'address': address }, function (results, status) {
                     if (status === 'OK') {
+                        console.log("Result here:");
+                        console.log(results);
                         resultsMap.setCenter(results[0].geometry.location);
                         var marker = new google.maps.Marker({
                             map: resultsMap,
@@ -51,7 +53,7 @@
                         });
                         console.log(results);
                         currentLocation.location = results[0].geometry.location
-                        currentLocation.PlaceId = results[0].place_id;
+                        currentLocation.placeId = results[0].place_id;
                         console.log(currentLocation);
                     } else {
                         alert('Geocode was not successful for the following reason: ' + status);
@@ -62,7 +64,7 @@
                     var service = new google.maps.places.PlacesService(map);
                     console.log("here")
                     service.getDetails({
-                        placeId: currentLocation.PlaceId
+                        placeId: currentLocation.placeId
                     }, function (place, status) {
                         console.log("here too?")
                         if (status === google.maps.places.PlacesServiceStatus.OK) {

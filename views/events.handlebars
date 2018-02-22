@@ -1,5 +1,3 @@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsoBvfyTjb2cv09tBpnkZxhRF6MTKIgOM&libraries=places&callback=initMap"
-    async defer></script>
 <!-- modal buttons -->
 <div class="body">
     <div class="container">
@@ -164,7 +162,7 @@
                         <div class="form-group" id="divAllEvents">
                             <label for="allEvents" id="lblAllEvents">
                                 {{!-- {{#if allEvents}} {{#each allEvents}} --}}
-                                <b href='/event_details/{{this.id}}'>{{this.name}}</b>
+                            <b class='eventName' href='/event_details/{{this.id}}'>{{this.name}}</b>
                                 <br> Total Number of Player(s) Needed :
                                 <i>{{this.attendants}}</i>
                                 <br> Number of Player(s) Commited :
@@ -173,12 +171,12 @@
                                 <i>{{this.gender}}</i>
                                 <br>
                                 <br> Starting At :
-                                <i class="time">{{this.start_time}}</i>
+                            <i class="start time">{{this.start_time}}</i>
                                 <br/> Ending At :
-                                <i class="time">{{this.end_time}}</i>
+                            <i class="end time">{{this.end_time}}</i>
                                 <br>
                                 <br> Location :
-                                <i>{{this.location}}</i>
+                            <i class='location'>{{this.location}}</i>
                                 <br> {{#if user}}
                                 <button class="cmd cmdGoing" data-event-id='{{this.id}}'>
                                     <strong>Sign Up</strong>
