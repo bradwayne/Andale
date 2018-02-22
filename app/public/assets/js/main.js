@@ -53,6 +53,13 @@ $(function () {
   // $('#signUp').modal()
   })
 
+  $('#hypSignUp').click(function () {
+    console.log('here')
+    setWebSession('sign up')
+    window.location.href = '/user'
+  // $('#signUp').modal()
+  })
+
   $('#aEventNav').click(function () {
     console.log('going to event page')
     if (sessionStorage.getItem('sessionUserId')) {
@@ -138,7 +145,32 @@ $(function () {
       sessionStorage.removeItem('sessionNextPage')
     }
   }else if (window.location.href.indexOf('/event_details') > -1) {
+    if (sessionStorage.getItem('sessionMsgCenter')) {
+      $('#msg-center').html(sessionStorage.getItem('sessionMsgCenter'))
+      $('#msg-center').show()
+      $('#msg-center').addClass('alert-success').removeClass('alert-danger')
+      sessionStorage.removeItem('sessionMsgCenter')
+    }
+    console.log($('#cmdDeletePost').attr('data-user-id'))
+    console.log(sessionStorage.getItem('sessionUserId'))
+
+    $('.post-delete-footer').each(function () {
+      if ($(this).attr('data-user-id') == sessionStorage.getItem('sessionUserId')) {
+        $(this).show()
+      }else {
+        $(this).hide()
+      }
+    })
+
+    $('.cmdBoot').each(function () {
+      if ($(this).attr('data-host-id') == sessionStorage.getItem('sessionUserId')) {
+        $(this).show()
+      }else {
+        $(this).hide()
+      }
+    })
     console.log('activity here')
+
     $('#activity').modal()
   }else if (window.location.href.indexOf('/event') > -1) {
     if (sessionStorage.getItem('sessionMsgCenter')) {
@@ -626,6 +658,34 @@ $(function () {
     }
   })
 
+  $('.cmdDeletePost').click(function () {
+    try {
+      console.log('here')
+      var objMsg = {
+        EventId: $('.eventDetailsOnMap').attr('data-id'),
+        Id: $(this).attr('data-id'),
+        UserId: sessionStorage.getItem('sessionUserId')
+      }
+      $.ajax('/api/eventdiscussions/' + $('.eventDetailsOnMap').attr('data-id') + '/' + sessionStorage.getItem('sessionUserId'), {
+        type: 'DELETE',
+        data: objMsg
+      }).then(function (results) {
+        console.log('after delete message')
+        console.log(results)
+        if (results) {
+          sessionStorage.setItem('sessionMsgCenter', 'Message deleted successfully.')
+          setWebSession('event detail')
+          setTimeout(() => {
+            location.reload()
+          }, 500)
+        }else {
+          throw(results)
+        }
+      })
+    } catch(e) {
+      console.log(e)
+    }
+  })
   $('#cmdPostMsg').click(function () {
     if ($('#txtEventBlog').val()) {
       try {
@@ -725,6 +785,23 @@ $(function () {
       }
     })
   })
+  $('.cmdBoot').click(function () {
+    var objBoot = {
+      UserId: $(this).attr('data-user-id'),
+      EventId : $(this).attr('data-event-id')
+    }
+      try {
+          notGoingEvent(objBoot)
+      } catch (e) {
+          console.log(e)
+      } finally {
+          sessionStorage.setItem('sessionMsgCenter', 'You have remove yourselves from an event.')
+          sessionStorage.setItem('sessionNextPage', 'my event')
+          setTimeout(() => {
+              location.reload()
+          }, 500)
+      }
+    })
   $('#cmdEditEvent').click(function () {
     try {
       var objEditEvent = {

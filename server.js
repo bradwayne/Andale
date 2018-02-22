@@ -4,7 +4,7 @@ var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var sessionItem = require('express-session')
 var nodemailer = require('nodemailer')
-
+var moment = require('moment')
 
 var app = express()
 var port = process.env.PORT || 3000
@@ -21,7 +21,14 @@ app.use(cookieParser('keyboard cat'))
 app.use(sessionItem({ cookie: { maxAge: 60000 }}))
 var exphbs = require('express-handlebars')
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+var hbs = exphbs.create({
+  helpers: {
+    getDate: function (dateTime) { return moment(dateTime).format('YYYY-MM-DD')},
+    getTime: function (dateTime) { console.log(moment(dateTime).format('HH:mm')); return moment(dateTime).format('HH:mm')}
+  },defaultLayout: 'main'
+})
+
+app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars')
 
 require('./controllers/api-routes.js')(app)

@@ -67,7 +67,8 @@ module.exports = function (app) {
     db.EventDiscussion.destroy({
       where: {
         EventId: req.params.EventId,
-        UserId: req.params.UserId
+        UserId: req.params.UserId,
+        id: req.body.Id
       }
     })
       .then(function (dbBlog) {
