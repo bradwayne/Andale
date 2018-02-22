@@ -137,6 +137,9 @@ $(function () {
       $('#signUp').modal()
       sessionStorage.removeItem('sessionNextPage')
     }
+  }else if (window.location.href.indexOf('/event_details') > -1) {
+    console.log('activity here')
+    $('#activity').modal()
   }else if (window.location.href.indexOf('/event') > -1) {
     if (sessionStorage.getItem('sessionMsgCenter')) {
       $('#msg-center').html(sessionStorage.getItem('sessionMsgCenter'))
@@ -567,7 +570,7 @@ $(function () {
     } catch(e) {
       console.log(e)
     }finally {
-      sessionStorage.setItem('sessionMsgCenter', 'You have signed up for an event!')
+      sessionStorage.setItem('sessionMsgCenter', 'You have sign up for an event!')
       sessionStorage.setItem('sessionNextPage', 'my event')
       setTimeout(() => {
         location.reload()
