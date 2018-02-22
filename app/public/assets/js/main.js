@@ -962,7 +962,7 @@ $(function () {
   setTimeout(() => {
     console.log(arrAddressCoordinate[0])
     console.log(arrAddressCoordinate[0].eventLat)
-    var queryURL = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + arrAddressCoordinate[0].eventLat + '&lon=' + arrAddressCoordinate[0].eventLng + '&mode=json&appid=29ac769a18c2d2cd2cf53ab49109f23b'
+    var queryURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + arrAddressCoordinate[0].eventLat + '&lon=' + arrAddressCoordinate[0].eventLng + '&mode=json&appid=29ac769a18c2d2cd2cf53ab49109f23b'
 
     $.ajax({
       url: queryURL,
