@@ -66,7 +66,7 @@
                                     <br> Location :
                                     <i>{{this.location}}</i>
                                     <br>
-                                    <button class="cmd cmdGoing" data-event-id='{{this.id}}'>
+                                    <button class="btn btn-default cmd cmdGoing" data-event-id='{{this.id}}'>
                                         <strong>Sign Up</strong>
                                     </button>
                                     <br>
@@ -78,8 +78,12 @@
                         <div class="col-sm-4">
                             <img class="img-thumbnail" src="{{this.User.photo}}">
                             <br>
-                            <br> <strong>Hosted By : </strong>
-                            <label class="lblUserName"> <i>{{this.User.first_name}}</i> <i>{{this.User.last_name}}</i></label>
+                            <br>
+                            <strong>Hosted By : </strong>
+                            <label class="lblUserName">
+                                <i>{{this.User.first_name}}</i>
+                                <i>{{this.User.last_name}}</i>
+                            </label>
                         </div>
                     </div>
                     {{/each}} {{else}} add some sports in
@@ -122,9 +126,13 @@
                                 <br> Hosted by :
                                 <i>{{this.Event.host}}</i>
                                 <br> {{!-- this will send them to the activity blog page --}}
-                                <button class="cmd cmdDetails" data-event-id='{{this.EventId}}'>View Details</button>
+                                <button class="btn btn-default cmd cmdDetails" data-event-id='{{this.EventId}}'>
+                                    <strong>View Details</strong>
+                                </button>
 
-                                <button class="cmd cmdCancel" data-event-id='{{this.EventId}}'>Remove</button>
+                                <button class="btn btn-default cmd cmdCancel" data-event-id='{{this.EventId}}'>
+                                    <strong>Remove</strong>
+                                </button>
 
                                 <br>
                                 <br>
@@ -445,12 +453,12 @@
 
                                     <button class="cmd cmdDetails" data-event-id='{{this.EventId}}'>View Details</button>
 
-                                    <button class="cmd cmdEditDetails" id="idEditDeal" data-event-id='{{this.id}}'>
+                                    <button class="btn btn-default cmd cmdEditDetails" id="idEditDeal" data-event-id='{{this.id}}'>
                                         <a href='/event/{{this.UserId}}/{{this.id}}'>Edit Details</a>
                                     </button>
 
 
-                                    <button class="cmd cmdRemoveEvent" data-event-id='{{this.id}}'>Remove</button>
+                                    <button class="btn btn-default cmd cmdRemoveEvent" data-event-id='{{this.id}}'>Remove</button>
 
                                     <br>
                                     <br>
@@ -467,7 +475,10 @@
                                 <br>
                                 <strong>Hosted By : </strong>
                                 <br>
-                                <label class="lblUserName"> <i>{{user.first_name}}</i> <i>{{user.last_name}}</i></label>
+                                <label class="lblUserName">
+                                    <i>{{user.first_name}}</i>
+                                    <i>{{user.last_name}}</i>
+                                </label>
                             </div>
                         </div>
                     </div>

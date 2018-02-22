@@ -45,8 +45,8 @@ b {
     color: white;
     float: right;
     margin-top: -25px;
-    padding: 5px;
     font-size: 15px;
+    padding: 5px 10px;
 }
 
 .weatherHeading {
@@ -68,4 +68,8 @@ b {
 
 .commitedPlayers {
     text-align: center;
+}
+
+.comment-glyph {
+    color: #00ace6;
 }

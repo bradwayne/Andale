@@ -29,31 +29,23 @@
                             <div class="form-group" id="divActivityDetails">
                                 <label for="activity" id="lblActivityDetails">
                                     <b>{{details.name}}</b>
-                                    <br> 
-                                    Total Number of Player(s) Needed :
+                                    <br> Total Number of Player(s) Needed :
                                     <i>{{details.attendants}}</i>
-                                    <br> 
-                                    Number of Player(s) Commited :
+                                    <br> Number of Player(s) Commited :
                                     <i>{{this.numberAttending}}</i>
-                                    <br> 
-                                    Gender Specific :
+                                    <br> Gender Specific :
                                     <i>{{details.gender}}</i>
                                     <br>
-                                    <br> 
-                                    Start Time :
+                                    <br> Start Time :
                                     <i class="time">{{details.start_time}}</i>
-                                    <br> 
-                                    End Time :
+                                    <br> End Time :
                                     <i class="time">{{details.end_time}}</i>
                                     <br>
-                                    <br>
-                                    Location :
+                                    <br> Location :
                                     <i>{{details.location}}</i>
-                                    <br> 
-                                    Hosted by :
+                                    <br> Hosted by :
                                     <i>{{details.host}}</i>
-                                    <br>
-                                    Fees :
+                                    <br> Fees :
                                     <i>{{details.fees}}</i>
                                 </label>
                                 <br>
@@ -62,7 +54,9 @@
                         <hr>
                         <div class="row">
                             <div class="form-group" id="divUsers">
-                                <div class="commitedPlayers"><strong>- Players Who Have Commited To This Event -</strong></div>
+                                <div class="commitedPlayers">
+                                    <strong>- Players Who Have Commited To This Event -</strong>
+                                </div>
                                 <br>
                                 <div class="row">
                                     {{#if attendingUsers}} {{#each attendingUsers}}
@@ -76,6 +70,10 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-default pull-left" id="btnUserInfoCancel" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove"></span>Cancel</button>
                     </div>
                 </div>
             </div>
@@ -91,11 +89,13 @@
                             <strong>Event Map</strong>
                         </h4>
                     </div>
-                    <div class="modal-body" style="padding:40px 50px;">
+                    <div class="modal-body" style="padding:40px 64px;">
                         <div class="row">
                             <div class="form-group" id="divEventWeather">
                                 <label for="eventWeather" id="lblEventWeather">
-                                    <div class="weatherHeading">Event Weather</div>
+                                    <div class="weatherHeading">
+                                        <span class="nav-glyph cloud-glyph glyphicon glyphicon-cloud"></span>Event Weather
+                                    </div>
                                     <div>
                                         Temp :
                                         <i></i>
@@ -144,7 +144,7 @@
                                 <textarea type="text" class="form-control" id="txtEventBlog" rows="5"></textarea>
                                 <br>
                                 <button type="submit" class="btn btn-success btn-block" id="cmdAddSports">
-                                    <span class="glyphicon glyphicon-send"></span>
+                                    <span class="glyphicon glyphicon-comment"></span>
                                     <strong>Submit Post</strong>
                                 </button>
                             </div>
