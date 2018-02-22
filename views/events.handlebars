@@ -29,9 +29,7 @@
         </div>
     </div>
 </div>
-
 <!-- //// my events btn - my interests modal ////////////////////////////////////////////////////////////////////// =-->
-
 <div class="modal fade" id="myInterests" role="dialog">
     <div class="col-sm-6">
         <div class="modal-dialog">
@@ -90,9 +88,7 @@
             </div>
         </div>
     </div>
-
     <!-- //// signed up events modal ////////////////////////////////////////////////////////// =-->
-
     <div class="col-sm-6">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -127,11 +123,9 @@
                                 <button class="btn btn-default cmd cmdDetails" data-event-id='{{this.EventId}}'>
                                     <strong>View Details</strong>
                                 </button>
-
                                 <button class="btn btn-default cmd cmdCancel" data-event-id='{{this.EventId}}'>
                                     <strong>Remove</strong>
                                 </button>
-
                                 <br>
                                 <br>
                                 <br/> {{/each}} {{else}} you did not commit to any event.. {{/if}}
@@ -143,10 +137,7 @@
         </div>
     </div>
 </div>
-
-
 <!-- //// all events modal ////////////////////////////////////////////////////////// =-->
-
 <div class="modal fade" id="allEvents" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -160,6 +151,8 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group" id="divAllEvents">
+                            <input class='eventDetailsOnMap' type="hidden" data-name="{{this.name}}" data-location="{{this.location}}" data-start="{{this.start_time}}"
+                                data-end="{{this.end_time}}" data-phone="{{this.phone_contact}}">
                             <label for="allEvents" id="lblAllEvents">
                                 {{!-- {{#if allEvents}} {{#each allEvents}} --}}
                             <b class='eventName' href='/event_details/{{this.id}}'>{{this.name}}</b>
@@ -181,7 +174,6 @@
                                 <button class="cmd cmdGoing" data-event-id='{{this.id}}'>
                                     <strong>Sign Up</strong>
                                 </button>
-
                                 {{/if}}
                                 <br>
                                 <br>
@@ -201,9 +193,7 @@
         </div>
     </div>
 </div>
-
 <!-- //// events near you modal ////////////////////////////////////////////////////////// =-->
-
 <div class="modal fade" id="eventNear" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -215,6 +205,7 @@
             <div class="modal-body" style="padding:40px 65px;">
                 <div class="row">
                     <strong>Location : </strong>
+<<<<<<< HEAD
                     <input type='text' id='txtSearchLocation' class="form-control controls" placeholder='cleveland, oh' />
                     <br>
                      <strong>Radius : </strong>
@@ -492,3 +483,6 @@
 
 <div class="background-image-eventpage">
 </div>
+=======
+                    <input type='text' id='txtSearchLocation' class="form-control controls" placeholder='cleveland, oh' />
+>>>>>>> 78f09f03f691101245472592d0a54cb2072b93fa
