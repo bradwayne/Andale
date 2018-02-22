@@ -220,25 +220,15 @@
                     <input type='text' id='txtSearchLocation' class="form-control controls" placeholder='cleveland, oh' />
                     <br>
                     <strong>Radius : </strong>
-                    <input type='text' id='txtRadius' class="form-control controls" placeholder='5000' value='5000' />
+                    <input type='text' id='txtRadius' class="form-control controls" placeholder='5000' value='5000' style="width:auto" />
+                    <br>
+                    <button type="submit" class="btn btn-success btn-default btn-block" id="cmdAddSports">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <strong>Search</strong>
+                    </button>
                     <br>
                     <div id="mapCanvas" style="width: 500px; height: 400px"></div>
-                    <div class="form-group" id="divNearYou">
-                        <label for="nearYou" id="lblNearYou">
-                            <h1>{{this.dataValues.name}}</h1>
-                            <div>Host by : {{this.dataValues.host}}</div>
-                            <div>Looking for : {{this.dataValues.sex}} with skill level of {{this.dataValues.level}}</div>
-                            <div>Start Time :
-                                <i class="time">{{this.dataValues.start_time}}</i>
-                            </div>
-                            <div>End Time :
-                                <i class="time">{{this.dataValues.end_time}}</i>
-                            </div>
-                            <div>More Info : {{this.dataValues.details}}</div>
-                            {{!-- list of activities nearest to user based on interests
-                            <span>First event near you</span> --}}
-                        </label>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -453,14 +443,21 @@
                                     <i>{{this.fees}}</i>
                                     <br> {{!-- this will send them to the activity blog page --}}
 
-                                    <button class="cmd cmdDetails" data-event-id='{{this.EventId}}'>View Details</button>
-
-                                    <button class="btn btn-default cmd cmdEditDetails" id="idEditDeal" data-event-id='{{this.id}}'>
-                                        <a href='/event/{{this.UserId}}/{{this.id}}'>Edit Details</a>
+                                    <button class="btn btn-default cmd cmdDetails" data-event-id='{{this.id}}'>
+                                        <a href='/event_details/{{this.id}}'>
+                                            <strong>View Details</strong>
+                                        </a>
                                     </button>
-
-
-                                    <button class="btn btn-default cmd cmdRemoveEvent" data-event-id='{{this.id}}'>Remove</button>
+                                    
+                                    <button class="btn btn-default cmd cmdEditDetails" id="idEditDeal" data-event-id='{{this.id}}'>
+                                        <a href='/event/{{this.id}}/{{this.id}}'>
+                                            <strong>Edit Event</strong>
+                                        </a>
+                                    </button>
+                                    
+                                    <button class="btn btn-default cmd cmdRemoveEvent" data-event-id='{{this.id}}'>
+                                        <strong>Remove</strong>
+                                    </button>
 
                                     <br>
                                     <br>

@@ -567,7 +567,7 @@ $(function () {
     } catch(e) {
       console.log(e)
     }finally {
-      sessionStorage.setItem('sessionMsgCenter', 'You have sign up for an event!')
+      sessionStorage.setItem('sessionMsgCenter', 'You have signed up for an event!')
       sessionStorage.setItem('sessionNextPage', 'my event')
       setTimeout(() => {
         location.reload()
