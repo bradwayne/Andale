@@ -196,7 +196,8 @@ module.exports = function (app) {
           username: req.body.username,
           email: req.body.email,
           password: req.body.password,
-          location: req.body.location,
+          state : req.body.state,
+          city : req.body.city,
           hometown: req.body.hometown,
           dob: req.body.dob,
           photo: req.body.photo,
@@ -208,14 +209,22 @@ module.exports = function (app) {
         if (created) {
           res.status(200).end()
 
-          const output = ` <p> Testing nodemailer </p>
-                        <h3> Blaaaaa</h3>
+          const output = ` <h1> Welcome to Andale!</h1>
+                        <h3>Application engineered to your personal preference! We find you the sport events of your interest</h3>\
+                        <a href='<a href='https://salty-mountain-44153.herokuapp.com/'>Find out more about us!</a>
+                        
+                        <h3> Account created successfully! </h3>
+                        <h3> User info</h3>
                         <ul>
-                        <li>${req.body.first_name}</li>
-                        <li>${req.body.last_name}</li>
-                        <li>${req.body.user_name}</li>
+                        <li> First name : ${req.body.first_name}</li>
+                        <li> Last name : ${req.body.last_name}</li>
+                        <li>Username : ${req.body.user_name}</li>
+                        <li>E-mail : ${req.body.email}</li>
+                        <li>${req.body.bio}</li>
                         </ul>
                         <p>${req.body.bio}</p>`
+            
+                    
 
           // create reusable transporter object using the default SMTP transport
           let transporter = nodemailer.createTransport({
@@ -234,8 +243,8 @@ module.exports = function (app) {
           // setup email data with unicode symbols
           let mailOptions = {
             from: '"Project 2 Admin" <bscwruproject2@gmail.com', // sender address
-            to: 'Shi Kwan <sk.tan97@gmail.com>', // list of receivers
-            subject: 'Project 2 Email From SK about Account Created! 👻', // Subject line
+            to: req.body.first_name + " " + req.body.last_name + " <" + req.body.email + '>', // list of receivers
+            subject: 'Andale Account Created! 👻', // Subject line
             text: 'Hello world?', // plain text body
             html: output
           // html: '<b>Hello world?</b>' // html body
