@@ -87,7 +87,7 @@ module.exports = function (app) {
               .then(function (otherEvents) {
                 eventToDisplay.otherEvents = otherEvents
 
-                db.Events.findAll({})
+                db.Events.findAll({include : db.User})
                   .then(function (allEvents) {
                     eventToDisplay.allEvents = allEvents
                     db.Sport.findAll({})
@@ -109,7 +109,7 @@ module.exports = function (app) {
           })
         })
     }else {
-      db.Events.findAll({
+      db.Events.findAll({include : db.User
       }).then(function (allEvents) {
         eventToDisplay.allEvents = allEvents
         console.log('here')
