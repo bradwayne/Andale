@@ -1,0 +1,27 @@
+---
+parserOptions:
+  ecmaVersion: 6
+env: 
+  browser: true
+  node: true
+  es6: true
+
+extends:
+  - eslint:recommended
+
+globals:
+  $: false
+  moment: false
+  google: false
+
+rules:
+  indent: 
+    - error
+    - 4
+  no-trailing-spaces: 2
+  semi: 
+    - error
+    - always
+  space-infix-ops: 2
+  no-console: 0
+  no-var: 2

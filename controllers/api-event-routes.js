@@ -48,7 +48,17 @@ module.exports = function (app) {
     if (req.params.id) {
       db.User.findOne({
         where: { id: req.params.id },
-        include: [{ model: db.Events}, {model: db.UserSport}, {model: db.UserEvent} ]
+        include: [
+          { model: db.Events}, 
+          {
+            model: db.UserSport,
+            include: [
+              {
+                model: db.Sport
+              }
+            ]
+          }, {model: db.UserEvent} 
+        ]
       })
         .then(function (userHostedEvents) {
           eventToDisplay = {
