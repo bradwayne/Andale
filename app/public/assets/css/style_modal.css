@@ -60,13 +60,14 @@ b {
     font-size: 15px;
 }
 
+#divLocationState {
+    padding-top: 7px;
+    margin-left: 10px;
+}
+
 .modal-body a {
     text-decoration: none;
     color: inherit;
-}
-
-.activityLineBreak {
-    border-bottom: 3px solid #ddd;
 }
 
 #editDealsBtn {
