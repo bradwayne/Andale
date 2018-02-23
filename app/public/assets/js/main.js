@@ -489,7 +489,7 @@ $(function () {
     arrError = arrError.concat(validateName(objSignUp.last_name))
     arrError = arrError.concat(validateGender(objSignUp.gender))
     arrError = arrError.concat(validateName(objSignUp.username))
-    arrError = arrError.concat(validatePassword(objSignUp.password))
+    //arrError = arrError.concat(validatePassword(objSignUp.password))
     arrError = arrError.concat(validateState(objSignUp.state))
     arrError = arrError.concat(validateOneDate(objSignUp.dob))
     console.log(arrError)
