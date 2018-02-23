@@ -35,7 +35,7 @@ body {
     font-family: Archivo+Black;
 }
 
-.nav_btn {
+.btn {
     margin-top: 20px;
 }
 
@@ -90,7 +90,7 @@ body {
     margin-right: 15px;
 }
 
-.btn {
+.nav_btn {
     letter-spacing: 1px;
 }
 
