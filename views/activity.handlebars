@@ -17,7 +17,7 @@
     <div class="row">
         <div class='container'>
             <div class="col-md-12">
-                <div id="msg-center" class="alert msg-center">
+                <div id="msg-center" class="alert msg-center text-center">
                 </div>
                 
             </div>
@@ -41,10 +41,14 @@
                                     data-start="{{details.start_time}}" data-end="{{details.end_time}}" data-phone="{{details.phone_contact}}">
                                 <label for="activity" id="lblActivityDetails">
                                     <b>{{details.name}}</b>
+                                    <br>Sport :
+                                    <i>{{details.Sport.name}}</i>
                                     <br> Total Number of Player(s) Needed :
                                     <i>{{details.attendants}}</i>
                                     <br> Number of Player(s) Commited :
                                     <i>{{details.numberAttending}}</i>
+                                    <br> Level Recommended :
+                                    <i>{{details.level}}</i>
                                     <br> Gender Specific :
                                     <i>{{details.gender}}</i>
                                     <br>
@@ -59,8 +63,14 @@
                                     <i>{{details.host}}</i>
                                     <br> Fees :
                                     <i>{{details.fees}}</i>
+                                    <br />
+                                    <br> Details : 
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <i>{{details.details}}</i>
+                                        </div>
+                                    </div>
                                 </label>
-                                <br>
                             </div>
                         </div>
                         <hr>
@@ -76,7 +86,9 @@
                                         <img class="img-thumbnail" src="{{this.photo}}">
                                         <br>
                                         <br>
-                                        <label class="lblUserName"> {{this.first_name}} {{this.last_name}}</label>
+                                        <label class="lblUserName text-center"> {{this.first_name}} {{this.last_name}}</label>
+                                        <label class="text-center">level : 
+                                            {{this.UserSports.[0].level}}
                                         <br>
                                         <button data-host-id='{{../details/UserId}}' data-event-id="{{../details/id}}" data-user-id="{{this.id}}" class="cmdBoot btn">Boot User</button>
                                     </div>

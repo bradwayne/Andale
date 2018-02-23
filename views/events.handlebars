@@ -57,6 +57,8 @@
                                 <div class="form-group" id="divInterests">
                                     <label for="interests" id="lblInterests">
                                         <b href='/event_details/{{this.id}}'>{{this.name}}</b>
+                                        <br>
+                                        <i>Sport : {{this.Sport.name}}</i>
                                         <br> Total Number of Player(s) Needed :
                                         <i>{{this.attendants}}</i>
                                         <br> Number of Player(s) Commited :
@@ -114,42 +116,56 @@
                         </h4>
                     </div>
                     <div class="modal-body" style="padding:40px 50px;">
+                        {{#if likeEventInfo}} {{#each likeEventInfo}}
                         <div class="row">
-                            <div class="form-group" id="divSignedUp">
-                                <label for="signedUp" id="lblSignedUp">
-                                    {{#if likeEventInfo}} {{#each likeEventInfo}}
-                                    <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}</b>
-                                    <br> Total Number of Player(s) Needed :
-                                    <i>{{this.Event.attendants}}</i>
-                                    <br> Number of Player(s) Commited :
-                                    <i>{{this.Event.numberAttending}}</i>
-                                    <br> Gender Specific :
-                                    <i>{{this.Event.gender}}</i>
-                                    <br>
-                                    <br> Starting At :
-                                    <i class="time">{{this.Event.start_time}}</i>
-                                    <br/> Ending At :
-                                    <i class="time">{{this.Event.end_time}}</i>
-                                    <br>
-                                    <br> Location :
-                                    <i>{{this.Event.location}}</i>
-                                    <br> Hosted by :
-                                    <i>{{this.Event.host}}</i>
-                                    <br> {{!-- this will send them to the activity blog page --}}
-                                    <button class="btn btn-default cmd cmdDetails" data-event-id='{{this.EventId}}'>
-                                        <strong>View Details</strong>
-                                    </button>
+                            <div class="col-sm-8">
+                                <div class="form-group" id="divSignedUp">
+                                    <label for="signedUp" id="lblSignedUp">
+                                        <b href='/event_details/{{this.EventId}}'>{{this.Event.name}}</b>
+                                        <br>
+                                        <i>Sport : {{this.Event.Sport.name}}</i>
+                                        <br> Total Number of Player(s) Needed :
+                                        <i>{{this.Event.attendants}}</i>
+                                        <br> Number of Player(s) Commited :
+                                        <i>{{this.Event.numberAttending}}</i>
+                                        <br> Gender Specific :
+                                        <i>{{this.Event.gender}}</i>
+                                        <br>
+                                        <br> Starting At :
+                                        <i class="time">{{this.Event.start_time}}</i>
+                                        <br/> Ending At :
+                                        <i class="time">{{this.Event.end_time}}</i>
+                                        <br>
+                                        <br> Location :
+                                        <i>{{this.Event.location}}</i>
+                                        <br> Hosted by :
+                                        <i>{{this.Event.host}}</i>
+                                        <br> {{!-- this will send them to the activity blog page --}}
+                                        <button class="btn btn-default cmd cmdDetails" data-event-id='{{this.EventId}}'>
+                                            <strong>View Details</strong>
+                                        </button>
 
-                                    <button class="btn btn-default cmd cmdCancel" data-event-id='{{this.EventId}}'>
-                                        <strong>Remove</strong>
-                                    </button>
-
-                                    <br>
-                                    <br>
-                                    <br/> {{/each}} {{else}} you did not commit to any event. {{/if}}
+                                        <button class="btn btn-default cmd cmdCancel" data-event-id='{{this.EventId}}'>
+                                            <strong>Remove</strong>
+                                        </button>
+                                        <br/> 
+                                        <br>
+                                        <br>                                        
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <img class="img-thumbnail" src="{{this.Event.User.photo}}">
+                                <br>
+                                <br>
+                                <strong>Hosted By : </strong>
+                                <label class="lblUserName">
+                                    <i>{{this.Event.User.first_name}}</i>
+                                    <i>{{this.Event.User.last_name}}</i>
                                 </label>
                             </div>
                         </div>
+                         {{/each}} {{else}} you did not commit to any event. {{/if}}
                     </div>
                 </div>
             </div>
@@ -242,7 +258,9 @@
             </div>
             <div class="modal-body" style="padding:40px 65px;">
                 <div class="row">
-                    <strong>Location : </strong>
+                    <label>Events within 5 miles from you : </label>
+                    <br />
+                    {{!-- <strong>Location : </strong>
                     <input type='text' id='txtSearchLocation' class="form-control controls" placeholder='cleveland, oh' />
                     <br>
                     <strong>Radius : </strong>
@@ -251,7 +269,7 @@
                     <button type="submit" class="btn btn-success btn-default btn-block" id="cmdAddSports">
                         <span class="glyphicon glyphicon-ok"></span>
                         <strong>Search</strong>
-                    </button>
+                    </button> --}}
                     <br>
                     <div id="mapCanvas" style="width: 500px; height: 400px"></div>
 
@@ -458,6 +476,8 @@
                                 <label for="signedUp" id="lblSignedUp">
                                     {{#if user.Events}} {{#each user.Events}}
                                     <b href='/event_details/{{this.id}}'>{{this.name}}</b>
+                                    <br>
+                                    <i>Sport : {{this.Sport.name}}</i>
                                     <br> Total Number of Player(s) Needed :
                                     <i>{{this.attendants}}</i>
                                     <br> Number of Player(s) Commited :
