@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div id="msg-center" class="alert msg-center text-center">
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -64,7 +64,7 @@
                                     <br> Fees :
                                     <i>${{details.fees}}</i>
                                     <br />
-                                    <br> Details : 
+                                    <br> Details :
                                     <div class="panel">
                                         <div class="panel-body">
                                             <i>{{details.details}}</i>
@@ -87,10 +87,12 @@
                                         <br>
                                         <br>
                                         <label class="lblUserName text-center"> {{this.first_name}} {{this.last_name}}</label>
-                                        <label class="text-center">level : 
-                                            {{this.UserSports.[0].level}}
                                         <br>
-                                        <button data-host-id='{{../details/UserId}}' data-event-id="{{../details/id}}" data-user-id="{{this.id}}" class="cmdBoot btn">Boot User</button>
+                                        <label class="text-center">level : {{this.UserSports.[0].level}}
+                                            <br>
+                                            <button data-host-id='{{../details/UserId}}' data-event-id="{{../details/id}}" data-user-id="{{this.id}}" class="cmdBoot btn btn-default">
+                                                <strong>Boot User</strong>
+                                            </button>
                                     </div>
                                     {{/each}} {{/if}}
                                 </div>
@@ -115,7 +117,7 @@
                             <strong>Event Map and Weather</strong>
                         </h4>
                     </div>
-                    <div class="modal-body" style="padding:40px 64px;">
+                    <div class="modal-body" style="padding:40px 64px">
                         <div class="row">
                             <div class="form-group" id="divEventWeather">
                                 <label for="eventWeather" id="lblEventWeather">
@@ -123,10 +125,12 @@
                                         5 Day Weather Prediction
                                     </div>
                                     <div>
+                                        <div class='wlc'></div>
+                                        <br>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th class='wlc'></th>
+                                                    <th>Day</th>
                                                     <th>Today</th>
                                                     <th>Tomorrow</th>
                                                     <th class='day3'></th>
@@ -179,7 +183,7 @@
                     </div>
                     <div class="modal-body" style="padding:40px 50px;">
                         <div class="row">
-                            
+
                             <div class="form-group" id="divEventBlog">
                                 {{#if discussion}} {{#each discussion}}
                                 <div class="panel panel-default">
@@ -206,7 +210,7 @@
                                         </div>
                                     </div>
                                     <div data-user-id='{{this.UserId}}' class="panel-footer post-delete-footer">
-                                        <button type="button" data-id="{{this.id}}" class="btn btn-default cmdDeletePost">
+                                        <button type="button" data-id="{{this.id}}" class="btn btn-danger cmdDeletePost">
                                             <strong>Delete Post</strong>
                                         </button>
                                     </div>

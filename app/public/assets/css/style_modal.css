@@ -1,5 +1,7 @@
 .modal {
-    padding-top: 120px;
+    padding-top: 210px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .modal-header,
@@ -47,10 +49,15 @@ b {
     margin-top: -25px;
     font-size: 15px;
     padding: 5px 10px;
+    width: 500px;
 }
 
 .weatherHeading {
-    font-size: 25px;
+    font-size: 30px;
+}
+
+.wlc {
+    font-size: 15px;
 }
 
 .modal-body a {
