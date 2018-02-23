@@ -424,7 +424,7 @@
                             </label>
                             <div class="form-inline">
                                 <div class="form-group" id="divStartsAtDate">
-                                    <strong>Date : </strong> {{getDate eventToEdit.start_time}}
+                                    <strong>Date : </strong>
                                     <input type="date" class="form-control txtLocation" id="txtStartsAtDate" value={{#if eventToEdit.start_time}}
                                         '{{getDate eventToEdit.start_time}}'{{/if}} placeholder="mm/dd/yyyy" name="startAt" style="width:auto">
                                 </div>
@@ -441,7 +441,7 @@
                             </label>
                             <div class="form-inline">
                                 <div class="form-group" id="divEndsAtDate">
-                                    <strong>Date : </strong> {{getDate eventToEdit.end_time}}
+                                    <strong>Date : </strong>
                                     <input type="date" class="form-control txtLocation" id="txtEndsAtDate" value={{#if eventToEdit.end_time}}
                                         '{{getDate eventToEdit.end_time}}'{{/if}} placeholder="mm/dd/yyyy" name="EndsAt" style="width:auto" {{#if user.location}}
                                         value='{{user.location}}' {{/if}}>
