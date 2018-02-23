@@ -235,14 +235,14 @@ $(function () {
     });
 
     $('#cmdsubmitLogin').click(function () {
-        username = $('#txtLoginUserName').val();
-        password = $('#pwdLoginPwd').val();
+        let username = $('#txtLoginUserName').val();
+        let password = $('#pwdLoginPwd').val();
         console.log(username, password);
         setWebSession('my event');
         getUserCredentials(username, password);
     });
 
-    var getUserCredentials = function (username, password) {
+    let getUserCredentials = function (username, password) {
         let successBool = false;
         let credentials = {
             username: username,
@@ -389,11 +389,16 @@ $(function () {
     }
     function validateGender (gender) {
         let arrError = [];
+        console.log(gender);
         if (!gender) {
-            arrError.push('Gender cannot be more than ');
+            arrError.push('Gender cannot be empty');
         }
-        if (gender !== 'male' || gender !== 'female' || gender !== 'unspecified') {
-            arrError.push("Gender must be 'male, 'female' or 'unspecific");
+        if (gender !== 'male'){
+            if(gender !== 'female'){
+                if(gender !== 'unspecific'){
+                    arrError.push("Gender must be 'male, 'female' or 'unspecific'");
+                }
+            }
         }
         return arrError;
     }
@@ -401,18 +406,18 @@ $(function () {
         let arrError = [];
         if (!start || !end || !starttime || !endtime) {
             arrError.push('Date/time cannot be empty');
-        }
-        if (!moment(start).isValid() || !moment(startTime).isValid()) {
+        }else
+        if (!moment(start).isValid() || !moment(starttime).isValid()) {
             arrError.push('Invalid start date/time');
         }
-        if (!moment(end).isValid() || !moment(endTime).isValid()) {
+        if (!moment(end).isValid() || !moment(endtime).isValid()) {
             arrError.push('Invalid end date/time');
         }
         if (moment(end).isBefore(moment(start))) {
             arrError.push('End date cannot be earlier than start date');
         }
         if (moment(start) == moment(end)) {
-            if (moment(endTime).isBefore(moment(startTime))) {
+            if (moment(endtime).isBefore(moment(starttime))) {
                 arrErr.push('End time cannot be earlier than start time');
             }
         }
@@ -437,14 +442,23 @@ $(function () {
     }
     function validateDecimal(number){
         let arrError = [];
+        if(!number){
+            arrError.push('Field cannot be empty');
+        }
         if(isNaN(number)){
             arrError.push('Data entered is not a number');
         }
     }
     function validatePassword(password){
-        let arrErr = [];
-        if (str.search(/^(?=.*[A-Z])(?=.*\\d)[A-Z0-9]{6,}$/i)){
+        let arrError = [];
+        if (password.search(/^(?=.*[A-Z])(?=.*\\d)[A-Z0-9]{6,}$/i)){
             arrError.push("Password does not meet the requirement");
+        }
+    }
+    function validateState(state){
+        let arrError = [];
+        if($.inArray(state, states) == -1){
+            arrError.push("Invalid state found");
         }
     }
 
@@ -467,14 +481,18 @@ $(function () {
         };
         console.log(objSignUp.first_name);
         console.log(objSignUp.last_name);
-        let validated = false;
         let arrError = [];
         arrError = arrError.concat(validateName(objSignUp.first_name));
         arrError = arrError.concat(validateName(objSignUp.last_name));
         arrError = arrError.concat(validateGender(objSignUp.gender));
-        arrError = arrError.
-            console.log('arrError');
+        arrError = arrError.concat(validateName(objSignUp.username));
+        arrError = arrError.concat(validatePassword(objSignUp.password));
+        arrError = arrError.concat(validateState(objSignUp.state));
+        arrError = arrError.concat(validateOneDate(objSignUp.dob));
         console.log(arrError);
+        arrError = cleanArray(arrError);
+        console.log(arrError);
+
         if (arrError.length == 0) {
             try {
                 $.ajax('/api/user/', {
@@ -506,9 +524,15 @@ $(function () {
                 console.log(e);
             }
         }else {
+            let errMsg = "";
+            for(let i = 0; i < arrError.length; i++){
+                if(errMsg.indexOf(arrError[i]) == -1){
+                    errMsg += arrError[i] + "<br />";
+                }
+            }
             $('#msg-center').addClass('alert-danger');
             $('#msg-center').show();
-            $('#msg-center').html(replacingSequelizeError(arrError));
+            $('#msg-center').html(errMsg);
         }
     });
 
@@ -925,7 +949,7 @@ $(function () {
                     console.log(xhr);
                     if (xhr.status == 200) {
                         console.log('sport deleted from user successfully!');
-                        // location.reload()
+                        location.reload();
                     } else {
                         console.log(xhr.responseJSON);
                     }
@@ -976,6 +1000,15 @@ $(function () {
         sessionStorage.clear();
     }
 
+    function cleanArray(actual) {
+        let newArray = new Array();
+        for (let i = 0; i < actual.length; i++) {
+            if (actual[i]) {
+                newArray.push(actual[i]);
+            }
+        }
+        return newArray;
+    }
     // ////////////////////////////////////////////
 
     // Google Map API Related
@@ -1073,7 +1106,6 @@ $(function () {
                 }
                 if (window.location.href.indexOf('/event_details') == -1) {
                     for (let thingy of arrAddressCoordinate) {
-                        console.log(arrAddressCoordinate);
                         let eventWindow = new google.maps.InfoWindow({
                             content: `
 <div> 
