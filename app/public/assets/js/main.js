@@ -100,6 +100,10 @@ $(function () {
         $('.create-event').html(sessionStorage.getItem('sessionMsgCenter'))
       }
     }
+    if (sessionStorage.getItem('sessionUserName') && !sessionStorage.getItem('sessionNextPage')) {
+      $('#myInterests').modal()
+    }
+
     sessionStorage.removeItem('sessionNextPage')
     sessionStorage.removeItem('sessionMsgCenter')
   } else if (window.location.href.indexOf('/user/') > -1) {
@@ -134,6 +138,7 @@ $(function () {
           $(this).val('data-slider-value')
         }
       })
+      
 
       console.log('remove session in user redirect')
       sessionStorage.removeItem('sessionNextPage')
@@ -302,8 +307,10 @@ $(function () {
     } catch (e) {
       console.log(e)
     } finally {
+      // sessionStorage.setItem('sessionMsgCenter', 'Sports added/removed successfully! Check out <a class= href=/event/'+sessionStorage.getItem("sessionUserId") +'event page for upcoming events!')
+      setWebSession('my event')
       setTimeout(() => {
-        // location.reload()
+        location.reload()
       }, 500)
     }
   })
@@ -327,7 +334,7 @@ $(function () {
     } catch (e) {
       console.log(e)
     } finally {
-      sessionStorage.setItem('sessionMsgCenter', 'Sports added/removed successfully! Check out event page for upcoming events!')
+      sessionStorage.setItem('sessionMsgCenter', 'Sports added/removed successfully! Check out <a href=/event/' + sessionStorage.getItem('sessionUserId') + '>' + 'event </a> page for upcoming events!')
       sessionStorage.setItem('sessionNextPage', 'my event')
       setTimeout(() => {
         location.reload()
@@ -489,7 +496,7 @@ $(function () {
     arrError = arrError.concat(validateName(objSignUp.last_name))
     arrError = arrError.concat(validateGender(objSignUp.gender))
     arrError = arrError.concat(validateName(objSignUp.username))
-    //arrError = arrError.concat(validatePassword(objSignUp.password))
+    // arrError = arrError.concat(validatePassword(objSignUp.password))
     arrError = arrError.concat(validateState(objSignUp.state))
     arrError = arrError.concat(validateOneDate(objSignUp.dob))
     console.log(arrError)
@@ -1012,7 +1019,7 @@ $(function () {
           console.log(xhr)
           if (xhr.status == 200) {
             console.log('user sport edit successfully')
-            sessionStorage.setItem('sessionMsgCenter', 'Sports added/removed successfully! Check out event page for upcoming events!')
+            sessionStorage.setItem('sessionMsgCenter', 'Sports added/removed successfully! Check out <a href=/event/' + sessionStorage.getItem('sessionUserId') + '>' + 'event </a> page for upcoming events!')
             sessionStorage.setItem('sessionNextPage', 'my event')
             location.reload()
           } else {
@@ -1048,116 +1055,116 @@ $(function () {
   }
 
   function cleanArray (actual) {
-    let newArray = [ ]
-      for (let i = 0; i < actual.length; i++) {
-        if (actual[i]) {
-          newArray.push(actual[i])
-        }
+    let newArray = []
+    for (let i = 0; i < actual.length; i++) {
+      if (actual[i]) {
+        newArray.push(actual[i])
       }
-      return newArray
     }
-    // ////////////////////////////////////////////
+    return newArray
+  }
+  // ////////////////////////////////////////////
 
-    // Google Map API Related
+  // Google Map API Related
 
-    // /////////////////////////////////////////////
+  // /////////////////////////////////////////////
 
-    let map
-    let infoWindow = null
-    let eventWindow = null
+  let map
+  let infoWindow = null
+  let eventWindow = null
 
-    let allEvents = function (eventName, eventLocation, eventPhone, placeId, lat, lng, address) {
-      this.eventName = eventName
-      this.eventLocation = eventLocation
-      this.eventPhone = eventPhone
-      this.eventPlaceId = placeId
-      this.eventLat = lat
-      this.eventLng = lng
-      this.eventAddress = address
-    }
+  let allEvents = function (eventName, eventLocation, eventPhone, placeId, lat, lng, address) {
+    this.eventName = eventName
+    this.eventLocation = eventLocation
+    this.eventPhone = eventPhone
+    this.eventPlaceId = placeId
+    this.eventLat = lat
+    this.eventLng = lng
+    this.eventAddress = address
+  }
 
-    let arrAddressCoordinate = []
+  let arrAddressCoordinate = []
 
-    $('.eventDetailsOnMap').each(function () {
-      let event = new allEvents(
-        $(this).attr('data-name'),
-        $(this).attr('data-location'),
-        $(this).attr('data-phone')
-      )
-      arrAddressCoordinate.push(event)
+  $('.eventDetailsOnMap').each(function () {
+    let event = new allEvents(
+      $(this).attr('data-name'),
+      $(this).attr('data-location'),
+      $(this).attr('data-phone')
+    )
+    arrAddressCoordinate.push(event)
+  })
+
+  function getGeoLocation (address) {
+    $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address=' + address.eventLocation + '&key=AIzaSyAsoBvfyTjb2cv09tBpnkZxhRF6MTKIgOM', {
+      type: 'GET'
+    }).then(function (data) {
+      let objadddressCoordinate = {}
+      if (data.status == 'OK') {
+        address.eventPlaceId = data.results[0].place_id
+        address.eventLat = data.results[0].geometry.location.lat
+        address.eventLng = data.results[0].geometry.location.lng
+        address.eventAddress = data.results[0].formatted_address
+      } else {
+        console.log('something wrong with your address')
+      }
     })
+  }
+  for (let i = 0; i < arrAddressCoordinate.length; i++) {
+    getGeoLocation(arrAddressCoordinate[i])
+  }
 
-    function getGeoLocation (address) {
-      $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address=' + address.eventLocation + '&key=AIzaSyAsoBvfyTjb2cv09tBpnkZxhRF6MTKIgOM', {
-        type: 'GET'
-      }).then(function (data) {
-        let objadddressCoordinate = {}
-        if (data.status == 'OK') {
-          address.eventPlaceId = data.results[0].place_id
-          address.eventLat = data.results[0].geometry.location.lat
-          address.eventLng = data.results[0].geometry.location.lng
-          address.eventAddress = data.results[0].formatted_address
+  window.initMap = function () {
+    let mapOptions = {
+      center: new google.maps.LatLng(41.505493, -81.681290),
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    let map = new google.maps.Map(document.getElementById('mapCanvas'),
+      mapOptions)
+
+    infoWindow = new google.maps.InfoWindow()
+    eventWindow = new google.maps.InfoWindow()
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        let pos
+        if (window.location.href.indexOf('/event_details') > -1) {
+          pos = {
+            lat: arrAddressCoordinate[0].eventLat,
+            lng: arrAddressCoordinate[0].eventLng
+          }
         } else {
-          console.log('something wrong with your address')
+          pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
         }
-      })
-    }
-    for (let i = 0; i < arrAddressCoordinate.length; i++) {
-      getGeoLocation(arrAddressCoordinate[i])
-    }
 
-    window.initMap = function () {
-      let mapOptions = {
-        center: new google.maps.LatLng(41.505493, -81.681290),
-        zoom: 10,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-      let map = new google.maps.Map(document.getElementById('mapCanvas'),
-        mapOptions)
-
-      infoWindow = new google.maps.InfoWindow()
-      eventWindow = new google.maps.InfoWindow()
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-          let pos
-          if (window.location.href.indexOf('/event_details') > -1) {
-            pos = {
-              lat: arrAddressCoordinate[0].eventLat,
-              lng: arrAddressCoordinate[0].eventLng
-            }
-          } else {
-            pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-          }
-
-          map.setCenter(pos)
-          let marker = new google.maps.Marker({
-            position: pos,
+        map.setCenter(pos)
+        let marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+        })
+        if (window.location.href.indexOf('/event_details') == -1) {
+          let circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
             map: map,
-            icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+            center: pos,
+            radius: 8050
           })
-          if (window.location.href.indexOf('/event_details') == -1) {
-            let circle = new google.maps.Circle({
-              strokeColor: '#FF0000',
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: '#FF0000',
-              fillOpacity: 0.35,
-              map: map,
-              center: pos,
-              radius: 8050
-            })
-          }
-          if (window.location.href.indexOf('/event_details') == -1) {
-            for (let thingy of arrAddressCoordinate) {
-              let pos = {
-                lat: thingy.eventLat,
-                lng: thingy.eventLng
-              }
-              let eventWindow = new google.maps.InfoWindow({
-                content: `
+        }
+        if (window.location.href.indexOf('/event_details') == -1) {
+          for (let thingy of arrAddressCoordinate) {
+            let pos = {
+              lat: thingy.eventLat,
+              lng: thingy.eventLng
+            }
+            let eventWindow = new google.maps.InfoWindow({
+              content: `
 <div> 
   Event : ${thingy.eventName}
 </div>
@@ -1168,83 +1175,83 @@ $(function () {
   Address : ${thingy.eventAddress}
 </div>
 `
-              })
+            })
 
-              let marker = new google.maps.Marker({
-                position: pos,
-                map,
-                title: thingy.eventAddress
-              })
+            let marker = new google.maps.Marker({
+              position: pos,
+              map,
+              title: thingy.eventAddress
+            })
 
-              marker.addListener('click', function () {
-                eventWindow.open(map, this)
-              })
-            }
+            marker.addListener('click', function () {
+              eventWindow.open(map, this)
+            })
           }
-        }, function () {
-          handleLocationError(true, infoWindow, map.getCenter())
-        })
-      } else {
-        handleLocationError(false, infoWindow, map.getCenter())
-      }
-    }
-
-    function handleLocationError (browserHasGeolocation, infoWindow, pos) {
-      infoWindow.setPosition(pos)
-      infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        "Error: Your browser doesn't support geolocation.")
-      infoWindow.open(map)
-    }
-
-    // ////////////////////////////////////////////
-
-    // WEATHER API!!
-
-    // /////////////////////////////////////////////
-    setTimeout(() => {
-      let queryURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + arrAddressCoordinate[0].eventLat + '&lon=' + arrAddressCoordinate[0].eventLng + '&mode=json&appid=29ac769a18c2d2cd2cf53ab49109f23b'
-
-      $.ajax({
-        url: queryURL,
-        method: 'GET'
+        }
+      }, function () {
+        handleLocationError(true, infoWindow, map.getCenter())
       })
+    } else {
+      handleLocationError(false, infoWindow, map.getCenter())
+    }
+  }
 
-        .done(function (response) {
-          // response from weather api.
-          let arrWeather = []
+  function handleLocationError (browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos)
+    infoWindow.setContent(browserHasGeolocation ?
+      'Error: The Geolocation service failed.' :
+      "Error: Your browser doesn't support geolocation.")
+    infoWindow.open(map)
+  }
 
-          for (let i = 0; i < response.list.length; i++) {
-            let objWeather = {
-              temp: '',
-              weather: '',
-              date: ''
-            }
-            objWeather.temp = 9 / 5 * (response.list[i].main.temp - 273) + 32
-            objWeather.weather = response.list[i].weather[0].main
-            objWeather.date = response.list[i].dt_txt
-            arrWeather.push(objWeather)
+  // ////////////////////////////////////////////
+
+  // WEATHER API!!
+
+  // /////////////////////////////////////////////
+  setTimeout(() => {
+    let queryURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + arrAddressCoordinate[0].eventLat + '&lon=' + arrAddressCoordinate[0].eventLng + '&mode=json&appid=29ac769a18c2d2cd2cf53ab49109f23b'
+
+    $.ajax({
+      url: queryURL,
+      method: 'GET'
+    })
+
+      .done(function (response) {
+        // response from weather api.
+        let arrWeather = []
+
+        for (let i = 0; i < response.list.length; i++) {
+          let objWeather = {
+            temp: '',
+            weather: '',
+            date: ''
           }
-          $('.wlc').html(arrAddressCoordinate[0].eventAddress)
-          $('.day3').html(moment(response.list[20].dt_txt).format('MMM D'))
-          $('.day4').html(moment(response.list[28].dt_txt).format('MMM D'))
-          $('.day5').html(moment(response.list[36].dt_txt).format('MMM D'))
-          $('.fc1').html(Math.round(arrWeather[4].temp) + '°F')
-          $('.fc2').html(Math.round(arrWeather[12].temp) + '°F')
-          $('.fc3').html(Math.round(arrWeather[20].temp) + '°F')
-          $('.fc4').html(Math.round(arrWeather[28].temp) + '°F')
-          $('.fc5').html(Math.round(arrWeather[36].temp) + '°F')
-          $('.w1').html(arrWeather[4].weather)
-          $('.w2').html(arrWeather[12].weather)
-          $('.w3').html(arrWeather[20].weather)
-          $('.w4').html(arrWeather[28].weather)
-          $('.w5').html(arrWeather[36].weather)
+          objWeather.temp = 9 / 5 * (response.list[i].main.temp - 273) + 32
+          objWeather.weather = response.list[i].weather[0].main
+          objWeather.date = response.list[i].dt_txt
+          arrWeather.push(objWeather)
+        }
+        $('.wlc').html(arrAddressCoordinate[0].eventAddress)
+        $('.day3').html(moment(response.list[20].dt_txt).format('MMM D'))
+        $('.day4').html(moment(response.list[28].dt_txt).format('MMM D'))
+        $('.day5').html(moment(response.list[36].dt_txt).format('MMM D'))
+        $('.fc1').html(Math.round(arrWeather[4].temp) + '°F')
+        $('.fc2').html(Math.round(arrWeather[12].temp) + '°F')
+        $('.fc3').html(Math.round(arrWeather[20].temp) + '°F')
+        $('.fc4').html(Math.round(arrWeather[28].temp) + '°F')
+        $('.fc5').html(Math.round(arrWeather[36].temp) + '°F')
+        $('.w1').html(arrWeather[4].weather)
+        $('.w2').html(arrWeather[12].weather)
+        $('.w3').html(arrWeather[20].weather)
+        $('.w4').html(arrWeather[28].weather)
+        $('.w5').html(arrWeather[36].weather)
 
-          $('#weather1').text("Today's Forecast for: " + Math.round(arrWeather[4].temp) + '°F')
-          $('#weather2').text("Tomorrow's Forecast: " + Math.round(arrWeather[12].temp) + '°F')
-          $('#weather3').text('Forecast for ' + response.list[20].dt_txt + ': ' + Math.round(arrWeather[20].temp) + '°F')
-          $('#weather4').text('Forecast for: ' + response.list[28].dt_txt + ': ' + Math.round(arrWeather[28].temp) + '°F')
-          $('#weather5').text('Forecast for: ' + response.list[28].dt_txt + ': ' + Math.round(arrWeather[36].temp) + '°F')
-        })
-    }, 1000)
-  })
+        $('#weather1').text("Today's Forecast for: " + Math.round(arrWeather[4].temp) + '°F')
+        $('#weather2').text("Tomorrow's Forecast: " + Math.round(arrWeather[12].temp) + '°F')
+        $('#weather3').text('Forecast for ' + response.list[20].dt_txt + ': ' + Math.round(arrWeather[20].temp) + '°F')
+        $('#weather4').text('Forecast for: ' + response.list[28].dt_txt + ': ' + Math.round(arrWeather[28].temp) + '°F')
+        $('#weather5').text('Forecast for: ' + response.list[28].dt_txt + ': ' + Math.round(arrWeather[36].temp) + '°F')
+      })
+  }, 1000)
+})
