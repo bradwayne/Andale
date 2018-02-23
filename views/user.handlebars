@@ -22,6 +22,30 @@
                     </div>
                     <div class="modal-body" style="padding:40px 30px;">
                         <div role="form">
+                            {{#if user.photo}}
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group" id="divFirstName">
+                                            <label for="firstname" id="lblFirstName">
+                                                <span>First Name</span>
+                                            </label>
+                                            <input type="text" class="form-control txtFirstName" id="txtFirstName" placeholder="First Name" {{#if user.first_name}} value='{{user.first_name}}'
+                                                {{/if}}>
+                                        </div>
+                                        
+                                        <div class="form-group" id="divLastName">
+                                            <label for="lastname" id="lblLastName">
+                                                <span>Last Name</span>
+                                            </label>
+                                            <input type="text" class="form-control txtLastName" id="txtLastName" placeholder="Last Name" {{#if user.last_name}} value='{{user.last_name}}'
+                                                {{/if}}>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img src='{{user.photo}}' class='img-thumbnail thumbnail' />
+                                    </div>
+                                </div>
+                            {{/if}}
                             <div class="form-group" id="divFirstName">
                                 <label for="firstname" id="lblFirstName">
                                     <span>First Name</span>
