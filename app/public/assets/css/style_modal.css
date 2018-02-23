@@ -1,5 +1,5 @@
 .modal {
-    padding-top: 210px;
+    padding-top: 150px;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -57,7 +57,7 @@ b {
 }
 
 .wlc {
-    font-size: 15px;
+    font-size: 20px;
 }
 
 #divLocationState {
