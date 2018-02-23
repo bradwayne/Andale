@@ -37,9 +37,8 @@
     <div class="row">
         <div class='container'>
             <div class="col-md-12">
-                <div id="msg-center" class="alert">
+                <div id="msg-center" class="alert msg-center">
                 </div>
-                
             </div>
         </div>
 
@@ -162,6 +161,12 @@
 <!-- //// all events modal ////////////////////////////////////////////////////////// =-->
 
 <div class="modal fade" id="allEvents" role="dialog">
+    <div class='container'>
+        <div class="col-md-12">
+            <div id="msg-center" class="alert msg-center">
+            </div>
+        </div>
+    </div>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="padding:15px 30px">
@@ -222,6 +227,12 @@
 <!-- //// events near you modal ////////////////////////////////////////////////////////// =-->
 
 <div class="modal fade" id="eventNear" role="dialog">
+    <div class='container'>
+        <div class="col-md-12">
+            <div id="msg-center"  class="alert msg-center">
+            </div>
+        </div>
+    </div>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="padding:15px 30px">
@@ -253,6 +264,12 @@
 <!-- //// create event modal ////////////////////////////////////////////////////////// =-->
 
 <div class="modal fade" id="createEvent" role="dialog">
+    <div class='container'>
+        <div class="col-md-12">
+            <div id="msg-center" class="alert msg-center">
+            </div>
+        </div>
+    </div>
     <div class="col-sm-6">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -262,7 +279,6 @@
                     </h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
-                    <div id="msg-center" class="alert alert-danger text-center create-event"></div>
                     <div class="row">
                         <div class="form-group" id="divCreateEvent">
                             <label for="createEvent" id="lblCreateEvent">
@@ -445,7 +461,7 @@
                                     <br> Total Number of Player(s) Needed :
                                     <i>{{this.attendants}}</i>
                                     <br> Number of Player(s) Commited :
-                                    <i>{{this.Event.numberAttending}}</i>
+                                    <i>{{this.numberAttending}}</i>
                                     <br> Gender Specific :
                                     <i>{{this.gender}}</i>
                                     <br>

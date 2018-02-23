@@ -4,7 +4,7 @@ $(function () {
       - Since everything is built in modal, we have to trigger what page to open what modal.
       - beautify date time
   -----------------------------------------------------------------*/
-    $('#msg-center').hide();
+    $('.msg-center').hide();
     $('.create-event').hide();
     $('.ddl-sports').chosen({
         width: '100%'
@@ -55,9 +55,9 @@ $(function () {
 
     if (window.location.href.indexOf('/event_details') > -1) {
         if (sessionStorage.getItem('sessionMsgCenter')) {
-            $('#msg-center').html(sessionStorage.getItem('sessionMsgCenter'));
-            $('#msg-center').show();
-            $('#msg-center').addClass('alert-success').removeClass('alert-danger');
+            $('.msg-center').html(sessionStorage.getItem('sessionMsgCenter'));
+            $('.msg-center').show();
+            $('.msg-center').addClass('alert-success').removeClass('alert-danger');
             sessionStorage.removeItem('sessionMsgCenter');
         }
         $('.post-delete-footer').each(function () {
@@ -78,9 +78,9 @@ $(function () {
         $('#activity').modal();
     } else if (window.location.href.indexOf('/event') > -1) {
         if (sessionStorage.getItem('sessionMsgCenter')) {
-            $('#msg-center').html(sessionStorage.getItem('sessionMsgCenter'));
-            $('#msg-center').show();
-            $('#msg-center').addClass('alert-success').removeClass('alert-danger');
+            $('.msg-center').html(sessionStorage.getItem('sessionMsgCenter'));
+            $('.msg-center').show();
+            $('.msg-center').addClass('alert-success').removeClass('alert-danger');
         }
         if (!sessionStorage.getItem('sessionUserId')) {
             $('.myEvents').hide();
@@ -104,9 +104,9 @@ $(function () {
         sessionStorage.removeItem('sessionMsgCenter');
     } else if (window.location.href.indexOf('/user/') > -1) {
         if (sessionStorage.getItem('sessionMsgCenter')) {
-            $('#msg-center').html(sessionStorage.getItem('sessionMsgCenter'));
-            $('#msg-center').show();
-            $('#msg-center').addClass('alert-success').removeClass('alert-danger');
+            $('.msg-center').html(sessionStorage.getItem('sessionMsgCenter'));
+            $('.msg-center').show();
+            $('.msg-center').addClass('alert-success').removeClass('alert-danger');
 
             sessionStorage.removeItem('sessionMsgCenter');
         }
@@ -257,9 +257,9 @@ $(function () {
                 console.log(result);
                 if (result.error == 'User not found!') {
                     console.log('User either enter wrong username or password');
-                    $('#msg-center').show();
-                    $('#msg-center').addClass('alert-danger');
-                    $('#msg-center').text('Invalid username or password!');
+                    $('.msg-center').show();
+                    $('.msg-center').addClass('alert-danger');
+                    $('.msg-center').text('Invalid username or password!');
                     successBool = false;
                 } else {
                     console.log('here');
@@ -418,7 +418,7 @@ $(function () {
         }
         if (moment(start) == moment(end)) {
             if (moment(endtime).isBefore(moment(starttime))) {
-                arrErr.push('End time cannot be earlier than start time');
+                arrError.push('End time cannot be earlier than start time');
             }
         }
 
@@ -439,6 +439,7 @@ $(function () {
         if(!Number.isInteger(number)){
             arrError.push('Data entered is not an integer');
         }
+        return arrError;
     }
     function validateDecimal(number){
         let arrError = [];
@@ -448,18 +449,21 @@ $(function () {
         if(isNaN(number)){
             arrError.push('Data entered is not a number');
         }
+        return arrError;
     }
     function validatePassword(password){
         let arrError = [];
         if (password.search(/^(?=.*[A-Z])(?=.*\\d)[A-Z0-9]{6,}$/i)){
             arrError.push("Password does not meet the requirement");
         }
+        return arrError;
     }
     function validateState(state){
         let arrError = [];
         if($.inArray(state, states) == -1){
             arrError.push("Invalid state found");
         }
+        return arrError;
     }
 
     $('#cmdSignUp').click(function () {
@@ -504,16 +508,16 @@ $(function () {
                             if (xhr.responseJSON.indexOf('Validation error') > -1) {
                                 // console.log(xhr.responseJSON)
                                 console.log('Thorwing error');
-                                $('#msg-center').addClass('alert-danger');
-                                $('#msg-center').show();
-                                $('#msg-center').html(replacingSequelizeError(xhr.responseJSON));
+                                $('.msg-center').addClass('alert-danger');
+                                $('.msg-center').show();
+                                $('.msg-center').html(replacingSequelizeError(xhr.responseJSON));
                             }
                         } else {
                             sessionStorage.setItem('sessionMsgCenter', 'User profile created successfully, select some sports to get going!');
-                            $('#msg-center').empty();
-                            $('#msg-center').addClass('alert-success').removeClass('alert-danger');
-                            $('#msg-center').show();
-                            $('#msg-center').html('User profile created successfully');
+                            $('.msg-center').empty();
+                            $('.msg-center').addClass('alert-success').removeClass('alert-danger');
+                            $('.msg-center').show();
+                            $('.msg-center').html('User profile created successfully');
                             console.log('no error found, user added successfully');
                             getUserCredentials(objSignUp.username, objSignUp.password);
                         }
@@ -530,9 +534,9 @@ $(function () {
                     errMsg += arrError[i] + "<br />";
                 }
             }
-            $('#msg-center').addClass('alert-danger');
-            $('#msg-center').show();
-            $('#msg-center').html(errMsg);
+            $('.msg-center').addClass('alert-danger');
+            $('.msg-center').show();
+            $('.msg-center').html(errMsg);
         }
     });
 
@@ -592,9 +596,9 @@ $(function () {
                 console.log(e);
             }
         } else {
-            $('#msg-center').show();
-            $('#msg-center').addClass('alert-danger');
-            $('#msg-center').html('Message cannot be empty');
+            $('.msg-center').show();
+            $('.msg-center').addClass('alert-danger');
+            $('.msg-center').html('Message cannot be empty');
         }
     });
 
@@ -683,47 +687,92 @@ $(function () {
         }
     });
     $('#cmdEditEvent').click(function () {
-        try {
-            let objEditEvent = {
-                name: $('#txtcreateEventName').val().trim(),
-                location: $('#txtLocation').val().trim(),
-                attendants: $('#txtTotalPlayers').val().trim(),
-                fees: $('#txtFees').val().trim(),
-                host: $('#txtHostedBy').val().trim(),
-                phone_contact: $('#txtContactNumber').val().trim(),
-                email_contact: $('#txtEmailAddress').val().trim(),
-                gender: document.querySelector('input[name="gender"]:checked').value,
-                level: $('#txtLevel').val().trim(),
-                age: $('#txtAge').val().trim(),
-                start_time: moment($('#txtStartsAtDate').val() + ' ' + $('#txtStartAtTime').val()).format(),
-                end_time: moment($('#txtEndsAtDate').val() + ' ' + $('#txtEndsAtTime').val()).format(),
-                sport_id: $('.ddl-sports').chosen().val(),
-                geolocation_x: '',
-                geolocation_y: '',
-                details: $('#txtEventDetails').val().trim()
-            };
-            console.log(sessionStorage.getItem('sessionuserId'));
-            console.log(objEditEvent);
-            console.log('event id in session' + sessionStorage.getItem('SessionEventId'));
-            $.ajax('/api/event/' + sessionStorage.getItem('sessionEventId'), {
-                type: 'PUT',
-                data: objEditEvent,
-                success: function (data, status, xhr) {
-                    console.log(xhr);
-                    if (xhr.status == 200) {
-                        console.log('edit successfully');
-                        sessionStorage.removeItem('sessionEventId');
-                        sessionStorage.setItem('sessionNextPage', 'create event');
-                        sessionStorage.setItem('sessionMsgCenter', 'Event edited successfully');
-                        window.location.href = '/event/' + sessionStorage.getItem('sessionUserId');
-                    } else {
-                        console.log('something wrong');
+        let arrError = [];
+        let objEditEvent = {
+            name: $('#txtcreateEventName').val().trim(),
+            location: $('#txtLocation').val().trim(),
+            attendants: $('#txtTotalPlayers').val().trim(),
+            fees: $('#txtFees').val().trim(),
+            host: $('#txtHostedBy').val().trim(),
+            phone_contact: $('#txtContactNumber').val().trim(),
+            email_contact: $('#txtEmailAddress').val().trim(),
+            gender: document.querySelector('input[name="gender"]:checked').value,
+            level: $('#txtLevel').val().trim(),
+            age: $('#txtAge').val().trim(),
+            start_time: moment($('#txtStartsAtDate').val() + ' ' + $('#txtStartAtTime').val()).format(),
+            end_time: moment($('#txtEndsAtDate').val() + ' ' + $('#txtEndsAtTime').val()).format(),
+            sd: moment($('#txtStartsAtDate').val()),
+            ed : moment($('#txtEndsAtDate').val()),
+            st : moment($('#txtStartAtTime').val()).format(),
+            et : moment($('#txtEndsAtTime').val()).format(),
+            sport_id: $('.ddl-sports').chosen().val(),
+            geolocation_x: '',
+            geolocation_y: '',
+            details: $('#txtEventDetails').val().trim()
+        };
+        /* let o = objEditEvent;
+        arrError = [
+            ...[o.name, o.location, o.host].map(prop => validateName(prop)),
+            validateGender(o.gender),
+            ...[o.attendants, o.phone_contact, o.level, o.age].map(prop => validateInteger(prop)),
+            validateState(o.state),
+            validateDecimal(o.fees),
+            validateDate(objEditEvent.sd, objEditEvent.ed, objEditEvent.st, objEditEvent.et)
+        ]; */
+        // arrError = arrError.concat(validateName(objEditEvent.name));
+        // arrError = arrError.concat(validateName(objEditEvent.location));
+        //arrError = arrError.concat(validateGender(objEditEvent.gender));
+        //arrError = arrError.concat(validateName(objEditEvent.host));
+        //arrError = arrError.concat(validateInteger(objEditEvent.attendants));
+        //arrError = arrError.concat(validateInteger(objEditEvent.phone_contact));
+        //arrError = arrError.concat(validateInteger(objEditEvent.level));
+        //arrError = arrError.concat(validateInteger(objEditEvent.age));
+        //arrError = arrError.concat(validateDecimal(objEditEvent.fees));
+        //arrError = arrError.concat(validateState(objEditEvent.state));
+        //arrError = arrError.concat(validateDate(objEditEvent.sd, objEditEvent.ed, objEditEvent.st, objEditEvent.et));
+        /* console.log(arrError);
+        arrError = cleanArray(arrError);
+        console.log(arrError); */
+
+        if (arrError.length == 0) {
+            try {
+
+                console.log(sessionStorage.getItem('sessionuserId'));
+                console.log(objEditEvent);
+                console.log('event id in session' + sessionStorage.getItem('SessionEventId'));
+                $.ajax('/api/event/' + sessionStorage.getItem('sessionEventId'), {
+                    type: 'PUT',
+                    data: objEditEvent,
+                    success: function (data, status, xhr) {
+                        console.log(xhr);
+                        if (status == 200) {
+                            console.log('edit successfully');
+                            sessionStorage.removeItem('sessionEventId');
+                            sessionStorage.setItem('sessionNextPage', 'create event');
+                            sessionStorage.setItem('sessionMsgCenter', 'Event edited successfully');
+                            window.location.href = '/event/' + sessionStorage.getItem('sessionUserId');
+                        } else {
+                            console.log('something wrong');
+                        }
                     }
+                });
+            } catch (err) {
+                console.log('in edit event function');
+                console.log(err);
+            }
+        }else{
+            console.log("edit event error");
+            let errMsg = "";
+            for (let i = 0; i < arrError.length; i++) {
+                console.log(arrError[i]);
+                if (errMsg.indexOf(arrError[i]) == -1) {
+                    errMsg += arrError[i] + "<br />";
                 }
-            });
-        } catch (err) {
-            console.log('in edit event function');
-            console.log(err);
+            }
+            console.log(errMsg);
+            $('.msg-center').addClass('alert-danger');
+            $('.msg-center').show();
+            $('.msg-center').html(errMsg);
         }
     });
     $('#cmdCreateEvent').click(function () {
