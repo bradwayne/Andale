@@ -19,7 +19,7 @@ body {
     width: 100%;
     background-color: #00ace6;
     z-index: 50;
-    height: 50px;
+    height: 45px;
 }
 
 .tagLineTxt {
@@ -29,10 +29,6 @@ body {
     color: white;
     margin-top: 6px;
     letter-spacing: 3px;
-}
-
-.subTagLine {
-    font-family: Archivo+Black;
 }
 
 .btn {
@@ -80,10 +76,6 @@ body {
     text-decoration: none;
 }
 
-.user-input {
-    margin-top: 150px;
-}
-
 .gender {
     margin-bottom: 10px;
 }
@@ -98,8 +90,15 @@ body {
     letter-spacing: 1px;
 }
 
+.alert {
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 25px;
+    width: auto;
+}
+
 .background-image-homepage {
-    background-image: url("..//img/group_sports_5_1.jpg");
+    background-image: url("..//img/weight_room.jpg");
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -110,7 +109,7 @@ body {
 }
 
 .background-image-userpage {
-    background-image: url("..//img/new_basketball_2_2.jpg");
+    background-image: url("..//img/basketball.jpg");
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -121,7 +120,7 @@ body {
 }
 
 .background-image-eventpage {
-    background-image: url("..//img/skiing_1.jpg");
+    background-image: url("..//img/skiing.jpg");
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -131,7 +130,7 @@ body {
 }
 
 .background-image-activitypage {
-    background-image: url("..//img/football_3.jpg");
+    background-image: url("..//img/football.jpg");
     position: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -141,42 +140,3 @@ body {
     background-position: center;
 }
 
-.alert {
-    text-align: center;
-    border-radius: 5px;
-    margin-top: 25px;
-    width: auto;
-}
-
-@media only screen and (max-width: 1221px) {
-    .tagLineBox {
-        text-align: center;
-        position: fixed;
-        width: 100%;
-        background-color: #00ace6;
-        z-index: 50;
-        height: 92px;
-    }
-    .tagLineTxt {
-        font-family: 'Orbitron', sans-serif;
-        position: fixed;
-        width: 100%;
-        color: white;
-        margin-top: 5px;
-        letter-spacing: 3px;
-        line-height: 1.3;
-    }
-    /* .background-image-homepage {
-        background-image: url("..//img/group_sports_5_1_mobile.jpg");
-        background-size: cover;
-    }
-    .background-image-userpage {
-        background-image: url("..//img/new_basketball_2_1_mobile.jpg");
-    }
-    .background-image-eventpage {
-        background-image: url("..//img/skiing_1_mobile.jpg");
-    }
-    .background-image-activitypage {
-        background-image: url("..//img/soccer_1_mobile.jpg");
-    } */
-}
