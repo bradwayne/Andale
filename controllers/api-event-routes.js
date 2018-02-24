@@ -131,7 +131,7 @@ module.exports = function (app) {
         {include: [{model: db.User}, {model: db.Sport}]}).then(function (allEvents) {
         eventToDisplay.allEvents = allEvents
         console.log('here')
-        // res.json(eventToDisplay)
+         res.json(eventToDisplay)
         res.render('events', eventToDisplay)
       })
     }

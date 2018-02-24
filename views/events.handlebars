@@ -66,8 +66,10 @@
                                                 Total Number of Player(s) Needed :
                                                     <i>{{this.attendants}}</i>
                                                 <br> 
-                                                Number of Player(s) Commited :
+                                                Number of Player(s) Committed :
                                                     <i>{{this.numberAttending}}</i>
+                                                <br> Level Recommended :
+                                                    <i>{{this.level}}</i>
                                                 <br> 
                                                 Gender Specific :
                                                     <i>{{this.gender}}</i>
@@ -82,6 +84,8 @@
                                                 <br> 
                                                 Location :
                                                     <i>{{this.location}}</i>
+                                                <br> Fee :
+                                                    <i>${{this.fees}}</i>
                                                 <br>
                                                 <button class="btn btn-default cmd cmdGoing" data-event-id='{{this.id}}'>
                                                     <strong>Sign Up</strong>
@@ -143,8 +147,10 @@
                                                 Total Number of Player(s) Needed :
                                                     <i>{{this.Event.attendants}}</i>
                                                 <br> 
-                                                Number of Player(s) Commited :
+                                                Number of Player(s) Committed :
                                                     <i>{{this.Event.numberAttending}}</i>
+                                                <br> Level Recommended :
+                                                    <i>{{this.Event.level}}</i>
                                                 <br> 
                                                 Gender Specific :
                                                     <i>{{this.Event.gender}}</i>
@@ -159,6 +165,8 @@
                                                 <br> 
                                                 Location :
                                                     <i>{{this.Event.location}}</i>
+                                                <br> Fee :
+                                                    <i>${{this.Event.fees}}</i>
                                                 <br> 
                                                 Hosted by :
                                                     <i>{{this.Event.host}}</i>
@@ -233,8 +241,10 @@
                                         Total Number of Player(s) Needed :
                                             <i>{{this.attendants}}</i>
                                         <br> 
-                                        Number of Player(s) Commited :
+                                        Number of Player(s) Committed :
                                             <i>{{this.numberAttending}}</i>
+                                        <br> Level Recommended :
+                                            <i>{{this.level}}</i>
                                         <br> 
                                         Gender Specific :
                                             <i>{{this.gender}}</i>
@@ -249,6 +259,8 @@
                                         <br> 
                                         Location :
                                             <i class='location'>{{this.location}}</i>
+                                        <br> Fees :
+                                            <i>${{this.fees}}</i>
                                         <br> 
 
                                         {{#if user}}
@@ -524,8 +536,10 @@
                                             Total Number of Player(s) Needed :
                                                 <i>{{this.attendants}}</i>
                                             <br> 
-                                            Number of Player(s) Commited :
+                                            Number of Player(s) Committed :
                                                 <i>{{this.numberAttending}}</i>
+                                            <br> Level Recommended :
+                                                <i>{{this.level}}</i>
                                             <br> 
                                             Gender Specific :
                                                 <i>{{this.gender}}</i>
@@ -544,7 +558,7 @@
                                             Hosted by :
                                                 <i>{{this.host}}</i>
                                             <br> 
-                                            Fee :
+                                            Fees :
                                                 <i>${{this.fees}}</i>
                                             <br> {{!-- this will send them to the activity blog page --}}
 
