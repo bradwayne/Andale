@@ -111,7 +111,7 @@ module.exports = function (app) {
       console.log('Result return : ' + credentials.count)
       if (credentials.count > 0) {
         console.log('Found user!')
-        res.send(credentials).end();
+        res.send(credentials).end()
         console.log(JSON.stringify(credentials))
       }else {
         // res.send("403 error")
@@ -196,8 +196,8 @@ module.exports = function (app) {
           username: req.body.username,
           email: req.body.email,
           password: req.body.password,
-          state : req.body.state,
-          city : req.body.city,
+          state: req.body.state,
+          city: req.body.city,
           hometown: req.body.hometown,
           dob: req.body.dob,
           photo: req.body.photo,
@@ -218,13 +218,12 @@ module.exports = function (app) {
                         <ul>
                         <li> First name : ${req.body.first_name}</li>
                         <li> Last name : ${req.body.last_name}</li>
-                        <li>Username : ${req.body.user_name}</li>
+                        <li>Username : ${req.body.username}</li>
                         <li>E-mail : ${req.body.email}</li>
-                        <li>${req.body.bio}</li>
                         </ul>
                         <p>${req.body.bio}</p>`
-            
-                    
+
+
 
           // create reusable transporter object using the default SMTP transport
           let transporter = nodemailer.createTransport({
@@ -243,7 +242,7 @@ module.exports = function (app) {
           // setup email data with unicode symbols
           let mailOptions = {
             from: '"Project 2 Admin" <bscwruproject2@gmail.com', // sender address
-            to: req.body.first_name + " " + req.body.last_name + " <" + req.body.email + '>', // list of receivers
+            to: req.body.first_name + ' ' + req.body.last_name + ' <' + req.body.email + '>', // list of receivers
             subject: 'Andale Account Created! 👻', // Subject line
             text: 'Hello world?', // plain text body
             html: output
@@ -290,8 +289,8 @@ module.exports = function (app) {
       gender: req.body.gender,
       email: req.body.email,
       password: req.body.password,
-      city : req.body.city,
-      state : req.body.state,
+      city: req.body.city,
+      state: req.body.state,
       dob: req.body.dob,
       photo: req.body.photo,
       bio: req.body.bio
@@ -329,7 +328,7 @@ module.exports = function (app) {
     console.log('user sport')
     console.log(req.body)
     db.UserSport.update({
-      level: parseInt(req.body.level),
+      level: parseInt(req.body.level)
     }, {
       where: {
         UserId: req.body.UserId,
@@ -337,7 +336,7 @@ module.exports = function (app) {
       }
     }).then(function (results) {
       console.log('changedRows : ' + results.changedRows)
-      console.log("results:");
+      console.log('results:')
       console.log(results)
       if (results.changedRows === 0) {
         return res.status(404).end()
@@ -403,7 +402,9 @@ module.exports = function (app) {
                 console.log('send out email to host about full attendances')
 
                 var content = `Hi ${hostName}, <br /> you have gathered <b>${attendantLimit}</b> person for event <b>${eventInfo.name}</b>!
-                                       Please check out the event detail page for your upcoming event buddies! `
+                                       Please check out the event detail page for your upcoming event buddies! 
+                                       <br /><a href='<a href='https://salty-mountain-44153.herokuapp.com/'>Go to Andale!</a>
+                                       `
                 console.log(hostName + ' <' + hostEmail + '>')
                 console.log('Your Event - ' + eventInfo.name + ' is ready!')
                 console.log(content)

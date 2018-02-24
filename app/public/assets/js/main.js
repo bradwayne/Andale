@@ -354,7 +354,7 @@ $(function () {
     } catch (e) {
       console.log(e)
     } finally {
-      sessionStorage.setItem('sessionMsgCenter', 'You have remove yourselves from an event.')
+      sessionStorage.setItem('sessionMsgCenter', 'User have been removed from the event.')
       sessionStorage.setItem('sessionNextPage', 'my event')
       setTimeout(() => {
         location.reload()
@@ -685,7 +685,7 @@ $(function () {
     } catch (e) {
       console.log(e)
     } finally {
-      sessionStorage.setItem('sessionMsgCenter', 'You have remove yourselves from an event.')
+      sessionStorage.setItem('sessionMsgCenter', 'User have been removed from the event.')
       sessionStorage.setItem('sessionNextPage', 'my event')
       setTimeout(() => {
         location.reload()
