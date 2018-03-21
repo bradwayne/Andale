@@ -3,7 +3,17 @@
   "version": "1.0.0",
   "description": "activity app",
   "main": "server.js",
-  "dependencies": {},
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "express-flash": "0.0.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "moment": "^2.21.0",
+    "mysql2": "^1.5.3",
+    "nodemailer": "^4.6.3",
+    "sequelize": "^4.37.3"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "mocha",
