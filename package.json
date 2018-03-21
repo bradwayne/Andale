@@ -1,49 +1,22 @@
 {
-  "name": "project2",
+  "name": "andale",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "activity app",
+  "main": "server.js",
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ShiKwan/Project2.git"
+    "url": "git+https://github.com/bradwayne/Andale.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ShiKwan/Project2/issues"
+    "url": "https://github.com/bradwayne/Andale/issues"
   },
-  "homepage": "https://github.com/ShiKwan/Project2#readme",
-  "dependencies": {
-    "body-parser": "^1.18.2",
-    "bootstrap-material-design-icons": "^2.2.0",
-    "bootstrap-slider": "^10.0.0",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.16.2",
-    "express-flash": "0.0.2",
-    "express-handlebars": "^3.0.0",
-    "express-session": "^1.15.6",
-    "mysql2": "^1.5.2",
-    "nodemailer": "^4.4.2",
-    "path": "^0.12.7",
-    "pug": "^2.0.0-rc.4",
-    "sequelize": "^4.33.2",
-    "sequelize-cli": "^3.2.0"
-  },
-  "devDependencies": {
-    "nightmare": "^2.5.3",
-    "browserify": "^13.1.1",
-    "chai": "^3.5.0",
-    "karma": "^1.3.0",
-    "karma-browserify": "^5.1.0",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-commonjs": "^1.0.0",
-    "karma-mocha": "^1.1.1",
-    "karma-mocha-reporter": "^2.2.1",
-    "mocha": "^3.2.0",
-    "watchify": "^3.7.0"
-  }
+  "homepage": "https://github.com/bradwayne/Andale#readme"
 }
